@@ -1,0 +1,19 @@
+!odhgies!
+
+!git for the local machine!
+1)git status
+
+
+2)git add <file>
+
+3)git commit -m "sxolio"
+
+
+!git for the remote!
+1)git push origin master
+me auto anevazeis tis entoles
+
+2)git pull
+me auto pairneis tis allages
+
+ksndsndns
