@@ -1,0 +1,22 @@
+:~$ sudo /etc/init.d/apache2 start
+
+Create the database (FixMyCityDB.sql)
+Create the table (users)
+
+-> checklogin.php -> line6: $dbpass = "<root_password_for_mysql>";
+
+Firefox: http://localhost/.../web_project/index.php
+
+-> Είσοδος
+
+if(email ==  valid){
+	if(password != valid){
+		login.php
+	}
+	else{
+		index.php
+	}
+}
+else{
+	registration.php
+}

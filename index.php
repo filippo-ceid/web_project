@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Δήμος Ι.Π. Μεσολογγίου - Αναφορές Προβλημάτων</title>
+<title>FixMyCity - Δήμος Ι.Π. Μεσολογγίου</title>
 <meta name="keywords" content="free website templates, personal portfolio, CSS, HTML" />
 <meta name="description" content="personal portfolio is a free website template provided by templatemo.com" />
 <link href="style.css" rel="stylesheet" type="text/css" />
@@ -11,17 +11,16 @@
 <div id="container">
 	<div id="header_panel">
     	<div id="site_title">
-        	Αναφορές Προβλημάτων
+        	FixMyCity
         </div>
     </div>
     
     <div id="menu">
     	<ul>
-            <li><a href="#" class="current">Αρχική</a></li>
-            <li><a href="#">Επισκέπτης</a></li>
-            <li><a href="#">Χρήστης</a></li>
-            <li><a href="#">Διαχειριστής</a></li>
-            <li><a href="#">Επικοινωνία</a></li>
+            <li><a href="index.php" class="current">Αρχική</a></li>
+            <li><a href="login.php">Είσοδος</a></li>
+            <li><a href="registration.php">Εγγραφή</a></li>
+            <li><a href="contact.php">Επικοινωνία</a></li>
         </ul>
     
     </div> <!-- end of menu -->
@@ -114,10 +113,8 @@
         <div class="cleaner_h20">&nbsp;</div>    
     </div> <!-- end of bottom panel -->
     
-	<div id="templatemo_footer">    
-    	Copyright © 2048 <a href="#"><strong>Your Company Name</strong></a> | <a href="http://www.iwebsitetemplate.com" target="_parent">Website Templates</a> by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+	<div id="footer">    
+    	Copyright © 2014 <a href="http://www.messolonghi.gr/"><strong>Δήμος Ι.Π. Μεσολογγίου</strong></a>
 	</div> <!-- end of footer -->
-    <!-- Free Website Templates @ TemplateMo.com -->
 </div> <!-- end of container -->
-<div align=center>This template  downloaded form <a href='http://all-free-download.com/free-website-templates/'>free website templates</a></div></body>
 </html>
