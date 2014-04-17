@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS users (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(50) NOT NULL,
   password VARCHAR(128) NOT NULL,
-  user_type ENUM('visitor','user','admin') NOT NULL
+  user_type ENUM('user','admin') NOT NULL
 ) ENGINE=InnoDB;
 
 INSERT INTO users (email, password, user_type) VALUES
 ('admin@', 'admin', 'admin'),
 ('filippo@', '1234', 'user'),
-('kalexio@', '1234', 'visitor');
+('kalexio@', '1234', 'user');
 
 SELECT * FROM users;
 

@@ -3,7 +3,7 @@
     session_start(); //??
     
     $dbuser = "root";
-	$dbpass = "123456";
+	$dbpass = "k7YyhctN";
 	$hostname = "localhost";
 	$dbname = "FMC_DB";
 
