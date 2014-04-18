@@ -1,20 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>FixMyCity - Δήμος Ι.Π. Μεσολογγίου</title>
-<meta name="keywords" content="free website templates, personal portfolio, CSS, HTML" />
-<meta name="description" content="personal portfolio is a free website template provided by templatemo.com" />
-<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div id="container">
-	<div id="header_panel">
-    	<div id="site_title">
-        	FixMyCity
-        </div>
-    </div>
-    
+<?php
+include 'header.html';
+?>   
     <div id="menu">
     	<ul>
             <li><a href="index.php" class="current">Αρχική</a></li>
@@ -112,9 +98,6 @@
         
         <div class="cleaner_h20">&nbsp;</div>    
     </div> <!-- end of bottom panel -->
-    
-	<div id="footer">    
-    	Copyright © 2014 <a href="http://www.messolonghi.gr/"><strong>Δήμος Ι.Π. Μεσολογγίου</strong></a>
-	</div> <!-- end of footer -->
-</div> <!-- end of container -->
-</html>
+<?php
+	include 'footer.html';
+?>
