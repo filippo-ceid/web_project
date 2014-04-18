@@ -3,7 +3,7 @@
 Create the database (FixMyCityDB.sql)
 Create the table (users)
 
--> checklogin.php -> line6: $dbpass = "<root_password_for_mysql>";
+-> db_config.php -> line4: DEFINE ('DB_PASSWORD', '<root_password_for_mysql>');
 
 Firefox: http://localhost/.../web_project/index.php
 
