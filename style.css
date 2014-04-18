@@ -221,6 +221,13 @@ img {
 	margin-top: -70px;
 }
 
+#top_panel .under_con_image img{
+	display: block;
+	width: 280px;
+	height: 280px;
+	margin: 0 0 0 330px;
+}
+
 #templatemo_bottom_panel {
 	clear: both;
 	width: 980px;

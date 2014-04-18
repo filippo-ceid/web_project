@@ -1,5 +1,5 @@
 <?php
-include 'header.html';
+	include 'header.html';
 ?>   
     <div id="menu">
     	<ul>
