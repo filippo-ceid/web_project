@@ -9,7 +9,7 @@
             <li><a href="registration.php" class="current">Εγγραφή</a></li>
             <li><a href="contact.php">Επικοινωνία</a></li>
         </ul>
-     
+    
     </div> <!-- end of menu -->
     
     <div id="top_panel">
