@@ -19,7 +19,9 @@ CREATE TABLE IF NOT EXISTS users  (
 ) ENGINE=InnoDB;
 
 INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALUES
-('admin@', 'admin', 'admin', 'admin', '', '');
+('admin@fixmycity.gr', 'admin', 'admin', 'Administrator', '', '2631012345');
+
+UPDATE users SET user_level='admin' WHERE user_id = <number>;
 
 SELECT * FROM users;
 DELETE FROM users WHERE user_id  = <number>;
