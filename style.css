@@ -221,6 +221,31 @@ img {
 	margin-top: -70px;
 }
 
+#top_panel .reg_report {
+	font-size: 20px;
+	font-weight: bold;
+	color: #ff0000;	
+	text-align: center;
+}
+
+#top_panel .reg_field {
+	margin: 0 0 0 50px;	
+	font-size: 15px;
+	font-weight: bold;
+	color: #0066CC;	
+}
+
+.reg_field .error_reg_field {
+	display: inline;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+}
+
+.reg_field .reg_button {
+	margin-left:250px;
+}
+
 #top_panel .under_con_image img{
 	display: block;
 	width: 280px;
