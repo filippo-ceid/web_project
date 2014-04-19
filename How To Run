@@ -1,5 +1,9 @@
 :~$ sudo /etc/init.d/apache2 start
 
+:~$ mysql -u root -p
+
+Enable Mysql UTF8 Support (Greek Lang) : http://itblog.gr/158/mysql-utf8-support/
+
 Create the database (FixMyCityDB.sql)
 Create the table (users)
 
@@ -7,16 +11,3 @@ Create the table (users)
 
 Firefox: http://localhost/.../web_project/index.php
 
--> Είσοδος
-
-if(email ==  valid){
-	if(password != valid){
-		login.php
-	}
-	else{
-		index.php
-	}
-}
-else{
-	registration.php
-}
