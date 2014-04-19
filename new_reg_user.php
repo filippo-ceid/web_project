@@ -87,7 +87,7 @@
 		$fname_error = "";
 		$lname_error = "";
 		$phone_error = "";
-		$report = "";
+		$report = "Εισάγετε τα στοιχεία σας στη φόρμα εγγραφής!";
 	} // End of the main Submit conditional.
 	mysqli_close($dbhandle);
 ?>
