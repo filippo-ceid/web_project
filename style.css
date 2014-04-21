@@ -202,7 +202,7 @@ img {
 	font-size: 15px;
 	font-weight: bold;
 	color: #0066CC;	
-	width: 450px;
+	width: 500px;
 	height: 45px;
 }
 
@@ -217,7 +217,7 @@ img {
 	display: block;
 	width: 256px;
 	height: 256px;
-	margin-left:600px;
+	margin-left:650px;
 	margin-top: -70px;
 }
 
@@ -244,6 +244,14 @@ img {
 
 .reg_field .reg_button {
 	margin-left:250px;
+}
+
+#top_panel .reg_image img{
+	display: block;
+	width: 200px;
+	height: 200px;
+	margin-left:700px;
+	margin-top: -220px;
 }
 
 #top_panel .under_con_image img{
