@@ -1,6 +1,6 @@
 <?php
+	include 'header.html';
     require "checklogin.php";
-    include 'header.html';
 ?>   
     <div id="menu">
     	<ul>
