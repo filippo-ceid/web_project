@@ -3,10 +3,10 @@
 	ob_start();
 	// Initialize a session:
 	session_start();
-
-	require "db_config.php";
 		
 	if (isset($_POST['submit'])) { // Handle the form.
+		
+		require "db_config.php";
 		
 		// Assume invalid values:
 		$email = $password = $firstname = $lastname = $phone = FALSE;
@@ -15,20 +15,20 @@
 		if (preg_match ('/^[^\W_]+([.-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['email'])) {
 			$email = mysql_real_escape_string ($_POST['email']);
 		} else {
-			$email_error = ": Μη έγκυρο email!";
+			$email_error = ": Μη έγκυρη διεύθυνση email!";
 		}
 
 		// Check for a password and match against the confirmed password:
 		if (preg_match('/^[\s\S]{4,128}$/', $_POST['password']) ) {
 			if ($_POST['password'] == $_POST['conf_password']) {	
-				$password = mysql_real_escape_string ($_POST['password']);
+				$password = sha1(mysql_real_escape_string ($_POST['password']));
 			} 
 			else {
-				$pass_error = ": Ο Κωδικός σας δεν τεριάζει με τον Κωδικό Επαλήθευσης!";
+				$pass_error = ": Ο κωδικό επαλήθευσης δεν ταυτίζεται με τον κωδικό ασφαλείας!";
 			}
 		} 
 		else {
-			$pass_error = ": Μη έγκυρος κωδικός!";
+			$pass_error = ": Μη έγκυρος κωδικός ασφαλείας!";
 		}
 		
 		// Check for a first name:
@@ -40,7 +40,7 @@
 		}
 		
 		// Check for a last name:
-		if (preg_match ('/^([a-zA-Z ]*|[Α-Ωαάβγδεέζηήθιίϊΐκλνξοόπρστυύϋΰφχψωώ ]*)?$/', $_POST['last_name'])) {
+		if (preg_match ('/^([a-zA-Z ]*|[Α-Ωαάβγδεέζηήθιίϊΐκλνξοόπρστυύϋΰφχψωώς ]*)?$/', $_POST['last_name'])) {
 			$lastname = mysql_real_escape_string ($_POST['last_name']);
 		} else {
 			$lname_error = ": Μη έγκυρο επώνυμο!"; 
@@ -58,7 +58,7 @@
 			$query = "SELECT user_id FROM users WHERE email= '$email';";
 			$result = mysql_query ($query, $dbhandle);
 			if (mysql_num_rows($result) != 0) { // The email address is not available.
-				$email_error = ": Μη έγκυρο email!";
+				$email_error = ": Μη έγκυρη διεύθυνση email!";
 				$report = "Σφάλμα Εγγραφής: Η διεύθυνση email έχει καταχωρηθεί ήδη!";
 			} 
 			else { // Available.
@@ -69,8 +69,11 @@
 				$result = mysql_query ($query, $dbhandle);
 				if (mysql_affected_rows($dbhandle) != 0) { // If it ran OK.
 					$report = "Ευχαριστούμε για την εγγραφή σας στο σύστημα!";
-					mysqli_close($dbhandle);
+					mysql_free_result($result);
+					mysql_close($dbhandle);
+					ob_end_clean(); // Delete the buffer.
 					header('Location: login.php');
+					exit(); // Quit the script.
 				} 
 				else { // If it did not run OK.
 					$report = "Αποτυχία Εγγραφής: Δοκιμάστε ξανά ή επικοινωνήστε μαζί μας!";
@@ -80,6 +83,7 @@
 		else { // If one of the data tests failed.
 			$report = "Σφάλμα Εγγραφής: Παρακαλώ ελέγξτε τα δεδομένα που εισάγατε!";
 		}
+		mysqli_close($dbhandle);
 	}
 	else{
 		$email_error = "";
@@ -89,5 +93,4 @@
 		$phone_error = "";
 		$report = "Εισάγετε τα στοιχεία σας στη φόρμα εγγραφής!";
 	} // End of the main Submit conditional.
-	mysqli_close($dbhandle);
 ?>
