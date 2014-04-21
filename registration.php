@@ -52,6 +52,9 @@
 				<div class="reg_button">
 					<input type="submit" name="submit" value="Register"/>
 				</div>
+				<div class="reg_image">
+            		<img src="images/register_icon.png"/></img>
+				</div>
 
 			</form>
         </div>
