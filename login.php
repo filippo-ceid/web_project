@@ -1,17 +1,9 @@
 <?php
 	include 'header.html';
     require "checklogin.php";
+    $tab=2;
+	require  "menu.php";
 ?>   
-    <div id="menu">
-    	<ul>
-            <li><a href="index.php">Αρχική</a></li>
-            <li><a href="login.php" class="current">Είσοδος</a></li>
-            <li><a href="registration.php">Εγγραφή</a></li>
-            <li><a href="contact.php">Επικοινωνία</a></li>
-        </ul>
-    
-    </div> <!-- end of menu -->
-    
     <div id="top_panel">
 		<div class="login_field">
 			<form action="login.php" method="POST">
