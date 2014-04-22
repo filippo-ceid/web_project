@@ -1,4 +1,5 @@
 <?php
+
 	// Start output buffering:
 	ob_start();
 	// Initialize a session:
@@ -19,10 +20,11 @@
 		}
 
 		// Check for a password and match against the confirmed password:
+		//Na valoume javascript gia test dynamis kwdikou!!!! <-----
 		if (preg_match('/^[\s\S]{4,128}$/', $_POST['password']) ) {
-			if ($_POST['password'] == $_POST['conf_password']) {	
+			if ($_POST['password'] == $_POST['conf_password']) {
 				$password = sha1(mysql_real_escape_string ($_POST['password']));
-			} 
+			}
 			else {
 				$pass_error = ": Ο κωδικό επαλήθευσης δεν ταυτίζεται με τον κωδικό ασφαλείας!";
 			}
@@ -62,7 +64,7 @@
 				$report = "Σφάλμα Εγγραφής: Η διεύθυνση email έχει καταχωρηθεί ήδη!";
 			} 
 			else { // Available.
-				$user_level = "simple";
+				$user_level = "simple"; //gia na ginei kapoios admin prepei na tou allaksei tin idiotita enas allos admin
 				// Add the user to the database:
 				$query = "INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALUES 
 				('$email', '$password', '$user_level', '$firstname', '$lastname', '$phone');";
