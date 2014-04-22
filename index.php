@@ -7,31 +7,14 @@
 	$tab=1;
 	require  "menu.php";
 ?>   
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+	<script type="text/javascript" src="map.js"></script>
+	
     <div id="top_panel">
-    	<div class="project_section_title"></div>
-    	<div class="top_panel_section">
-        	<div class="image_box">
-            	<div class="image_box_01">
-            		<a href="http://www.templatemo.com/preview/templatemo_084_design_blog" target="_parent"><img src="images/templatemo_image_01.gif" alt="template 1" /></a>                </div>
-          </div>
-            <div class="project_title"><a href="http://www.templatemo.com/preview/templatemo_084_design_blog" target="_parent">Project 1</a></div>
-      </div>
-        <div class="top_panel_section">
-        	<div class="image_box">
-            	<div class="image_box_01">
-            		<a href="http://www.templatemo.com/preview/templatemo_055_blog" target="_parent"><img src="images/templatemo_image_02.gif" alt="template 2" /></a>                </div>
-          </div>
-            <div class="project_title"><a href="http://www.templatemo.com/preview/templatemo_055_blog" target="_parent">Project 2</a></div>
-      </div>
-        <div class="top_panel_section">
-        	<div class="image_box">
-            	<div class="image_box_01">
-            		<a href="http://www.templatemo.com/preview/templatemo_063_green_blog" target="_parent"><img src="images/templatemo_image_03.gif" alt="template 3" /></a>                </div>
-          </div>
-            <div class="project_title"><a href="http://www.templatemo.com/preview/templatemo_063_green_blog" target="_parent">Project 3</a></div>
-      </div>	
-        <div class="cleaner_h20">&nbsp;</div>
-        <div class="templatemo_btn_01" style="margin-right:35px;"><a href="#">View All</a></div>
+    	<div id="map_canvas"></div>
+    	<br><br>
     </div> <!-- end of top panel -->
     
     <div id="templatemo_bottom_panel">
