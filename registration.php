@@ -1,17 +1,9 @@
 <?php
     include 'header.html';
     require "new_reg_user.php";
-?>   
-    <div id="menu">
-    	<ul>
-            <li><a href="index.php">Αρχική</a></li>
-            <li><a href="login.php">Είσοδος</a></li>
-            <li><a href="registration.php" class="current">Εγγραφή</a></li>
-            <li><a href="contact.php">Επικοινωνία</a></li>
-        </ul>
-    
-    </div> <!-- end of menu -->
-    
+    $tab=3;
+	require  "menu.php";
+?>
     <div id="top_panel">
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>
