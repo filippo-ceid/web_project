@@ -167,10 +167,19 @@ img {
 #top_panel {
 	clear: both;
 	width: 960px;
-	height: 300px;
+	height: auto;
 	padding: 30px 10px 0 10px;
 	background: url(images/top_panel_bg.png) repeat-y;
 }
+
+#map_canvas {
+    width: 900px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: #CCC;
+    margin-left: 30px;
+}
+
 
 #top_panel .top_panel_section {
 	float: left;
@@ -219,6 +228,7 @@ img {
 	height: 256px;
 	margin-left:650px;
 	margin-top: -70px;
+	padding-bottom: 24px;
 }
 
 #top_panel .reg_report {
@@ -243,7 +253,7 @@ img {
 }
 
 .reg_field .reg_button {
-	margin-left:250px;
+	margin-left: 250px;
 }
 
 #top_panel .reg_image img{
@@ -252,6 +262,7 @@ img {
 	height: 200px;
 	margin-left:700px;
 	margin-top: -220px;
+	padding-bottom: 50px;
 }
 
 #top_panel .under_con_image img{
@@ -259,6 +270,7 @@ img {
 	width: 280px;
 	height: 280px;
 	margin: 0 0 0 330px;
+	padding-bottom: 5px;
 }
 
 #templatemo_bottom_panel {
