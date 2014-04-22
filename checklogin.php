@@ -1,9 +1,10 @@
 <?php
+
 	// Start output buffering:
 	ob_start();
 	// Initialize a session:
 	session_start();
-	
+
 	if (isset($_POST['submit'])) {
 		
 		require "db_config.php";
@@ -13,7 +14,7 @@
 			if (!empty($_POST['password'])) {
 				
 				$email = mysql_real_escape_string($_POST['email']);
-				$query = "SELECT email, password
+				$query = "SELECT email, password, user_level
 				FROM users
 				WHERE email = '$email';";
 
@@ -24,6 +25,7 @@
 					$_SESSION = mysql_fetch_array($result, MYSQL_ASSOC);
 					$password = sha1(mysql_real_escape_string($_POST['password']));
 					if($password != $_SESSION ['password']) { // Incorrect password.
+						$_SESSION = array();
 						$pass_error_msg = "Ελέγξτε τον κωδικό ασφαλείας!";
 						$email_error_msg = "Ελέγξτε τη διεύθυνση email!";
 					}
