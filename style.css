@@ -22,20 +22,6 @@ img {
 	border: none;
 }
 
-.cleaner {
-	clear: both;
-	width: 100%;
-	height: 1px;
-	font-size: 1px;	
-}
-
-.cleaner_h10 {
-	clear: both;
-	width: 100%;
-	height: 10px;
-	font-size: 1px;	
-}
-
 .cleaner_h20 {
 	clear: both;
 	width: 100%;
@@ -43,21 +29,11 @@ img {
 	font-size: 1px;	
 }
 
-.cleaner_h30 {
-	clear: both;
-	width: 100%;
-	height: 30px;
-	font-size: 1px;	
-}
 
 .image_box {
 	width: 280px;
 	height: 160px;
 	margin-bottom: 15px;
-}
-
-.image_box_01{
-	background: url(images/templatemo_image_box_01.gif) no-repeat;
 }
 
 .image_box_02{
@@ -86,20 +62,6 @@ img {
 	height: 23px;
 	padding: 5px 0 0 0;
 	background: url(images/templatemo_btn_01.gif) no-repeat;
-	color: #ffffff;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-.templatemo_btn_02 a{
-	float: right;
-	clear: both;
-	text-align: center;
-	display: block;
-	width: 80px;
-	height: 24px;
-	padding: 4px 0 0 0;
-	background: url(images/templatemo_btn_02.gif) no-repeat;
 	color: #ffffff;
 	font-weight: bold;
 	text-decoration: none;
@@ -180,32 +142,6 @@ img {
     margin-left: 30px;
 }
 
-
-#top_panel .top_panel_section {
-	float: left;
-	width: 280px;
-	margin-left: 30px;
-}
-#top_panel .project_section_title {
-	margin: 0 0 0 30px;	
-	font-size: 26px;
-	font-weight: bold;
-	color: #9c9c41;	
-	width: 275px;
-	height: 45px;
-	background: url(images/templatemo_recent_project.png) no-repeat;
-}
-.top_panel_section .project_title a{
-	display: block;
-	text-align: center;
-	padding: 0 0 5px 0;
-	font-size: 22px;
-	color: #FC0;
-	font-weight: bold;	
-	text-decoration: none;
-	outline: none;
-}
-
 #top_panel .login_field {
 	margin: 30px 0 0 200px;	
 	font-size: 15px;
@@ -273,25 +209,28 @@ img {
 	padding-bottom: 5px;
 }
 
-#templatemo_bottom_panel {
-	clear: both;
+#bottom_panel {
 	width: 980px;
-	padding: 30px 10px 0px 10px;
+	height: 300px;
+	padding: 30px 40px 10px 40px;
 	background: url(images/bottom_panel_bg.png) repeat-y;	
 }
 
-#templatemo_bottom_panel .bottom_panel_section {
+#bottom_panel .separator {
 	float: left;
-	width: 280px;
-	margin-left: 30px;
-	min-height: 300px;
+	width: 36px;
+	height: 285px;
+	background: url(images/separator.png) center;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
-.bottom_panel_section p {
-	margin-bottom: 10px;
+#bottom_panel .section {
+	float: left;
+	width: 250px;
 }
 
-.bottom_panel_section .bottom_section_title {
+.section_title {
 	font-size: 16px;
 	padding-bottom: 10px;
 	margin-bottom: 10px;
@@ -299,38 +238,45 @@ img {
 	color: #f1f118;
 }
 
-.bottom_panel_section ul {
-	margin: 0 0 0 30px;
+.news_title {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.section_button {
+	padding-top:10px;
+}
+
+.section_button a{
+	float: right;
+	text-align: center;
+	display: block;
+	width: 80px;
+	height: 24px;
+	padding: 4px 0 0 0;
+	background: url(images/section_button.gif) no-repeat;
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.section p {
+	margin-bottom: 10px;
+}
+
+.section ul {
+	margin: 0 0 0 10px;
 	padding: 0px;
 }
 
-.bottom_panel_section li{
+.section li{
 	margin: 0px;
 	padding: 0 0 5px 0;
 }
 
-.bottom_panel_section li a {
+.section li a {
 	color: #000000;
 	text-decoration: none;
-}
-
-
-.bottom_panel_section .news_title {
-	font-size: 14px;
-	padding-bottom: 5px;
-	font-weight: bold;
-}
-
-.bottom_panel_section .news_section{
-	padding-right: 30px; 
-	background: url(images/templatemo_news_bg.gif) center right no-repeat;	
-	min-height: 300px;
-}
-
-.bottom_panel_section .service_section{
-	padding-right: 30px; 	
-	min-height: 300px;
-	background: url(images/templatemo_services_bg.gif) center right no-repeat;
 }
 
 /* footer */
