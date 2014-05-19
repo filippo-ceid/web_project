@@ -3,6 +3,7 @@
 	ob_start();
 	// Initialize a session:
 	session_start();
+	
 	include 'header.html';
 	$tab=1;
 	require  "menu.php";

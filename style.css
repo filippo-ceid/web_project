@@ -201,6 +201,39 @@ img {
 	padding-bottom: 50px;
 }
 
+#new_marker_map_canvas {
+    width: 550px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: #CCC;
+}
+
+#top_panel .myreport_report {
+	font-size: 20px;
+	font-weight: bold;
+	color: #ff0000;	
+	text-align: center;
+}
+
+#top_panel .report_field {
+	width: 550px;
+	padding: 0 0 20px 20px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #0066CC;	
+}
+
+.report_field .error_category_field {
+	display: inline;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+}
+
+.report_field .sub_button {
+	margin-left: 225px;
+}
+
 #top_panel .under_con_image img{
 	display: block;
 	width: 280px;

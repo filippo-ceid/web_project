@@ -1,5 +1,4 @@
 <?php
-
 	// Start output buffering:
 	ob_start();
 	// Initialize a session:
@@ -85,7 +84,7 @@
 		else { // If one of the data tests failed.
 			$report = "Σφάλμα Εγγραφής: Παρακαλώ ελέγξτε τα δεδομένα που εισάγατε!";
 		}
-		mysqli_close($dbhandle);
+		mysql_close($dbhandle);
 	}
 	else{
 		$email_error = "";

@@ -4,6 +4,7 @@
     $tab=3;
 	require  "menu.php";
 ?>
+
     <div id="top_panel">
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>

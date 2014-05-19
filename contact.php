@@ -1,8 +1,5 @@
 <?php
-    // Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
+
 	include 'header.html';
 	$tab=4;
 	require  "menu.php";

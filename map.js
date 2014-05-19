@@ -13,9 +13,10 @@ function initialize() {
 		};
 	var map = new google.maps.Map(mapCanvas, mapOptions);
 	setMarkers(center, radius, map);
+	google.maps.event.addListener(marker, 'click', toggleBounce);
 }
 
-function setMarkers(center, radius, map) {
+function setMarkers	(center, radius, map) {
 	var json = (function () { 
 		var json = null; 
 		 $.ajax({ 
@@ -75,6 +76,15 @@ function infoBox(map, marker, data) {
 				infoWindow.open(map, marker);
 			});
 	})(marker, data);
+}
+
+function toggleBounce() {
+
+  if (marker.getAnimation() != null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
     
 google.maps.event.addDomListener(window, 'load', initialize);
