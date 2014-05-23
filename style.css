@@ -130,7 +130,7 @@ img {
 	clear: both;
 	width: 960px;
 	height: auto;
-	padding: 30px 10px 0 10px;
+	padding: 30px 10px 10px 10px;
 	background: url(images/top_panel_bg.png) repeat-y;
 }
 
@@ -143,7 +143,7 @@ img {
 }
 
 #top_panel .login_field {
-	margin: 30px 0 0 200px;	
+	margin: 30px 0 0 200px;
 	font-size: 15px;
 	font-weight: bold;
 	color: #0066CC;	
@@ -201,20 +201,6 @@ img {
 	padding-bottom: 50px;
 }
 
-#new_marker_map_canvas {
-    width: 550px;
-    height: 300px;
-    border-radius: 10px;
-    background-color: #CCC;
-}
-
-#top_panel .myreport_report {
-	font-size: 20px;
-	font-weight: bold;
-	color: #ff0000;	
-	text-align: center;
-}
-
 #top_panel .report_field {
 	width: 550px;
 	padding: 0 0 20px 20px;
@@ -223,7 +209,21 @@ img {
 	color: #0066CC;	
 }
 
-.report_field .error_category_field {
+.report_field .myreport_report {
+	font-size: 20px;
+	font-weight: bold;
+	color: #ff0000;	
+	text-align: center;
+}
+
+#new_marker_map_canvas {
+    width: 550px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: #CCC;
+}
+
+.report_field .error_rep_field {
 	display: inline;
 	font-size: 12px;
 	font-weight: normal;
@@ -232,6 +232,19 @@ img {
 
 .report_field .sub_button {
 	margin-left: 225px;
+}
+
+#top_panel .old_reports {
+	display: block;
+	overflow:auto;
+	width: 100px;
+	height: 200px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+	margin-left:850px;
+	margin-bottom: 440px;
+	margin-top: -640px;
 }
 
 #top_panel .under_con_image img{
