@@ -1,10 +1,6 @@
--- Not used
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
 -- Database: FMC_DB (FixMyCity)
 CREATE DATABASE FMC_DB COLLATE utf8_general_ci;
-SHOW DATABASES;
+
 USE FMC_DB;
 
 -- Table users for login
@@ -18,19 +14,6 @@ CREATE TABLE IF NOT EXISTS users  (
   phone VARCHAR(10)
 ) ENGINE=InnoDB;
 
-INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALUES
-('admin@fixmycity.gr', '', 'admin', 'Administrator', '', '11880');
-
-UPDATE users SET user_level='admin' WHERE user_id = <number>;
-UPDATE users SET email='ddfs@dfd.gr', firstname='Ηαα', lastname='Pdd', phone='1234567890'  WHERE user_id = 2;
-
-SELECT * FROM users;
-DELETE FROM users WHERE user_id  = <number>;
-TRUNCATE TABLE users;
-DROP DATABASE FMC_DB;
-DROP TABLE users;
-SHOW TABLES;
-
 CREATE TABLE IF NOT EXISTS reports (
   report_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category VARCHAR (40) NOT NULL,
@@ -43,13 +26,6 @@ CREATE TABLE IF NOT EXISTS reports (
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
-
-INSERT INTO reports (category, description, lat, lng, user_id) VALUES
-('road', 'lakouva', '38.371237', '21.431653', '2');
-
-SELECT COUNT(*) FROM reports WHERE reports.user_id = <number>;
-SELECT * FROM users,reports WHERE users.user_id = <number>;
-SELECT category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id;
 
 CREATE TABLE IF NOT EXISTS photos (
   photo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -77,6 +53,20 @@ CREATE TABLE IF NOT EXISTS categories (
   category VARCHAR (40) NOT NULL,
   pin_icon VARCHAR (20) NOT NULL
 ) ENGINE=InnoDB;
+
+SELECT * FROM users;
+DELETE FROM users WHERE user_id  = <number>;
+SHOW DATABASES;
+DROP DATABASE FMC_DB;
+SHOW TABLES;
+TRUNCATE TABLE users;
+DROP TABLE users;
+
+UPDATE users SET user_level='admin' WHERE user_id = <number>;
+
+SELECT COUNT(*) FROM reports WHERE reports.user_id = <number>;
+SELECT * FROM users,reports WHERE users.user_id = <number>;
+SELECT category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id;
 
 INSERT INTO categories (category, pin_icon) VALUES ('Οδικά', 'pin_grey');
 

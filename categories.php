@@ -5,8 +5,12 @@ ob_start();
 // Initialize a session:
 session_start();
 
-if (!isset($_SESSION ['user_id'])){
-	header('Location: index.php');
+if (isset($_SESSION ['user_id'])){
+	$user_id =  $_SESSION ['user_id'];
+	require "check_permissions.php";
+	check_permissions($user_id);
+}
+else {
 	exit();
 }
 

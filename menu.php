@@ -1,7 +1,7 @@
 <?php 
-	if (!isset($user_level)){
-		exit();
-	}
+if (!isset($user_id)){
+	exit();
+}
 ?>
 <div id="menu">
 	<ul>

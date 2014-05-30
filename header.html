@@ -8,13 +8,18 @@
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <?php
-	$user_level = "visitor";
+	$user_id = 0;
 	// Start output buffering:
 	ob_start();
 	// Initialize a session:
 	session_start();
-	if (isset($_SESSION ['user_level'])){
-		$user_level = $_SESSION ['user_level'];
+	require "check_permissions.php";
+	if (isset($_SESSION ['user_id'])){
+		$user_id =  $_SESSION ['user_id'];
+	}
+	else {
+		//header('Location: index.php');
+		//exit();
 	}
 ?>
 

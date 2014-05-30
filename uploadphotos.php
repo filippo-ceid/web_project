@@ -2,8 +2,7 @@
 	include 'header.html';
 	$tab=2;
 	require  "menu.php";
-	require "check_permissions.php";
-	check_simple_permissions($user_level);
+	check_simple_permissions($user_id);
 ?>   
     <div id="top_panel">
 		<?php require "processupload.php";?>

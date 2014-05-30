@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($user_level)){
+if (!isset($user_id)){
 	exit();
 }
 

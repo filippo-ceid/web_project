@@ -1,7 +1,6 @@
 <?php
 	include 'header.html';
-	require "check_permissions.php";
-	check_admin_permissions($user_level);
+	check_admin_permissions($user_id);
 	$tab=2;
 	require  "menu.php";
 	require "categories_update.php";
