@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS status (
 CREATE TABLE IF NOT EXISTS categories (
   categ_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category VARCHAR (40) NOT NULL,
-  pin_icon VARCHAR (10) NOT NULL
+  pin_icon VARCHAR (20) NOT NULL
 ) ENGINE=InnoDB;
 
 INSERT INTO categories (category, pin_icon) VALUES ('Οδικά', 'pin_grey');

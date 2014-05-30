@@ -77,8 +77,7 @@ $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);
 $counts = $count_row['COUNT(*)'];
 
-
-$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng , status ,comment FROM reports,status WHERE status.report_id=reports.report_id;");
+$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng , status ,comment FROM reports INNER JOIN status on status.report_id=reports.report_id WHERE user_id=$user_id;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -124,7 +123,7 @@ while ($row = mysqli_fetch_assoc($result)){
 	
 }
 
-if ($counts = 0) {
+if ($counts == 0) {
 	$node = $dom->createElement("report");
 	$newnode = $parnode->appendChild($node);
 	$newnode->setAttribute("num_of_reports", $counts);

@@ -7,7 +7,7 @@
 	require "categories_update.php";
 ?>  
 	<link rel="stylesheet" href="colorbox.css"/>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&language=el"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="reports_map.js"></script>
 	<script type="text/javascript" src="jquery.colorbox.js"></script>
