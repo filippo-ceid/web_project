@@ -39,6 +39,7 @@ function drop_reports()
 			url: "map_db.php",
 			data: "",
 			success:function(data){
+			var htmlList = "<ul>";
 			$(data).find("report").each(function () {
 				var photos = [];
 				var photostr = "photo_name_";
@@ -56,6 +57,10 @@ function drop_reports()
 				var pin_icon = $(this).attr('pin_icon');
 				var status = $(this).attr('status');
 				var comment = $(this).attr('comment');
+				
+				htmlList = htmlList.concat("<li><p>Κατηγορία: "+category+'</p>');
+				htmlList = htmlList.concat("<p>Ημερομηνία: "+date+"</p></li>");
+				
 				pin_url = pin_url.concat(pin_icon);
 				pin_url = pin_url.concat(".png");
 				for (var i=0; i<num_of_photos; i++){
@@ -82,6 +87,8 @@ function drop_reports()
 					create_report(point, category, description, date, photos, user, status, comment, "icons/pin_red.png");
 				}
 			});
+			htmlList = htmlList.concat("</ul>");
+			$('#list_of_reports').html(htmlList);
 			setTimeout(drop_reports, 60000);
 		}
 	});
@@ -113,12 +120,12 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-	'<div class="report-inner-win"><span class="info-content">'+
-	'<table><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
-	'<br>Περιγραφή: <br>'+MapDesc+
-	'</span></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr>'+
-	'</td></tr><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
-	'</div></div>');
+	'<table><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
+	'<tr><td>Ημερομηνία Καταχώρησης: '+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
+	'<br>Περιγραφή: <br>'+MapDesc+'</td></tr></table>'+
+	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
+	'<table><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
+	'</div>');
 	
 	//Create an infoWindow
 	var infowindow = new google.maps.InfoWindow();

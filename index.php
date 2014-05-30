@@ -22,7 +22,7 @@
     <div id="bottom_panel">
 		<div class="section">
 			<table>
-				<tr><div class="section_title">Ανακοινώσεις</div></tr>
+				<tr><div class="section_title">Πληροφορίες</div></tr>
 				<tr>
 					<div class="section_text">
 					<tr>
@@ -35,27 +35,23 @@
 					</tr>
 					</div>
 				</tr>
-				<tr><div class="section_button"><a href="#">Περισσότερες</a></div></tr>
-			</table>
-        </div>
-		<div class="separator"></div>
-		<div class="section">
-			<table>
-				<tr><div class="section_title">Λίστα Αναφορών</div></tr>
-				<tr>
-					<div class="section_text">
-					<ul>
-						<li><a href="#">Lampa</a></li>
-						<li><a href="#">Dromos</a></li>  
-						<li><a href="#">Dromos</a></li>                   
-					</ul>
-					</div>
-				</tr>
-				<tr><div class="section_button"><a href="#">Περισσότερες</a></div></tr>
-				<tr><div class="rss_button"><a href="rss.php" target="_blank"></a></div></tr>
 			</table>
         </div>
         <div class="separator"></div>
+        <div class="section">
+			<table>
+				<tr><div class="section_title">RSS Feed Αναφορών</div></tr>
+				<tr>
+					<div class="section_text">
+						<div id="list_of_reports"></div>
+					</div>
+				</tr>
+				<tr>
+					<div class="rss_button"><a href="rss.php" target="_blank"></a></div>
+				</tr>
+			</table>
+        </div>
+		<div class="separator"></div>
         <div class="section">
 			<table>
 				<tr><div class="section_title">Στατιστικά</div></tr>

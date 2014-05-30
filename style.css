@@ -295,6 +295,16 @@ img {
 	margin-left:-18px;
 }
 
+#list_of_reports {
+	display: block;
+	overflow:hidden;
+	width: 250px;
+	height: 180px;
+	font-size: 12px;
+	font-weight: normal;
+	background: #;
+}
+
 #list_users_admin{
 	display: block;
 	overflow:auto;
@@ -304,7 +314,6 @@ img {
 	font-weight: normal;
 	color: #ffffff;	
 }
-
 
 #top_panel .under_con_image img{
 	display: block;
@@ -349,15 +358,15 @@ img {
 }
 
 .rss_button {
-	padding-top: 50px;
+	padding-top: 10px;
 }
 
 .rss_button a{
-	float: right;
+	margin: 0 auto;
 	text-align: center;
 	display: block;
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	padding: 5px 0 0 0;
 	background: url(images/rss_icon.png) no-repeat;
 	background-size: 100% 100%;

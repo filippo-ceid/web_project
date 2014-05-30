@@ -12,7 +12,6 @@ function statistics()
 	$.ajax({
 		url: "statistics.php",
 		data: "",
-		//dataType: 'json',
 		success:function(data){
 				stats = data.split('|');
 				$('#statistics').html("<ul>"+

@@ -4,7 +4,7 @@ ob_start();
 // Initialize a session:
 session_start();
 
-/if (isset($_SESSION ['user_id'])){
+if (isset($_SESSION ['user_id'])){
 	$user_id =  $_SESSION ['user_id'];
 	require "check_permissions.php";
 	check_admin_permissions($user_id);
@@ -18,12 +18,12 @@ require "db_config.php";
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("select COUNT(*) FROM users WHERE user_level = 'simple';");
+$query = sprintf("select COUNT(*) FROM users;");
 $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);
 $counts = $count_row['COUNT(*)'];
 
-$query = sprintf("SELECT email,user_id FROM users WHERE user_level = 'simple' ORDER BY email;");
+$query = sprintf("SELECT email,user_id FROM users ORDER BY email;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -37,12 +37,11 @@ header("Content-type: text/xml");
 //Create a new DOMDocument object
 $dom = new DOMDocument('1.0','utf-8');
 $dom->formatOutput = true;
-$node = $dom->createElement("reports"); //Create new element node
+$node = $dom->createElement("accounts"); //Create new element node
 $parnode = $dom->appendChild($node); //make the node show up 
-
 // Iterate through the rows, adding XML nodes for each
 while ($row = mysqli_fetch_assoc($result)){
-	$node = $dom->createElement("report");
+	$node = $dom->createElement("account");
 	$newnode = $parnode->appendChild($node);
 	$newnode->setAttribute("user_email", $row['email']);
 	$newnode->setAttribute("user_id", $row['user_id']);
@@ -50,7 +49,7 @@ while ($row = mysqli_fetch_assoc($result)){
 }
 
 if ($counts == 0) {
-	$node = $dom->createElement("report");
+	$node = $dom->createElement("account");
 	$newnode = $parnode->appendChild($node);
 	$newnode->setAttribute("num_of_reports", $counts);
 }

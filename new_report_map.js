@@ -30,9 +30,8 @@ function map_initialize()
 			map.setCenter(initialLocation);
 			GetCategories(function (category) {
 				var EditOpt = '';
-				var EditForm = '<p><div class="report-edit">'+
-					'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-					'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default"></option>';
+				var EditForm = '<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
+					'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
 				for (var j=0;j<category.length;j++){
 					EditOpt = '<option value="';
 					EditOpt = EditOpt.concat(category[j]);
@@ -41,9 +40,9 @@ function map_initialize()
 					EditOpt = EditOpt.concat('</option>');
 					EditForm = EditForm.concat(EditOpt);
 				}
-				var EditEnd = '</select></label>'+
-					'<br><label for="pDesc"><span>Περιγραφή: </span><br><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea></label>'+
-					'</form></div></p>';
+				var EditEnd = '</select><br>Περιγραφή: <br>'+
+					'<textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea>'+
+					'</form>';
 				EditForm = EditForm.concat(EditEnd);
 			
 				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
@@ -107,9 +106,8 @@ function map_initialize()
 		GetCategories(function (category) {
 			//Edit form to be displayed with new categories
 			var EditOpt = '';
-			var EditForm = '<div class="report-edit">'+
-			'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-			'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default"></option>';
+			var EditForm = '<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
+			'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
 			for (var j=0;j<category.length;j++){
 				EditOpt = '<option value="';
 				EditOpt = EditOpt.concat(category[j]);
@@ -118,9 +116,9 @@ function map_initialize()
 				EditOpt = EditOpt.concat('</option>');
 				EditForm = EditForm.concat(EditOpt);
 			}
-			var EditEnd = '</select></label>'+
-			'<br><label for="pDesc"><span>Περιγραφή: </span><br><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea></label>'+
-			'</form></div>';
+			var EditEnd = '</select><br>Περιγραφή: <br>'+
+			'<textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea>'+
+			'</form>';
 			EditForm = EditForm.concat(EditEnd);
 			
 			SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
@@ -165,7 +163,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="150" src="');
+		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}
@@ -173,12 +171,11 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-	'<div class="report-inner-win"><span class="info-content">'+
 	'<table><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
-	'<tr><td>'+MapDesc+'</span></td></tr>'+
-	'<tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr>'+
-	'<tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table>'+
-	'</div></div>');
+	'<tr><td>'+MapDesc+'</td></tr></table>'+
+	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
+	'<table align="center"><tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table></table>'+
+	'</div>');
 	
 	
 	//Create an infoWindow

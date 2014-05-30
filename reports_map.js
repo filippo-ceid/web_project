@@ -78,25 +78,24 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="150" src="');
+		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}
 
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-		'<div class="report-inner-win"><span class="info-content">'+
-		'<table><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+
-		'<br>Περιγραφή: <br>'+MapDesc+
-		'</span></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr>'+
-		'</td></tr><tr><td>'+MapUser+'</td></tr>'+
+		'<table><tr><td>Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+
+		'<br>Περιγραφή: <br>'+MapDesc+'</table>'+
+		'<table></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
+		'<table></td></tr><tr><td>'+MapUser+'</td></tr>'+
 		'<tr><td><form action="ajax-save.php" method="POST" name="SaveStatus" id="SaveStatus">'+
-		'<label for="mStatus"><span>Κατάσταση: </span><select name="mStatus" class="save-status"><option value="default"></option>'+
-		'<option value="Κλειστή">Κλειστή</option><option value="Ανοιχτή">Ανοιχτή</option></select></label></td></tr>'+
-		'<tr><td><label for="pComm"><span>Σχόλιο: </span><br><textarea name="pComm" class="save-comm" placeholder="Εισάγετε Σχόλιο" maxlength="250" cols="48" rows="5"></textarea></label>'+
-		'</form></div></p></td></tr>'+
+		'Κατάσταση: <select name="mStatus" class="save-status"><option value="default"></option>'+
+		'<option value="Κλειστή">Κλειστή</option><option value="Ανοιχτή">Ανοιχτή</option></select></td></tr>'+
+		'<tr><td>Σχόλιο: <br><textarea name="pComm" class="save-comm" placeholder="Εισάγετε Σχόλιο" maxlength="250" cols="48" rows="5"></textarea>'+
+		'</form></td></tr>'+
 		'<tr><td><button name="save-status" class="save-status">Αποθήκευση Κατάστασης</button><button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table>'+
-		'</div></div>');
+		'</div>');
 		
 		
 	
