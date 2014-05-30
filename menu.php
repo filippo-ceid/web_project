@@ -19,10 +19,10 @@ if (!isset($user_id)){
 			<?php 
 				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==2) {
-						echo '<a href="reports_page.php" class="current">Αναφορές</a>';
+						echo '<a href="reports_page.php" class="current">Ανοιχτές Αναφορές</a>';
 					}
 					else {
-						echo '<a href="reports_page.php">Αναφορές</a>';
+						echo '<a href="reports_page.php">Ανοιχτές Αναφορές</a>';
 					}
 				}
 				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {

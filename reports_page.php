@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="reports_map.js"></script>
 	<script type="text/javascript" src="jquery.colorbox.js"></script>
+	<script type="text/javascript" src="reports_list_admin.js"></script>
 	<script>
 		function image(){
 				$(".photo").colorbox({rel:'photo'});
@@ -24,41 +25,40 @@
 						 <div id="reports_map_canvas"></div>
 					  </td>
 					   <td>
-						 <div id="reports_list">
-							<ul>
-								<li>Page 1</li>
-								<li>Page 2</li>
-								<li>Page 3</li>
-								<li>Page 4</li>
-								<li>Page 5</li>
-								<li>Page 6</li>
-							</ul>
-						</div>
+						 <div id="num_of_reports_admin"></div>
+						 <div id="list_reports_admin"></div>
 					  </td>
 					</tr>
 				</table>
         </div>
         <div class="category_field">
-			<div class="reg_report">Εισαγωγή - Διαγραφή Κατηγορίας</div><br>
+			<div class="reg_report">Εισαγωγή/Τροποποίηση/Διαγραφή Κατηγοριών</div><br>
 			<form action="reports_page.php" method="POST">
 			<table>
 				<tr>
-					<td>Όνομα κατηγορίας: </td>
-					<td><input type="text" name="new_category"/></td>
-					<td><div class="error_categ_field"><?php echo $new_category_error ?></td>
-					<div class="delete_field">
 					<td>Επιλογή κατηγορίας:</td>
 					<td><select name="category">
 						<option value="default"></option>
 						<?php echo $categ_selection; ?>
-					</select></td>
-					<td><div class="error_categ_field"><?php echo $category_error ?></td>
-					</div>
+					</select>
+					<input type="submit" name="edit_categ_submit" value="Edit"/>
+						<input type="submit" name="delete_categ_submit" value="Delete"/>
+					</td>
+					<td>
+					<div class="error_categ_field"><?php echo $category_error ?></div>
+					</td>
+					<td><br><br></td>
+				</tr>
+				<tr>
+					<td>Όνομα κατηγορίας: </td>
+					<td><input type="text" name="new_category" value="<?php if (isset($categData['category'])) echo $categData['category'];?>"/></td>
+					<td><div class="error_categ_field"><?php echo $new_category_error ?></td>
+					<input type="hidden" name="category_id" value="<?php if (isset($categData['categ_id'])) echo $categData['categ_id'];?>"/>
 				</tr>
 				<tr>
 					<td>Χρώμα marker:</td>
-					<td><select name="pin_color">
-						<option value="default"></option>
+					<td><select name="pin_color">	
+						<option value="<?php if (isset($categData['pin_color'])) echo 'pin_color'; else echo 'default';?>"><?php if (isset($color_name)) echo $color_name; else echo '';?></option>
 						<option value="pin_white">Άσπρο</option>
 						<option value="pin_yellow">Κίτρινο</option>
 						<option value="pin_orange">Πορτοκαλί</option>
@@ -74,14 +74,11 @@
 					</select></td>
 					<td><div class="error_categ_field"><?php echo $pin_color_error ?></td>
 					<td></td>
-					<td><div class="categ_button">
-						<input type="submit" name="delete_categ_submit" value="Delete"/>
-					</div></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td><div class="categ_button">
-						<input type="submit" name="new_categ_submit" value="Submit"/>
+						<input type="submit" name="<?php if (isset($categData['categ_id'])) echo 'update_categ_submit'; else echo 'new_categ_submit'; ?>" value="<?php if (isset($categData['categ_id'])) echo 'Update'; else echo 'Submit';?>"/>
 					</div></td>
 				</tr>
 			</table>

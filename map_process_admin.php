@@ -66,13 +66,13 @@ if($_POST) //run only if there's a post data
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT COUNT(*) FROM reports WHERE user_id=$user_id;");
+$query = sprintf("SELECT COUNT(*) FROM reports, status WHERE reports.report_id = status.report_id AND status = 'unsolved';");
 $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);
 $counts = $count_row['COUNT(*)'];
 
 
-$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng FROM reports,status WHERE reports.report_id=status.report_id AND status.status ='unsolved';");
+$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng FROM reports,status WHERE reports.report_id=status.report_id AND status.status ='unsolved' ORDER BY category, datetime DESC;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  

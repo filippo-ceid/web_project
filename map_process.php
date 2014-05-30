@@ -79,7 +79,7 @@ $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);
 $counts = $count_row['COUNT(*)'];
 
-$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng , status ,comment FROM reports INNER JOIN status on status.report_id=reports.report_id WHERE user_id=$user_id;");
+$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng , status ,comment FROM reports INNER JOIN status on status.report_id=reports.report_id WHERE user_id=$user_id ORDER BY datetime DESC;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
