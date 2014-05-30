@@ -3,9 +3,9 @@
 	$tab=2;
 	require  "menu.php";
 	check_simple_permissions($user_id);
+	require "processupload.php";
 ?>   
     <div id="top_panel">
-		<?php require "processupload.php";?>
 		<form action="uploadphotos.php" method="POST" enctype="multipart/form-data" id="UploadForm">
 			<table>
 			  <tr>

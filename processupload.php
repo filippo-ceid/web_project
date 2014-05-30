@@ -1,17 +1,4 @@
 <?php
-// Start output buffering:
-ob_start();
-// Initialize a session:
-session_start();
-
-if (isset($_SESSION ['user_id'])){
-	$user_id =  $_SESSION ['user_id'];
-	require "check_permissions.php";
-	check_simple_permissions($user_id);
-}
-else {
-	exit();
-}
 
 if(isset($_POST['submit']))
 {	
