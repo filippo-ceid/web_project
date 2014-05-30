@@ -26,7 +26,7 @@ function map_initialize()
 	if(navigator.geolocation) {
 		browserSupportFlag = true;
 		navigator.geolocation.getCurrentPosition(function(position) {
-			var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+			initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			map.setCenter(initialLocation);
 			GetCategories(function (category) {
 				var EditOpt = '';
@@ -101,14 +101,13 @@ function map_initialize()
 			}
 		});
 	});	
-	
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-		var initialLocation = new google.maps.LatLng(38.368074,21.429212);
-		map.setCenter(initialLocation);
+	//Right Click to Drop a New Report
+	google.maps.event.addListener(map, 'rightclick', function(event) {
 		GetCategories(function (category) {
+			//Edit form to be displayed with new categories
 			var EditOpt = '';
 			var EditForm = '<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-				'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
+			'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
 			for (var j=0;j<category.length;j++){
 				EditOpt = '<option value="';
 				EditOpt = EditOpt.concat(category[j]);
@@ -118,44 +117,17 @@ function map_initialize()
 				EditForm = EditForm.concat(EditOpt);
 			}
 			var EditEnd = '</select><br>Περιγραφή: <br>'+
-				'<textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea>'+
-				'</form>';
+			'<textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea>'+
+			'</form>';
 			EditForm = EditForm.concat(EditEnd);
-		
+			
 			SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 			//Drop a new Report with our Edit Form
-			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
+			create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
 		});
-	}
-	else{
-		//Right Click to Drop a New Report
-		google.maps.event.addListener(map, 'rightclick', function(event) {
-			GetCategories(function (category) {
-				//Edit form to be displayed with new categories
-				var EditOpt = '';
-				var EditForm = '<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-				'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
-				for (var j=0;j<category.length;j++){
-					EditOpt = '<option value="';
-					EditOpt = EditOpt.concat(category[j]);
-					EditOpt = EditOpt.concat('">');
-					EditOpt = EditOpt.concat(category[j]);
-					EditOpt = EditOpt.concat('</option>');
-					EditForm = EditForm.concat(EditOpt);
-				}
-				var EditEnd = '</select><br>Περιγραφή: <br>'+
-				'<textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea>'+
-				'</form>';
-				EditForm = EditForm.concat(EditEnd);
-				
-				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
-
-				//Drop a new Report with our Edit Form
-				create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
-			});
-		});
-	}						
+	});
+										
 }
 
 
