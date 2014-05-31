@@ -1,15 +1,11 @@
-install: mysql-server, php5, php5-mysql, apache2, libapache2-mod-php5
-
-:~$ sudo service apache2 start
+:~$ sudo /etc/init.d/apache2 start
 
 :~$ mysql -u root -p
 
 Enable Mysql UTF8 Support (Greek Lang) : http://itblog.gr/158/mysql-utf8-support/
-http://mysql-by-ash.blogspot.gr/2012/04/change-mysql-charsets-collations.html
 
 Create the database (FixMyCityDB.sql)
 Create the table (users)
-Create the table (reports)
 
 -> db_config.php -> line4: DEFINE ('DB_PASSWORD', '<root_password_for_mysql>');
 

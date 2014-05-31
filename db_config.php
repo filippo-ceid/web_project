@@ -8,9 +8,7 @@
 	DEFINE ('ADM_EMAIL', '');
 
 	// Make the connection:
-	$dbhandle = mysql_connect (DB_HOST, DB_USER, DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error());
+	$dbhandle = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD,DB_NAME) or die("Failed to connect to MySQL: " . mysql_error());
 	
-	mysql_select_db(DB_NAME,$dbhandle) or die("Could not select " . DB_NAME);
-	
-	mysql_query('SET CHARACTER SET utf8') or die(mysql_error());
+	mysqli_query($dbhandle,"SET CHARACTER SET utf8") or die(mysql_error());
 ?>

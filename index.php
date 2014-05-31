@@ -9,8 +9,7 @@
 	require  "menu.php";
 ?>   
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="map.js"></script>
 	
     <div id="top_panel">

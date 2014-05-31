@@ -12,7 +12,7 @@
 		</li>
 		<li>
 			<?php 
-				if ($_SESSION['user_level'] == "admin") {
+				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==2) {
 						echo '<a href="reports.php" class="current">Αναφορές</a>';
 					}
@@ -20,7 +20,7 @@
 						echo '<a href="reports.php">Αναφορές</a>';
 					}
 				}
-				else if ($_SESSION['user_level'] == "simple") {
+				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
 					if ($tab==2) {
 						echo '<a href="my_reports.php" class="current">Οι Αναφορές Μου</a>';
 					}
@@ -40,7 +40,7 @@
 		</li>
 		<li>
 			<?php 
-				if ($_SESSION['user_level'] == "admin") {
+				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==3) {
 						echo '<a href="users.php" class="current">Λογαριασμοί Χρηστών</a>';
 					}
@@ -48,7 +48,7 @@
 						echo '<a href="users.php">Λογαριασμοί Χρηστών</a>';
 					}
 				}
-				else if ($_SESSION['user_level'] == "simple") {
+				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
 					if ($tab==3) {
 						echo '<a href="account.php" class="current">Διαχείριση Λογαριασμού</a>';
 					}
@@ -68,7 +68,7 @@
 		</li>
 		<li>
 			<?php
-				if ($_SESSION['user_level'] == "admin") {
+				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==4) {
 						echo '<a href="db_manage.php" class="current">Διαχείριση Βάσης</a>';
 					}

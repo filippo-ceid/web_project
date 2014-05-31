@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users  (
 ) ENGINE=InnoDB;
 
 INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALUES
-('admin@fixmycity.gr', 'admin', 'admin', 'Administrator', '', '2631012345');
+('admin@fixmycity.gr', '1', 'admin', 'Administrator', '', '11880');
 
 UPDATE users SET user_level='admin' WHERE user_id = <number>;
 
@@ -30,20 +30,32 @@ DROP DATABASE FMC_DB;
 DROP TABLE users;
 SHOW TABLES;
 
-
 CREATE TABLE IF NOT EXISTS reports (
   report_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  category ENUM('road','sky') NOT NULL,
-  description VARCHAR (500),
+  category VARCHAR (40) NOT NULL,
+  description VARCHAR (500) NOT NULL,
   datetime TIMESTAMP,
-  user_id int,
+  lat FLOAT( 10, 6 ) NOT NULL,
+  lng FLOAT( 10, 6 ) NOT NULL,
+  locked ENUM('false', 'true') NOT NULL DEFAULT 'false',
+  user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO reports (category, description, user_id) VALUES
-('road', 'lakouva', '2');
+INSERT INTO reports (category, description, lat, lng, locked, user_id) VALUES
+('road', 'lakouva', '38.371237', '21.431653', 'false', '2');
 
 SELECT COUNT(*) FROM reports WHERE reports.user_id = <number>;
 SELECT * FROM users,reports WHERE users.user_id = <number>;
+SELECT category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id;
+
+CREATE TABLE IF NOT EXISTS photos (
+  photo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  photo_name VARCHAR (40) NOT NULL,
+  report_id INT NOT NULL,
+  FOREIGN KEY (report_id) REFERENCES reports(report_id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+) ENGINE=InnoDB;

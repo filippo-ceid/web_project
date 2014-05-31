@@ -216,9 +216,9 @@ img {
 	text-align: center;
 }
 
-#new_marker_map_canvas {
+#new_report_map_canvas {
     width: 550px;
-    height: 300px;
+    height: 400px;
     border-radius: 10px;
     background-color: #CCC;
 }
@@ -234,7 +234,7 @@ img {
 	margin-left: 225px;
 }
 
-#top_panel .old_reports {
+#old_reports {
 	display: block;
 	overflow:auto;
 	width: 100px;
@@ -242,9 +242,8 @@ img {
 	font-size: 12px;
 	font-weight: normal;
 	color: #ffffff;	
-	margin-left:850px;
-	margin-bottom: 440px;
-	margin-top: -640px;
+	margin-left:250px;
+
 }
 
 #top_panel .under_con_image img{

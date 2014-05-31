@@ -12,25 +12,25 @@
 		if (!empty($_POST['email'])) { 
 			if (!empty($_POST['password'])) {
 				
-				$email = mysql_real_escape_string($_POST['email']);
+				$email = mysqli_real_escape_string($dbhandle,$_POST['email']);
 				$query = "SELECT user_id, email, password, user_level
 				FROM users
 				WHERE email = '$email';";
 
 				//execute the SQL query and return records
-				$result = mysql_query ($query, $dbhandle);
+				$result = mysqli_query ($dbhandle,$query);
 				
-				if(mysql_num_rows($result) != 0) { // User not found.
-					$_SESSION = mysql_fetch_array($result, MYSQL_ASSOC);
-					$password = sha1(mysql_real_escape_string($_POST['password']));
+				if(mysqli_num_rows($result) != 0) { // User not found.
+					$_SESSION = mysqli_fetch_array($result, MYSQL_ASSOC);
+					$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
 					if($password != $_SESSION ['password']) { // Incorrect password.
 						$_SESSION = array();
 						$pass_error_msg = "Ελέγξτε τον κωδικό ασφαλείας!";
 						$email_error_msg = "Ελέγξτε τη διεύθυνση email!";
 					}
 					else{ // Redirect to home page after successful login.
-						mysql_free_result($result);
-						mysql_close($dbhandle);
+						mysqli_free_result($result);
+						mysqli_close($dbhandle);
 						ob_end_clean(); // Delete the buffer.
 						header("Location: index.php");
 						exit(); // Quit the script.
@@ -50,7 +50,7 @@
 			$email = FALSE;
 			$email_error_msg = "Ξεχάσατε να εισάγετε διεύθυνση email!";
 		}
-		mysql_close($dbhandle); //close the connection
+		mysqli_close($dbhandle); //close the connection
 	}
 	else {
 		$email_error_msg = "";

@@ -1,90 +1,79 @@
-function initialize() {
-	var latitude = 38.371200,
-		longitude = 21.42830,
-		radius = 8000,
-		center = new google.maps.LatLng(latitude,longitude),
-		bounds = new google.maps.Circle({center: center, radius: radius}).getBounds(),
-		mapCanvas = document.getElementById('map_canvas'),
-		mapOptions = {
-			 center: center,
-			 zoom: 14,
-			 mapTypeId: google.maps.MapTypeId.ROADMAP
-			 //scrollwheel: false
-		};
-	var map = new google.maps.Map(mapCanvas, mapOptions);
-	setMarkers(center, radius, map);
-	google.maps.event.addListener(marker, 'click', toggleBounce);
+var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
+var map;
+	
+google.maps.event.addDomListener(window, 'load', map_initialize);
+
+//############### Google Map Initialize ##############
+function map_initialize()
+{
+	var googleMapOptions = 
+	{ 
+		center: mapCenter, // map center
+		zoom: 15, //zoom level, 0 = earth view to higher value
+		maxZoom: 20,
+		minZoom: 13,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.SMALL //zoom control size
+		},
+		scaleControl: true, // enable scale control
+		mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
+	};
+		
+ 	map = new google.maps.Map(document.getElementById("map_canvas"), googleMapOptions);			
+			
+	//Load Markers from the XML File, Check (map_process.php)
+	$.get("map_db.php", function (data) {
+		$(data).find("report").each(function () {
+			var category = $(this).attr('category');
+			var description = '<p>'+ $(this).attr('description') +'</p>';
+			var date = $(this).attr('datetime');
+			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+			var firstname = $(this).attr('firstname');
+			var lastname = $(this).attr('lastname');
+			if(category == 'Οδικά'){
+				create_report(point, category, description, date, false, false, false, "icons/pin_grey.png");
+			}
+			else if(category == 'Ηλεκτρικά'){
+				create_report(point, category, description, date, false, false, false, "icons/pin_yellow.png");
+			}
+			else if(category == 'Υδραυλικά'){
+				create_report(point, category, description, date, false, false, false, "icons/pin_blue.png");
+			}
+			else if(category == 'Περιβαλλοντικά'){
+				create_report(point, category, description, date, false, false, false, "icons/pin_green.png");
+			}
+			else {
+				create_report(point, category, description, date, false, false, false, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+			}
+		});
+	});										
 }
-
-function setMarkers	(center, radius, map) {
-	var json = (function () { 
-		var json = null; 
-		 $.ajax({ 
-			'async': false, 
-			'global': false, 
-			'url': "map_reports.json", 
-			'dataType': "json", 
-			'success': function (data) {json = data;}
-		 });
-		 return json;
-     })();
-
-	var circle = new google.maps.Circle({
-		strokeColor: '#000000',
-		strokeOpacity: 0.25,
-		strokeWeight: 1.0,
-		fillColor: '#ffffff',
-		fillOpacity: 0.1,
-		clickable: false,
+	
+//############### Create Report Function ##############
+function create_report(MapPos, MapTitle, MapDesc, MapDate, MapFname, MapLname, iconPath)
+{	  	  		  	
+	//marker
+	var marker = new google.maps.Marker({
+		position: MapPos,
 		map: map,
-		center: center,
-		radius: radius
+		icon: iconPath
 	});
-
-	var bounds = circle.getBounds();
-
-	//loop between each of the json elements
-	for (var i = 0, length = json.length; i < length; i++) {
-		var data = json[i],
-			latLng = new google.maps.LatLng(data.lat, data.lng); 
-		if(bounds.contains(latLng)) {
-			// Creating a marker and putting it on the map
-			var marker = new google.maps.Marker({
-				position: latLng,
-				map: map,
-				title: data.content
-			});
-			infoBox(map, marker, data);
-		}
-	}
-	circle.bindTo('center', marker, 'position');
+		
+	//Content structure of info Window for the Reports
+	var contentString = $('<div class="report-info-win">'+
+	'<div class="report-inner-win"><span class="info-content">'+
+	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
+	MapDesc+'Απο το χρήστη: '+MapFname+' '+MapLname+
+	'</div></div>');	
+	
+	//Create an infoWindow
+	var infowindow = new google.maps.InfoWindow();
+	//set the content of infoWindow
+	infowindow.setContent(contentString[0]);
+		
+	//add click listner to report marker		 
+	google.maps.event.addListener(marker, 'click', function() {
+		infowindow.open(map,marker); // click on marker opens info window 
+	});
 }
 
-function infoBox(map, marker, data) {
-	var infoWindow = new google.maps.InfoWindow();
-		// Attaching a click event to the current marker
-		google.maps.event.addListener(marker, "click", function(e) {
-				infoWindow.setContent(data.content);
-				infoWindow.open(map, marker);
-			});
-	// Creating a closure to retain the correct data 
-	// Note how I pass the current data in the loop into the closure (marker, data)
-	(function(marker, data) {
-		// Attaching a click event to the current marker
-		google.maps.event.addListener(marker, "click", function(e) {
-				infoWindow.setContent(data.content);
-				infoWindow.open(map, marker);
-			});
-	})(marker, data);
-}
-
-function toggleBounce() {
-
-  if (marker.getAnimation() != null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
-}
-    
-google.maps.event.addDomListener(window, 'load', initialize);
