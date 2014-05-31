@@ -1,13 +1,12 @@
 !odhgies!
 
 !git for the local machine!
-1)git clone https://github.com/.../<folder>.git
+1)git status
 
-2)git status
 
-3)git add <file>
+2)git add <file>
 
-4)git commit -m "sxolio"
+3)git commit -m "sxolio"
 
 
 !git for the remote!
