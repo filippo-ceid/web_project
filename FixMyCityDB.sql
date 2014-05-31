@@ -59,3 +59,14 @@ CREATE TABLE IF NOT EXISTS photos (
   ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS categories (
+  categ_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  category VARCHAR (40) NOT NULL
+) ENGINE=InnoDB;
+
+INSERT INTO categories (category) VALUES ('Οδικά');
+INSERT INTO categories (category) VALUES ('Ηλεκτρικά');
+INSERT INTO categories (category) VALUES ('Υδραυλικά');
+INSERT INTO categories (category) VALUES ('Περιβαλλοντικά');
+

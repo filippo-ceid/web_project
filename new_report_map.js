@@ -73,24 +73,50 @@ function map_initialize()
 			}
 		});
 	});	
-			
+	var category = [];
 	//Right Click to Drop a New Report
 	google.maps.event.addListener(map, 'rightclick', function(event) {
-		//Edit form to be displayed with new report
-		var EditForm = '<p><div class="report-edit">'+
-		'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-		'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>'+
-		'<option value="Οδικά">Οδικά</option><option value="Ηλεκτρικά">Ηλεκτρικά</option><option value="Υδραυλικά">Υδραυλικά</option><option value="Περιβαλλοντικά">Περιβαλλοντικά</option></select></label>'+
-		'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
-		'</form>'+
-		'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
-
-		//Drop a new Report with our Edit Form
-		create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', true, true, true, "icons/pin_red.png");
+		GetCategories(function (category) {
+			//document.write (category);
+			//Edit form to be displayed with new report
+			var EditOpt = '';
+			var EditForm = '<p><div class="report-edit">'+
+			'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
+			'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
+			for (var j=0;j<category.length;j++){
+				EditOpt = '<option value="';
+				EditOpt = EditOpt.concat(category[j]);
+				EditOpt = EditOpt.concat('">');
+				EditOpt = EditOpt.concat(category[j]);
+				EditOpt = EditOpt.concat('</option>');
+				EditForm = EditForm.concat(EditOpt);
+			}
+			var EditEnd = '</select></label>'+
+			'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
+			'</form>'+
+			'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
+			EditForm = EditForm.concat(EditEnd);
+			//document.write (EditForm);
+			
+			//Drop a new Report with our Edit Form
+			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', true, true, true, "icons/pin_red.png");
+		});
 	});
 										
 }
 
+
+function GetCategories(callback) {
+	var category = [];
+	var i=0;
+	$.get("categories.php", function (data) {
+		$(data).find("category").each(function () {
+			category[i] = $(this).attr('category');
+			i = i+1;
+		});
+		callback(category);
+	});
+}
 
 	
 //############### Create Report Function ##############

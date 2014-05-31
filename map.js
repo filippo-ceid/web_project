@@ -27,30 +27,37 @@ function map_initialize()
 			var category = $(this).attr('category');
 			var description = '<p>'+ $(this).attr('description') +'</p>';
 			var date = $(this).attr('datetime');
-			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+			var user = $(this).attr('user');
 			var firstname = $(this).attr('firstname');
 			var lastname = $(this).attr('lastname');
-			if(category == 'Οδικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_grey.png");
-			}
-			else if(category == 'Ηλεκτρικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_yellow.png");
-			}
-			else if(category == 'Υδραυλικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_blue.png");
-			}
-			else if(category == 'Περιβαλλοντικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_green.png");
+			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+			if (firstname != "" && firstname != ""){
+				var user = 'Απο το χρήστη: '+$(this).attr('firstname')+' '+$(this).attr('lastname');
 			}
 			else {
-				create_report(point, category, description, date, false, false, false, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+				var user = "";
+			}
+			if(category == 'Οδικά'){
+				create_report(point, category, description, date, user, "icons/pin_grey.png");
+			}
+			else if(category == 'Ηλεκτρικά'){
+				create_report(point, category, description, date, user, "icons/pin_yellow.png");
+			}
+			else if(category == 'Υδραυλικά'){
+				create_report(point, category, description, date, user, "icons/pin_blue.png");
+			}
+			else if(category == 'Περιβαλλοντικά'){
+				create_report(point, category, description, date, user, "icons/pin_green.png");
+			}
+			else {
+				create_report(point, category, description, date, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
 			}
 		});
-	});										
+	});							
 }
 	
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapDate, MapFname, MapLname, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapDate, MapUser, iconPath)
 {	  	  		  	
 	//marker
 	var marker = new google.maps.Marker({
@@ -63,7 +70,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapFname, MapLname, i
 	var contentString = $('<div class="report-info-win">'+
 	'<div class="report-inner-win"><span class="info-content">'+
 	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
-	MapDesc+'Απο το χρήστη: '+MapFname+' '+MapLname+
+	MapDesc+MapUser+
 	'</div></div>');	
 	
 	//Create an infoWindow

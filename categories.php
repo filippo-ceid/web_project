@@ -4,7 +4,7 @@ require "db_config.php";
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id ORDER BY report_id DESC LIMIT 20;");
+$query = sprintf("SELECT category FROM categories;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -18,20 +18,14 @@ header("Content-type: text/xml");
 //Create a new DOMDocument object
 $dom = new DOMDocument('1.0','utf-8');
 $dom->formatOutput = true;
-$node = $dom->createElement("reports"); //Create new element node
+$node = $dom->createElement("categories"); //Create new element node
 $parnode = $dom->appendChild($node); //make the node show up 
 
 // Iterate through the rows, adding XML nodes for each
 while ($row = mysqli_fetch_assoc($result)){
-	  $node = $dom->createElement("report");
+	  $node = $dom->createElement("category");
 	  $newnode = $parnode->appendChild($node);
 	  $newnode->setAttribute("category", $row['category']);
-	  $newnode->setAttribute("description", $row['description']);
-	  $newnode->setAttribute("datetime", $row['datetime']);
-	  $newnode->setAttribute("lat", $row['lat']);
-	  $newnode->setAttribute("lng", $row['lng']);
-	  $newnode->setAttribute("firstname", $row['firstname']);
-	  $newnode->setAttribute("lastname", $row['lastname']);
 }
 
 echo $dom->saveXML();
