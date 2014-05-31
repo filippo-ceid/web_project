@@ -3,6 +3,9 @@
 	ob_start();
 	// Initialize a session:
 	session_start();
+	
+	$email_error_msg = "";
+	$pass_error_msg = "";
 
 	if (isset($_POST['submit'])) {
 		
@@ -38,7 +41,7 @@
 				}
 				else{
 					$pass_error_msg = "Ελέγξτε τον κωδικό ασφαλείας!";
-						$email_error_msg = "Ελέγξτε τη διεύθυνση email!";
+					$email_error_msg = "Ελέγξτε τη διεύθυνση email!";
 				}
 			} 
 			else {
@@ -51,9 +54,5 @@
 			$email_error_msg = "Ξεχάσατε να εισάγετε διεύθυνση email!";
 		}
 		mysqli_close($dbhandle); //close the connection
-	}
-	else {
-		$email_error_msg = "";
-		$pass_error_msg = "";	
 	}
 ?>
