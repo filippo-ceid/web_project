@@ -19,14 +19,13 @@
 		$email = $password = $firstname = $lastname = $phone = FALSE;
 		
 		// Check for an email address:
-		if (preg_match ('/^[^\W_]+([.-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['email'])) {
+		if (preg_match ('/^[^\W_]+([.\-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['email'])) {
 			$email = mysqli_real_escape_string($dbhandle,$_POST['email']);
 		} else {
 			$email_error = ": Μη έγκυρη διεύθυνση email!";
 		}
 
 		// Check for a password and match against the confirmed password:
-		//Na valoume javascript gia test dynamis kwdikou!!!! <-----
 		if (preg_match('/^[\s\S]{4,128}$/', $_POST['password']) ) {
 			if ($_POST['password'] == $_POST['conf_password']) {
 				$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
