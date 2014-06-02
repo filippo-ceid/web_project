@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="map.js"></script>
+	<script type="text/javascript" src="statistics.js"></script>
 	
     <div id="top_panel">
     	<div id="map_canvas"></div>
@@ -59,10 +60,7 @@
 				<tr>
 					<div class="section_text">
 					<ul>
-						<li>Συνολικός αριθμός αναφορών:</li>
-						<li>Συνολικός αριθμός ανοικτών αναφορών:</li>
-						<li>Συνολικός αριθμός επιλυμένων αναφορών:</li>
-						<li>Μέσος χρόνος επίλυσης αναφορών:</li>
+						<div id="statistics"></div>
 					</ul>
 					</div>
 				</tr>

@@ -38,6 +38,15 @@ if($_POST) //run only if there's a post data
 		//$user_id = $_SESSION ['user_id'];
 		$query = "INSERT INTO reports (category, description, lat, lng, locked, user_id) VALUES ('$mCateg', '$mDesc', '$mLat', '$mLng', 'false', '$user_id');"; //+user_id
 		$result = mysqli_query($dbhandle,$query);
+		
+		$query = sprintf("SELECT report_id FROM reports ORDER BY report_id DESC LIMIT 1;");
+		$result = mysqli_query($dbhandle,$query);
+		
+		$row = mysqli_fetch_assoc($result);
+		$rep_id = $row['report_id'];
+		
+		$query = "INSERT INTO status (report_id) VALUES ('$rep_id');"; //+user_id
+		$result = mysqli_query($dbhandle,$query);
 	}
 	mysqli_free_result($result);
 	mysqli_close($dbhandle);

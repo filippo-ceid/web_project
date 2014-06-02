@@ -1,0 +1,27 @@
+window.onload = function() {
+  statistics();
+};
+
+$(function() {
+    statistics();
+});
+
+function statistics()
+{	
+	stats = new Array();
+	$.ajax({
+		url: "statistics.php",
+		data: "",
+		//dataType: 'json',
+		success:function(data){
+				stats = data.split('|');
+				$('#statistics').html("<ul>"+
+						"<li>Συνολικός αριθμός αναφορών: "+stats[0]+"</li>"+
+						"<li>Συνολικός αριθμός ανοικτών αναφορών: "+stats[1]+"</li>"+
+						"<li>Συνολικός αριθμός επιλυμένων αναφορών:"+stats[2]+"</li>"+
+						"<li>Μέσος χρόνος επίλυσης αναφορών:"+stats[3]+"</li>"+
+					"</ul>");
+				setTimeout(statistics, 5000);
+		}
+	});
+}

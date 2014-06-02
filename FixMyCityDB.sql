@@ -60,6 +60,19 @@ CREATE TABLE IF NOT EXISTS photos (
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS status (
+  status_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  status ENUM('solved', 'unsolved') NOT NULL DEFAULT 'unsolved',
+  comment VARCHAR (40),
+  admin_id INT,
+  update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  report_id INT NOT NULL,
+  FOREIGN KEY (admin_id) REFERENCES users(user_id) ON UPDATE CASCADE,
+  FOREIGN KEY (report_id) REFERENCES reports(report_id)
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS categories (
   categ_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   category VARCHAR (40) NOT NULL
@@ -70,3 +83,4 @@ INSERT INTO categories (category) VALUES ('Ηλεκτρικά');
 INSERT INTO categories (category) VALUES ('Υδραυλικά');
 INSERT INTO categories (category) VALUES ('Περιβαλλοντικά');
 
+UPDATE status SET status='solved' WHERE status_id = 1;

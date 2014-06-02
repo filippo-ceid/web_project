@@ -77,8 +77,7 @@ function map_initialize()
 	//Right Click to Drop a New Report
 	google.maps.event.addListener(map, 'rightclick', function(event) {
 		GetCategories(function (category) {
-			//document.write (category);
-			//Edit form to be displayed with new report
+			//Edit form to be displayed with new categories
 			var EditOpt = '';
 			var EditForm = '<p><div class="report-edit">'+
 			'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
@@ -96,8 +95,7 @@ function map_initialize()
 			'</form>'+
 			'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
 			EditForm = EditForm.concat(EditEnd);
-			//document.write (EditForm);
-			
+
 			//Drop a new Report with our Edit Form
 			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', true, true, true, "icons/pin_red.png");
 		});
