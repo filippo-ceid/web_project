@@ -1,9 +1,4 @@
-<?php
-	// Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
-	
+<?php	
 	$email_error = "";
 	$pass_error = "";
 	$fname_error = "";
@@ -31,7 +26,7 @@
 				$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
 			}
 			else {
-				$pass_error = ": Ο κωδικό επαλήθευσης δεν ταυτίζεται με τον κωδικό ασφαλείας!";
+				$pass_error = ": Ο κωδικός επαλήθευσης δεν ταυτίζεται με τον κωδικό ασφαλείας!";
 			}
 		} 
 		else {

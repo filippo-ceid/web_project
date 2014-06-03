@@ -1,10 +1,7 @@
 <?php
-	// Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
 	include 'header.html';
-	//require "new_report.php";
+	require "check_permissions.php";
+	check_simple_permissions($user_level);
 	$tab=2;
 	require  "menu.php";
 ?>   

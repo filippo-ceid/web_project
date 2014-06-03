@@ -1,10 +1,13 @@
 <?php
     include 'header.html';
+    if (isset($_SESSION ['user_id'])){
+		header('Location: index.php');
+		exit();
+	}
     require "new_reg_user.php";
     $tab=3;
 	require  "menu.php";
 ?>
-
     <div id="top_panel">
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>
@@ -12,12 +15,12 @@
 				<table>
 					<tr>
 					  <td>Διεύθυνση Email:</td>
-					  <td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>"/></td>
+					  <td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email'];?>"/></td>
 					  <td><div class="error_reg_field">*<?php echo $email_error ?></div></td>
 					</tr>
 					<tr>
 					  <td>Κωδικός Ασφαλείας:</td>
-					  <td><input type="password" name="password"/></td>
+					  <td><input type="password" name="password" value="<?php if (!isset($_POST['password'])) echo ""; ?>" autocomplete="off"/></td>
 					  <td><div class="error_reg_field">*<?php echo $pass_error ?></div></td>
 					</tr>
 					<tr>

@@ -1,3 +1,8 @@
+<?php 
+	if (!isset($user_level)){
+		exit();
+	}
+?>
 <div id="menu">
 	<ul>
 		<li>
@@ -39,21 +44,21 @@
 			?>
 		</li>
 		<li>
-			<?php 
+			<?php
 				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==3) {
-						echo '<a href="users.php" class="current">Λογαριασμοί Χρηστών</a>';
+						echo '<a href="manage_accounts.php" class="current">Διαχείριση Λογαριασμών</a>';
 					}
 					else {
-						echo '<a href="users.php">Λογαριασμοί Χρηστών</a>';
+						echo '<a href="manage_accounts.php">Διαχείριση Λογαριασμών</a>';
 					}
 				}
 				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
 					if ($tab==3) {
-						echo '<a href="account.php" class="current">Διαχείριση Λογαριασμού</a>';
+						echo '<a href="my_account.php" class="current">Διαχείριση Λογαριασμού</a>';
 					}
 					else {
-						echo '<a href="account.php">Διαχείριση Λογαριασμού</a>';
+						echo '<a href="my_account.php">Διαχείριση Λογαριασμού</a>';
 					}
 				}
 				else {
@@ -67,29 +72,9 @@
 			?>
 		</li>
 		<li>
-			<?php
-				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
-					if ($tab==4) {
-						echo '<a href="db_manage.php" class="current">Διαχείριση Βάσης</a>';
-					}
-					else {
-						echo '<a href="db_manage.php">Διαχείριση Βάσης</a>';
-					}
-				}
-				else {
-					if ($tab==4) {
-						echo '<a href="contact.php" class="current">Επικοινωνία</a>';
-					}
-					else {
-						echo '<a href="contact.php">Επικοινωνία</a>';
-					}
-				}
-			?>
-		</li>
-		<li>
 			<?php 
-				if (isset($_SESSION['email'])) {
-					if ($tab==5) {
+				if (isset($_SESSION['user_level']) || ($_SESSION['user_level'] == "admin")) {
+					if ($tab==4) {
 						echo '<a href="logout.php" class="current">Έξοδος</a>';
 					}
 					else {

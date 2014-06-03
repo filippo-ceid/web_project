@@ -1,5 +1,9 @@
 <?php
 	include 'header.html';
+	if (isset($_SESSION ['user_id'])){
+		header('Location: index.php');
+		exit();
+	}
     require "checklogin.php";
     $tab=2;
 	require  "menu.php";

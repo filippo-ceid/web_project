@@ -1,5 +1,15 @@
 <?php
 
+// Start output buffering:
+ob_start();
+// Initialize a session:
+session_start();
+
+if (!isset($_SESSION ['user_id'])){
+	header('Location: index.php');
+	exit();
+}
+
 require "db_config.php";
 
 ################ Continue generating Map XML #################

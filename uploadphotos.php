@@ -1,11 +1,9 @@
 <?php
-    // Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
 	include 'header.html';
 	$tab=2;
 	require  "menu.php";
+	require "check_permissions.php";
+	check_simple_permissions($user_level);
 ?>   
     <div id="top_panel">
 		<?php require "processupload.php";?>

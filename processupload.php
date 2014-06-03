@@ -1,4 +1,16 @@
 <?php
+// Start output buffering:
+ob_start();
+// Initialize a session:
+session_start();
+
+if (isset($_SESSION ['user_id'])){
+		$user_id = $_SESSION ['user_id'];
+}
+else{
+	exit();
+}
+
 if(isset($_POST['submit']))
 {	
     $Destination = 'uploads';
@@ -6,7 +18,6 @@ if(isset($_POST['submit']))
     $k = 0;
     
     require "db_config.php";
-	$user_id = $_SESSION ['user_id'];
     $query = sprintf("SELECT report_id FROM reports WHERE user_id=$user_id ORDER BY report_id DESC LIMIT 1;");
 	$result = mysqli_query($dbhandle,$query);
 	$row = mysqli_fetch_assoc($result);

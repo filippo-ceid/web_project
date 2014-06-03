@@ -1,13 +1,17 @@
 <?php
-
 // Start output buffering:
 ob_start();
 // Initialize a session:
 session_start();
 
-require "db_config.php";
+if (isset($_SESSION ['user_id'])){
+		$user_id = $_SESSION ['user_id'];
+}
+else{
+	exit();
+}
 
-$user_id = $_SESSION ['user_id'];
+require "db_config.php";
 
 ################ Save & delete markers #################
 if($_POST) //run only if there's a post data

@@ -288,6 +288,23 @@ img {
 	font-weight: bold;
 }
 
+.rss_button {
+	padding-top: 50px;
+}
+
+.rss_button a{
+	float: right;
+	text-align: center;
+	display: block;
+	width: 50px;
+	height: 50px;
+	padding: 5px 0 0 0;
+	background: url(images/rss_icon.png) no-repeat;
+	background-size: 100% 100%;
+	font-weight: bold;
+	text-decoration: none;
+}
+
 .section_button {
 	padding-top:10px;
 }

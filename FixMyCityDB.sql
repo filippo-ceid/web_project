@@ -22,6 +22,7 @@ INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALU
 ('admin@fixmycity.gr', '1', 'admin', 'Administrator', '', '11880');
 
 UPDATE users SET user_level='admin' WHERE user_id = <number>;
+UPDATE users SET email='ddfs@dfd.gr', firstname='Ηαα', lastname='Pdd', phone='1234567890'  WHERE user_id = 2;
 
 SELECT * FROM users;
 DELETE FROM users WHERE user_id  = <number>;

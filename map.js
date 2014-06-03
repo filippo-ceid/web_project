@@ -1,70 +1,91 @@
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
-	
+var markers = [];
+
+$(function() {
+    drop_reports();
+});
+
 google.maps.event.addDomListener(window, 'load', map_initialize);
+
 
 //############### Google Map Initialize ##############
 function map_initialize()
 {
-	var googleMapOptions = 
-	{ 
-		center: mapCenter, // map center
-		zoom: 15, //zoom level, 0 = earth view to higher value
-		maxZoom: 20,
-		minZoom: 13,
-		zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL //zoom control size
-		},
-		scaleControl: true, // enable scale control
-		mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
-	};
-		
- 	map = new google.maps.Map(document.getElementById("map_canvas"), googleMapOptions);			
+		var googleMapOptions = 
+		{ 
+			center: mapCenter, // map center
+			zoom: 15, //zoom level, 0 = earth view to higher value
+			maxZoom: 20,
+			minZoom: 13,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL //zoom control size
+			},
+			scaleControl: true, // enable scale control
+			mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
+		};
 			
-	//Load Markers from the XML File, Check (map_process.php)
-	$.get("map_db.php", function (data) {
-		$(data).find("report").each(function () {
-			var category = $(this).attr('category');
-			var description = '<p>'+ $(this).attr('description') +'</p>';
-			var date = $(this).attr('datetime');
-			var user = $(this).attr('user');
-			var firstname = $(this).attr('firstname');
-			var lastname = $(this).attr('lastname');
-			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
-			if (firstname != "" && firstname != ""){
-				var user = 'Απο το χρήστη: '+$(this).attr('firstname')+' '+$(this).attr('lastname');
-			}
-			else {
-				var user = "";
-			}
-			if(category == 'Οδικά'){
-				create_report(point, category, description, date, user, "icons/pin_grey.png");
-			}
-			else if(category == 'Ηλεκτρικά'){
-				create_report(point, category, description, date, user, "icons/pin_yellow.png");
-			}
-			else if(category == 'Υδραυλικά'){
-				create_report(point, category, description, date, user, "icons/pin_blue.png");
-			}
-			else if(category == 'Περιβαλλοντικά'){
-				create_report(point, category, description, date, user, "icons/pin_green.png");
-			}
-			else {
-				create_report(point, category, description, date, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
-			}
-		});
-	});							
+		map = new google.maps.Map(document.getElementById("map_canvas"), googleMapOptions);
+		
+		drop_reports();
 }
-	
+
+
+function drop_reports()
+{
+		removeMarkers();
+		//Load Markers from the XML File, Check (map_process.php)
+		$.ajax({
+			url: "map_db.php",
+			data: "",
+			success:function(data){
+			$(data).find("report").each(function () {
+				var category = $(this).attr('category');
+				var description = '<p>'+ $(this).attr('description') +'</p>';
+				var date = $(this).attr('datetime');
+				var user = $(this).attr('user');
+				var firstname = $(this).attr('firstname');
+				var lastname = $(this).attr('lastname');
+				var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+				if (firstname != "" && firstname != ""){
+					var user = 'Απο το χρήστη: '+$(this).attr('firstname')+' '+$(this).attr('lastname');
+				}
+				else {
+					var user = "";
+				}
+				if(category == 'Οδικά'){
+					create_report(point, category, description, date, user, "icons/pin_grey.png");
+				}
+				else if(category == 'Ηλεκτρικά'){
+					create_report(point, category, description, date, user, "icons/pin_yellow.png");
+				}
+				else if(category == 'Υδραυλικά'){
+					create_report(point, category, description, date, user, "icons/pin_blue.png");
+				}
+				else if(category == 'Περιβαλλοντικά'){
+					create_report(point, category, description, date, user, "icons/pin_green.png");
+				}
+				else {
+					create_report(point, category, description, date, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+				}
+			});
+			setTimeout(drop_reports, 60000);
+		}
+	});
+					
+}
+
 //############### Create Report Function ##############
 function create_report(MapPos, MapTitle, MapDesc, MapDate, MapUser, iconPath)
-{	  	  		  	
+{	
 	//marker
 	var marker = new google.maps.Marker({
 		position: MapPos,
 		map: map,
+		draggable:true,
 		icon: iconPath
 	});
+	markers.push(marker);
 		
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
@@ -84,3 +105,10 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapUser, iconPath)
 	});
 }
 
+function removeMarkers()
+{
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+    markers.length=0;
+}

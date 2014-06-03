@@ -1,9 +1,4 @@
 <?php
-	// Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
-	
 	include 'header.html';
 	$tab=1;
 	require  "menu.php";
@@ -51,6 +46,7 @@
 					</div>
 				</tr>
 				<tr><div class="section_button"><a href="#">Περισσότερες</a></div></tr>
+				<tr><div class="rss_button"><a href="http://localhost/Web/web_project/rss.php" target="_blank"></a></div></tr>
 			</table>
         </div>
         <div class="separator"></div>

@@ -7,6 +7,17 @@
 	<meta name="description" content="Login page of FixMyCity.gr for users and administrators." />
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
+<?php
+	$user_level = "visitor";
+	// Start output buffering:
+	ob_start();
+	// Initialize a session:
+	session_start();
+	if (isset($_SESSION ['user_level'])){
+		$user_level = $_SESSION ['user_level'];
+	}
+?>
+
 <body>
 <div id="container">
 	<div id="header_panel">

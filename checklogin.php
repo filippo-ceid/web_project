@@ -1,9 +1,4 @@
 <?php
-	// Start output buffering:
-	ob_start();
-	// Initialize a session:
-	session_start();
-	
 	$email_error_msg = "";
 	$pass_error_msg = "";
 
@@ -16,7 +11,7 @@
 			if (!empty($_POST['password'])) {
 				
 				$email = mysqli_real_escape_string($dbhandle,$_POST['email']);
-				$query = "SELECT user_id, email, password, user_level
+				$query = "SELECT user_id, email, password, user_level, firstname, lastname, phone
 				FROM users
 				WHERE email = '$email';";
 
