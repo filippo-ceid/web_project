@@ -10,12 +10,17 @@
     <div id="top_panel">
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>
-            <form action="db_manage.php" method="POST">
+            <form action="manage_accounts.php" method="POST">
 				<table>
 					<tr>
 					  <td>Αναζήτηση Χρήστη:</td>
 					  <td><input type="text" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user']; else echo $userData['user'];?>"/></td>
 					  <td><input type="submit" name="search" value="Search"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
+					</tr>
+					<tr>
+					  <td>Κωδικός Διαχειριστή:</td>
+					  <td><input type="password" name="password" autocomplete="off"/></td>
+					  <td><div class="error_reg_field">*<?php echo $pass_error ?></div></td>
 					</tr>
 					<tr>
 					  <td>Διεύθυνση Email:</td>

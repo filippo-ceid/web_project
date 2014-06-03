@@ -68,9 +68,8 @@ CREATE TABLE IF NOT EXISTS status (
   admin_id INT,
   update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   report_id INT NOT NULL,
-  FOREIGN KEY (admin_id) REFERENCES users(user_id) ON UPDATE CASCADE,
+  FOREIGN KEY (admin_id) REFERENCES users(user_id),
   FOREIGN KEY (report_id) REFERENCES reports(report_id)
-  ON UPDATE CASCADE
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
 

@@ -21,6 +21,11 @@ if (isset($_POST['update'])) { // Handle the form.
 		$new_email_error = ": Μη έγκυρη διεύθυνση email!";
 	}
 	
+	$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
+	if ($password != $_SESSION['password']) {
+		$pass_error = ": Λανθασμένος κωδικός ασφαλείας!";
+	}
+	
 	if ($_POST['new_password'] != ""){ 
 		if (preg_match('/^[\s\S]{4,128}$/', $_POST['new_password'])) {
 			if ($_POST['new_password'] == $_POST['conf_new_password']) {
