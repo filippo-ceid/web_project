@@ -19,26 +19,26 @@
 			<?php 
 				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==2) {
-						echo '<a href="reports.php" class="current">Αναφορές</a>';
+						echo '<a href="reports_page.php" class="current">Αναφορές</a>';
 					}
 					else {
-						echo '<a href="reports.php">Αναφορές</a>';
+						echo '<a href="reports_page.php">Αναφορές</a>';
 					}
 				}
 				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
 					if ($tab==2) {
-						echo '<a href="my_reports.php" class="current">Οι Αναφορές Μου</a>';
+						echo '<a href="my_reports_page.php" class="current">Οι Αναφορές Μου</a>';
 					}
 					else {
-						echo '<a href="my_reports.php">Οι Αναφορές Μου</a>';
+						echo '<a href="my_reports_page.php">Οι Αναφορές Μου</a>';
 					}
 				}
 				else {
 					if ($tab==2) {
-						echo '<a href="login.php" class="current">Είσοδος</a>';
+						echo '<a href="login_page.php" class="current">Είσοδος</a>';
 					}
 					else {
-						echo '<a href="login.php">Είσοδος</a>';
+						echo '<a href="login_page.php">Είσοδος</a>';
 					}
 				}
 			?>
@@ -47,26 +47,26 @@
 			<?php
 				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
 					if ($tab==3) {
-						echo '<a href="manage_accounts.php" class="current">Διαχείριση Λογαριασμών</a>';
+						echo '<a href="accounts_page.php" class="current">Διαχείριση Λογαριασμών</a>';
 					}
 					else {
-						echo '<a href="manage_accounts.php">Διαχείριση Λογαριασμών</a>';
+						echo '<a href="accounts_page.php">Διαχείριση Λογαριασμών</a>';
 					}
 				}
 				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
 					if ($tab==3) {
-						echo '<a href="my_account.php" class="current">Διαχείριση Λογαριασμού</a>';
+						echo '<a href="my_account_page.php" class="current">Διαχείριση Λογαριασμού</a>';
 					}
 					else {
-						echo '<a href="my_account.php">Διαχείριση Λογαριασμού</a>';
+						echo '<a href="my_account_page.php">Διαχείριση Λογαριασμού</a>';
 					}
 				}
 				else {
 					if ($tab==3) {
-						echo '<a href="registration.php" class="current">Εγγραφή</a>';
+						echo '<a href="registration_page.php" class="current">Εγγραφή</a>';
 					}
 					else {
-						echo '<a href="registration.php">Εγγραφή</a>';
+						echo '<a href="registration_page.php">Εγγραφή</a>';
 					}
 				}
 			?>

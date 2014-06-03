@@ -13,7 +13,7 @@ else{
 
 if(isset($_POST['submit']))
 {	
-    $Destination = 'uploads';
+    $destination = 'uploads';
     $images = array('ImageFile1','ImageFile2','ImageFile3','ImageFile4');
     $k = 0;
     
@@ -38,12 +38,16 @@ if(isset($_POST['submit']))
 		for ($i = 0; $i <= 3; $i++) {
 			$img = $images[$i];
 			$ImageType = $_FILES[$img]['type']; //"image/png", image/jpeg etc.
-			$ImageExt = substr($ImageType,6);
-			$ImageName = "image_".$report_id."_(".$i.").".$ImageExt;
-			move_uploaded_file($_FILES[$img]['tmp_name'], "$Destination/$ImageName");
-			//echo '<tr>';
-			//echo '<td align="center"><img src="uploads/'.$ImageName.'"></td>';
-			//echo '</tr>';
+			if ($ImageType != ""){
+				$ImageExt = substr($ImageType,6);
+				$ImageName = "image_".$report_id."_(".$i.").".$ImageExt;
+				move_uploaded_file($_FILES[$img]['tmp_name'], "$destination/$ImageName");
+				$query = "INSERT INTO photos (photo_name, report_id) VALUES ('$ImageName', '$report_id');";
+				$result = mysqli_query($dbhandle,$query);
+				//echo '<tr>';
+				//echo '<td align="center"><img src="uploads/'.$ImageName.'"></td>';
+				//echo '</tr>';
+			}
 		}
 		//echo '</table>';
 		ob_end_clean(); // Delete the buffer.

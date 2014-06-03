@@ -40,6 +40,9 @@ function drop_reports()
 			data: "",
 			success:function(data){
 			$(data).find("report").each(function () {
+				var photos = [];
+				var photostr = "photo_name_";
+				var album = "uploads/"
 				var category = $(this).attr('category');
 				var description = '<p>'+ $(this).attr('description') +'</p>';
 				var date = $(this).attr('datetime');
@@ -47,6 +50,13 @@ function drop_reports()
 				var firstname = $(this).attr('firstname');
 				var lastname = $(this).attr('lastname');
 				var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+				var num_of_photos = $(this).attr('num_of_photos');
+				for (var i=0; i<num_of_photos; i++){
+					photo_name_str = photostr.concat(i);
+					photo_name = album.concat($(this).attr(photo_name_str));
+					photos.push(photo_name);
+				}
+				
 				if (firstname != "" && firstname != ""){
 					var user = 'Απο το χρήστη: '+$(this).attr('firstname')+' '+$(this).attr('lastname');
 				}
@@ -54,19 +64,19 @@ function drop_reports()
 					var user = "";
 				}
 				if(category == 'Οδικά'){
-					create_report(point, category, description, date, user, "icons/pin_grey.png");
+					create_report(point, category, description, date, photos, user, "icons/pin_grey.png");
 				}
 				else if(category == 'Ηλεκτρικά'){
-					create_report(point, category, description, date, user, "icons/pin_yellow.png");
+					create_report(point, category, description, date, photos, user, "icons/pin_yellow.png");
 				}
 				else if(category == 'Υδραυλικά'){
-					create_report(point, category, description, date, user, "icons/pin_blue.png");
+					create_report(point, category, description, date, photos, user, "icons/pin_blue.png");
 				}
 				else if(category == 'Περιβαλλοντικά'){
-					create_report(point, category, description, date, user, "icons/pin_green.png");
+					create_report(point, category, description, date, photos, user, "icons/pin_green.png");
 				}
 				else {
-					create_report(point, category, description, date, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+					create_report(point, category, description, date, photos, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
 				}
 			});
 			setTimeout(drop_reports, 60000);
@@ -76,23 +86,30 @@ function drop_reports()
 }
 
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapDate, MapUser, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, iconPath)
 {	
 	//marker
 	var marker = new google.maps.Marker({
 		position: MapPos,
 		map: map,
-		draggable:true,
 		icon: iconPath
 	});
 	markers.push(marker);
-		
+	
+	var photos = ['', '', '', '']; 
+	
+	for (var j=0;j<MapPhotos.length;j++){
+		Img = '<img src="';
+		Img = Img.concat(MapPhotos[j]);
+		photos[j] = Img.concat('">');
+	}
+	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<div class="report-inner-win"><span class="info-content">'+
 	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
 	MapDesc+MapUser+
-	'</div></div>');	
+	'</span><br>'+photos[0]+photos[1]+photos[2]+photos[3]+'</div></div>');
 	
 	//Create an infoWindow
 	var infowindow = new google.maps.InfoWindow();

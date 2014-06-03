@@ -4,7 +4,7 @@ require "db_config.php";
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id ORDER BY report_id DESC LIMIT 20;");
+$query = sprintf("SELECT report_id, category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id ORDER BY report_id DESC LIMIT 20;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -23,15 +23,24 @@ $parnode = $dom->appendChild($node); //make the node show up
 
 // Iterate through the rows, adding XML nodes for each
 while ($row = mysqli_fetch_assoc($result)){
-	  $node = $dom->createElement("report");
-	  $newnode = $parnode->appendChild($node);
-	  $newnode->setAttribute("category", $row['category']);
-	  $newnode->setAttribute("description", $row['description']);
-	  $newnode->setAttribute("datetime", $row['datetime']);
-	  $newnode->setAttribute("lat", $row['lat']);
-	  $newnode->setAttribute("lng", $row['lng']);
-	  $newnode->setAttribute("firstname", $row['firstname']);
-	  $newnode->setAttribute("lastname", $row['lastname']);
+	$node = $dom->createElement("report");
+	$newnode = $parnode->appendChild($node);
+	$newnode->setAttribute("category", $row['category']);
+	$newnode->setAttribute("description", $row['description']);
+	$newnode->setAttribute("datetime", $row['datetime']);
+	$newnode->setAttribute("lat", $row['lat']);
+	$newnode->setAttribute("lng", $row['lng']);
+	$newnode->setAttribute("firstname", $row['firstname']);
+	$newnode->setAttribute("lastname", $row['lastname']);
+	$report_id = $row['report_id'];
+	$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
+	$photos_result = mysqli_query($dbhandle,$query);
+	$i = 0;
+	while ($photos_row = mysqli_fetch_assoc($photos_result)){
+		$newnode->setAttribute("photo_name_".$i, $photos_row['photo_name']);
+		$i = $i + 1;
+	}
+	$newnode->setAttribute("num_of_photos", $i);
 }
 
 echo $dom->saveXML();

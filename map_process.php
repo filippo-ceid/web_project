@@ -7,15 +7,17 @@ session_start();
 if (isset($_SESSION ['user_id'])){
 		$user_id = $_SESSION ['user_id'];
 }
+/*
 else{
 	exit();
 }
-
+*/
 require "db_config.php";
 
 ################ Save & delete markers #################
 if($_POST) //run only if there's a post data
 {
+	$source = 'uploads';
 	//make sure request is comming from Ajax
 	$xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'; 
 	if (!$xhr){ 
@@ -31,6 +33,17 @@ if($_POST) //run only if there's a post data
 	//Delete Report
 	if(isset($_POST["del"]) && $_POST["del"]==true)
 	{
+		$query = sprintf("SELECT report_id FROM reports WHERE user_id=$user_id AND lat=$mLat AND lng=$mLng;");
+		$result = mysqli_query($dbhandle,$query);
+		$row = mysqli_fetch_assoc($result);
+		$report_id = $row['report_id'];
+		
+		$query = sprintf("SELECT photo_name FROM photos WHERE report_id=$report_id;");
+		$result = mysqli_query($dbhandle,$query);
+		while ($row = mysqli_fetch_assoc($result)){
+			$photo_name = $source."/".$row['photo_name'];
+			unlink($photo_name);
+		}
 		$query = "DELETE FROM reports WHERE user_id=$user_id AND lat=$mLat AND lng=$mLng;"; //+user_id
 		$result = mysqli_query($dbhandle,$query);
 	}
@@ -40,7 +53,7 @@ if($_POST) //run only if there's a post data
 		$mDesc 	= filter_var($_POST["description"], FILTER_SANITIZE_STRING);
 		
 		//$user_id = $_SESSION ['user_id'];
-		$query = "INSERT INTO reports (category, description, lat, lng, locked, user_id) VALUES ('$mCateg', '$mDesc', '$mLat', '$mLng', 'false', '$user_id');"; //+user_id
+		$query = "INSERT INTO reports (category, description, lat, lng, user_id) VALUES ('$mCateg', '$mDesc', '$mLat', '$mLng', '$user_id');"; //+user_id
 		$result = mysqli_query($dbhandle,$query);
 		
 		$query = sprintf("SELECT report_id FROM reports ORDER BY report_id DESC LIMIT 1;");
@@ -60,7 +73,7 @@ if($_POST) //run only if there's a post data
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT category, description, datetime, lat, lng FROM reports WHERE user_id=$user_id;");
+$query = sprintf("SELECT report_id, category, description, datetime, lat, lng FROM reports WHERE user_id=$user_id;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -79,13 +92,22 @@ $parnode = $dom->appendChild($node); //make the node show up
 
 // Iterate through the rows, adding XML nodes for each
 while ($row = mysqli_fetch_assoc($result)){
-	  $node = $dom->createElement("report");
-	  $newnode = $parnode->appendChild($node);
-	  $newnode->setAttribute("category", $row['category']);
-	  $newnode->setAttribute("description", $row['description']);
-	  $newnode->setAttribute("datetime", $row['datetime']);
-	  $newnode->setAttribute("lat", $row['lat']);
-	  $newnode->setAttribute("lng", $row['lng']);
+	$node = $dom->createElement("report");
+	$newnode = $parnode->appendChild($node);
+	$newnode->setAttribute("category", $row['category']);
+	$newnode->setAttribute("description", $row['description']);
+	$newnode->setAttribute("datetime", $row['datetime']);
+	$newnode->setAttribute("lat", $row['lat']);
+	$newnode->setAttribute("lng", $row['lng']);
+	$report_id = $row['report_id'];
+	$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
+	$photos_result = mysqli_query($dbhandle,$query);
+	$i = 0;
+	while ($photos_row = mysqli_fetch_assoc($photos_result)){
+		$newnode->setAttribute("photo_name_".$i, $photos_row['photo_name']);
+		$i = $i + 1;
+	}
+	$newnode->setAttribute("num_of_photos", $i);
 }
 
 echo $dom->saveXML();

@@ -7,6 +7,7 @@ google.maps.event.addDomListener(window, 'load', map_initialize);
 //############### Google Map Initialize ##############
 function map_initialize()
 {
+	var category = [];
 	var googleMapOptions = 
 	{ 
 		center: mapCenter, // map center
@@ -27,8 +28,30 @@ function map_initialize()
 		navigator.geolocation.getCurrentPosition(function(position) {
 			initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			map.setCenter(initialLocation);
+			GetCategories(function (category) {
+				var EditOpt = '';
+				var EditForm = '<p><div class="report-edit">'+
+				'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
+				'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
+				for (var j=0;j<category.length;j++){
+					EditOpt = '<option value="';
+					EditOpt = EditOpt.concat(category[j]);
+					EditOpt = EditOpt.concat('">');
+					EditOpt = EditOpt.concat(category[j]);
+					EditOpt = EditOpt.concat('</option>');
+					EditForm = EditForm.concat(EditOpt);
+				}
+				var EditEnd = '</select></label>'+
+				'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
+				'</form>'+
+				'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
+				EditForm = EditForm.concat(EditEnd);
+
+				//Drop a new Report with our Edit Form
+				create_report(initialLocation, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
+			});
 		}, function() {
-		  handleNoGeolocation(browserSupportFlag);
+			handleNoGeolocation(browserSupportFlag);
 		});
 	}
 	// Browser doesn't support Geolocation
@@ -52,28 +75,37 @@ function map_initialize()
 	//Load Markers from the XML File, Check (map_process.php)
 	$.get("map_process.php", function (data) {
 		$(data).find("report").each(function () {
+			var photos = [];
+			var photostr = "photo_name_";
+			var album = "uploads/"
 			var category = $(this).attr('category');
 			var description = '<p>'+ $(this).attr('description') +'</p>';
 			var date = $(this).attr('datetime');
 			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
+			var num_of_photos = $(this).attr('num_of_photos');
+			for (var i=0; i<num_of_photos; i++){
+				photo_name_str = photostr.concat(i);
+				photo_name = album.concat($(this).attr(photo_name_str));
+				photos.push(photo_name);
+			}
+
 			if(category == 'Οδικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_grey.png");
+				create_report(point, category, description, date, photos, false, false, false, "icons/pin_grey.png");
 			}
 			else if(category == 'Ηλεκτρικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_yellow.png");
+				create_report(point, category, description, date, photos, false, false, false, "icons/pin_yellow.png");
 			}
 			else if(category == 'Υδραυλικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_blue.png");
+				create_report(point, category, description, date, photos, false, false, false, "icons/pin_blue.png");
 			}
 			else if(category == 'Περιβαλλοντικά'){
-				create_report(point, category, description, date, false, false, false, "icons/pin_green.png");
+				create_report(point, category, description, date, photos, false, false, false, "icons/pin_green.png");
 			}
 			else {
-				create_report(point, category, description, date, false, false, false, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+				create_report(point, category, description, date, photos, false, false, false, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
 			}
 		});
 	});	
-	var category = [];
 	//Right Click to Drop a New Report
 	google.maps.event.addListener(map, 'rightclick', function(event) {
 		GetCategories(function (category) {
@@ -97,7 +129,7 @@ function map_initialize()
 			EditForm = EditForm.concat(EditEnd);
 
 			//Drop a new Report with our Edit Form
-			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', true, true, true, "icons/pin_red.png");
+			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
 		});
 	});
 										
@@ -118,7 +150,7 @@ function GetCategories(callback) {
 
 	
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapDate, InfoOpenDefault, DragAble, Removable, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDefault, DragAble, Removable, iconPath)
 {	  	  		  	
 	//marker
 	var marker = new google.maps.Marker({
@@ -128,14 +160,23 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, InfoOpenDefault, Drag
 		animation: google.maps.Animation.DROP,
 		icon: iconPath
 	});
-		
+	
+	var photos = ['', '', '', '']; 
+	
+	for (var j=0;j<MapPhotos.length;j++){
+		Img = '<img src="';
+		Img = Img.concat(MapPhotos[j]);
+		photos[j] = Img.concat('">');
+	}
+	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<div class="report-inner-win"><span class="info-content">'+
 	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
-	MapDesc+ 
-	'</span><button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button>'+
-	'</div></div>');	
+	MapDesc+
+	'</span>'+photos[0]+photos[1]+photos[2]+photos[3]+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button>'+
+	'</div></div>');
+	
 	
 	//Create an infoWindow
 	var infowindow = new google.maps.InfoWindow();

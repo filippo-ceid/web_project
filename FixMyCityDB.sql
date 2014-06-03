@@ -38,7 +38,6 @@ CREATE TABLE IF NOT EXISTS reports (
   datetime TIMESTAMP,
   lat FLOAT( 10, 6 ) NOT NULL,
   lng FLOAT( 10, 6 ) NOT NULL,
-  locked ENUM('false', 'true') NOT NULL DEFAULT 'false',
   user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(user_id)
   ON UPDATE CASCADE
