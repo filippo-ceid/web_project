@@ -7,11 +7,10 @@ session_start();
 if (isset($_SESSION ['user_id'])){
 		$user_id = $_SESSION ['user_id'];
 }
-/*
 else{
 	exit();
 }
-*/
+
 require "db_config.php";
 
 ################ Save & delete markers #################
@@ -73,6 +72,11 @@ if($_POST) //run only if there's a post data
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
+$query = sprintf("SELECT COUNT(*) FROM reports WHERE user_id=$user_id;");
+$result = mysqli_query($dbhandle,$query);
+$count_row = mysqli_fetch_assoc($result);
+$counts = $count_row['COUNT(*)'];
+
 $query = sprintf("SELECT report_id, category, description, datetime, lat, lng FROM reports WHERE user_id=$user_id;");
 $result = mysqli_query($dbhandle,$query);
 
@@ -108,6 +112,18 @@ while ($row = mysqli_fetch_assoc($result)){
 		$i = $i + 1;
 	}
 	$newnode->setAttribute("num_of_photos", $i);
+	$newnode->setAttribute("num_of_reports", $counts);
+	$category = $row['category'];
+	$query = sprintf("SELECT pin_icon FROM categories WHERE category='$category';");
+	$icon_result = mysqli_query($dbhandle,$query);
+	$icon_row = mysqli_fetch_assoc($icon_result);
+	$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
+}
+
+if ($counts = 0) {
+	$node = $dom->createElement("report");
+	$newnode = $parnode->appendChild($node);
+	$newnode->setAttribute("num_of_reports", $counts);
 }
 
 echo $dom->saveXML();

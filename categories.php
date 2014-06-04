@@ -14,7 +14,7 @@ require "db_config.php";
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT category FROM categories;");
+$query = sprintf("SELECT category, pin_icon FROM categories;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -36,6 +36,7 @@ while ($row = mysqli_fetch_assoc($result)){
 	  $node = $dom->createElement("category");
 	  $newnode = $parnode->appendChild($node);
 	  $newnode->setAttribute("category", $row['category']);
+	  $newnode->setAttribute("pin_icon", $row['pin_icon']);
 }
 
 echo $dom->saveXML();

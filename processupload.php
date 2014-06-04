@@ -51,7 +51,7 @@ if(isset($_POST['submit']))
 		}
 		//echo '</table>';
 		ob_end_clean(); // Delete the buffer.
-		header("Location: my_reports.php");
+		header("Location: my_reports_page.php");
 		exit(); // Quit the script.
 	}
 	else {

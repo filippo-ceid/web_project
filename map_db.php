@@ -41,6 +41,11 @@ while ($row = mysqli_fetch_assoc($result)){
 		$i = $i + 1;
 	}
 	$newnode->setAttribute("num_of_photos", $i);
+	$category = $row['category'];
+	$query = sprintf("SELECT pin_icon FROM categories WHERE category='$category';");
+	$icon_result = mysqli_query($dbhandle,$query);
+	$icon_row = mysqli_fetch_assoc($icon_result);
+	$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
 }
 
 echo $dom->saveXML();

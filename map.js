@@ -42,7 +42,9 @@ function drop_reports()
 			$(data).find("report").each(function () {
 				var photos = [];
 				var photostr = "photo_name_";
-				var album = "uploads/"
+				var pin_icon = "";
+				var album = "uploads/";
+				var pin_url = "icons/";
 				var category = $(this).attr('category');
 				var description = '<p>'+ $(this).attr('description') +'</p>';
 				var date = $(this).attr('datetime');
@@ -51,6 +53,9 @@ function drop_reports()
 				var lastname = $(this).attr('lastname');
 				var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 				var num_of_photos = $(this).attr('num_of_photos');
+				var pin_icon = $(this).attr('pin_icon');
+				pin_url = pin_url.concat(pin_icon);
+				pin_url = pin_url.concat(".png");
 				for (var i=0; i<num_of_photos; i++){
 					photo_name_str = photostr.concat(i);
 					photo_name = album.concat($(this).attr(photo_name_str));
@@ -63,20 +68,12 @@ function drop_reports()
 				else {
 					var user = "";
 				}
-				if(category == 'Οδικά'){
-					create_report(point, category, description, date, photos, user, "icons/pin_grey.png");
-				}
-				else if(category == 'Ηλεκτρικά'){
-					create_report(point, category, description, date, photos, user, "icons/pin_yellow.png");
-				}
-				else if(category == 'Υδραυλικά'){
-					create_report(point, category, description, date, photos, user, "icons/pin_blue.png");
-				}
-				else if(category == 'Περιβαλλοντικά'){
-					create_report(point, category, description, date, photos, user, "icons/pin_green.png");
+				
+				if(pin_icon != ""){
+					create_report(point, category, description, date, photos, user, pin_url);
 				}
 				else {
-					create_report(point, category, description, date, photos, user, "icons/pin_red.png"); // na ftiaksoume sta ellinika to category
+					create_report(point, category, description, date, photos, user, "icons/pin_red.png");
 				}
 			});
 			setTimeout(drop_reports, 60000);

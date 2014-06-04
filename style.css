@@ -223,15 +223,41 @@ img {
     background-color: #CCC;
 }
 
-.report_field .error_rep_field {
+#reports_map_canvas {
+    width: 700px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: #CCC;
+}
+
+#reports_list {
+	display: block;
+	overflow:auto;
+	width: 100px;
+	height: 200px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+	margin-left:100px;
+}
+
+#top_panel .category_field {
+	margin: 0 0 0 50px;	
+	font-size: 15px;
+	font-weight: bold;
+	color: #0066CC;	
+}
+
+.category_field .error_categ_field {
 	display: inline;
 	font-size: 12px;
 	font-weight: normal;
 	color: #ffffff;	
 }
 
-.report_field .sub_button {
-	margin-left: 225px;
+.category_field .categ_button {
+	/*margin-left: 250px;*/
+	text-align: center;
 }
 
 #old_reports {
@@ -243,7 +269,17 @@ img {
 	font-weight: normal;
 	color: #ffffff;	
 	margin-left:250px;
+}
 
+#list_reports {
+	display: block;
+	overflow:auto;
+	width: 200px;
+	height: 200px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+	margin-left:180px;
 }
 
 #top_panel .under_con_image img{

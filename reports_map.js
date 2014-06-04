@@ -20,7 +20,7 @@ function map_initialize()
 		scaleControl: true, // enable scale control
 		mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
 	};
-	map = new google.maps.Map(document.getElementById("new_report_map_canvas"), googleMapOptions);
+	map = new google.maps.Map(document.getElementById("reports_map_canvas"), googleMapOptions);
 
 	// Try W3C Geolocation (Preferred)
 	if(navigator.geolocation) {
@@ -191,7 +191,6 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 	{
 		//add click listner to save report button
 		google.maps.event.addDomListener(saveBtn, "click", function(event) {
-			var mReplace = contentString.find('span.info-content'); //html to be replaced after success
 			var mCateg = contentString.find('select.save-categ')[0].value; //category of report
 			var mDesc  = contentString.find('textarea.save-desc')[0].value; //description input field value		
 			if(mCateg =='default' && mDesc =='')
@@ -204,7 +203,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 			else if(mDesc ==''){
 				alert("Παρακαλώ εισάγετε περιγραφή!");	
 			}else{
-				save_report(marker, mCateg, mDesc, mReplace); //call save report function
+				save_report(marker, mCateg, mDesc); //call save report function
 				//infowindow.close(map,marker);
 			}
 		});
@@ -250,12 +249,11 @@ function remove_report(Marker)
 }
 	
 //############### Save Report Function ##############
-function save_report(Marker, mCateg, mDesc, replaceWin)
+function save_report(Marker, mCateg, mDesc)
 {
 	//Save new report using jQuery Ajax
 	var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
-	var myData = {save : 'true', category : mCateg, description : mDesc, latlang : mLatLang}; //post variables
-	console.log(replaceWin);		
+	var myData = {save : 'true', category : mCateg, description : mDesc, latlang : mLatLang}; //post variables	
 	$.ajax({
 		type: "POST",
 		url: "map_process.php",

@@ -81,6 +81,9 @@
 						echo '<a href="logout.php">Έξοδος</a>';
 					}
 				}
+				else {
+						echo "";
+				}
 			?>
 		</li>
 	</ul>  
