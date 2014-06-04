@@ -74,7 +74,7 @@
 					mysqli_free_result($result);
 					mysqli_close($dbhandle);
 					ob_end_clean(); // Delete the buffer.
-					header('Location: login.php');
+					header('Location: login_page.php');
 					exit(); // Quit the script.
 				} 
 				else { // If it did not run OK.

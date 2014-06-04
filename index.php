@@ -46,7 +46,7 @@
 					</div>
 				</tr>
 				<tr><div class="section_button"><a href="#">Περισσότερες</a></div></tr>
-				<tr><div class="rss_button"><a href="http://localhost/Web/web_project/rss.php" target="_blank"></a></div></tr>
+				<tr><div class="rss_button"><a href="rss.php" target="_blank"></a></div></tr>
 			</table>
         </div>
         <div class="separator"></div>
