@@ -18,11 +18,16 @@ function my_reports_list()
 				count= $(this).attr('num_of_reports');	
 				if (count > 0 ) {
 					var category = $(this).attr('category');
-					htmlList = htmlList.concat("<ul>"+"<li>Κατηγορία: "+category);
+					htmlList = htmlList.concat("<ul>"+"<li><p>Κατηγορία: "+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
-					htmlList = htmlList.concat("Περιγραφή: "+description);
+					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
+					var status = $(this).attr('report_status');
+					htmlList = htmlList.concat("<p>status: "+status+'</p>');
+					var comment = $(this).attr('report_comment');
+					if (comment == false ) comment = "Κανένα σχόλιο";
+					htmlList = htmlList.concat("<p>Σχόλια: "+comment+'</p>');
 					var date = $(this).attr('datetime');
-					htmlList = htmlList.concat(" Ημερομηνία: "+date+"</li>"+"</ul>");
+					htmlList = htmlList.concat("<p>Ημερομηνία: "+date+"</p></li>"+"</ul>");
 				}
 			});
 			var htmlReportsNum = "Οι συνολικές αναφορές σας στο σύστημα ειναι: "+count;

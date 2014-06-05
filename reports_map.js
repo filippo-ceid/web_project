@@ -22,58 +22,8 @@ function map_initialize()
 	};
 	map = new google.maps.Map(document.getElementById("reports_map_canvas"), googleMapOptions);
 
-	// Try W3C Geolocation (Preferred)
-	if(navigator.geolocation) {
-		browserSupportFlag = true;
-		navigator.geolocation.getCurrentPosition(function(position) {
-			initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-			map.setCenter(initialLocation);
-			GetCategories(function (category) {
-				var EditOpt = '';
-				var EditForm = '<p><div class="report-edit">'+
-				'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-				'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
-				for (var j=0;j<category.length;j++){
-					EditOpt = '<option value="';
-					EditOpt = EditOpt.concat(category[j]);
-					EditOpt = EditOpt.concat('">');
-					EditOpt = EditOpt.concat(category[j]);
-					EditOpt = EditOpt.concat('</option>');
-					EditForm = EditForm.concat(EditOpt);
-				}
-				var EditEnd = '</select></label>'+
-				'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
-				'</form>'+
-				'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
-				EditForm = EditForm.concat(EditEnd);
-
-				//Drop a new Report with our Edit Form
-				create_report(initialLocation, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
-			});
-		}, function() {
-			handleNoGeolocation(browserSupportFlag);
-		});
-	}
-	// Browser doesn't support Geolocation
-	else {
-		browserSupportFlag = false;
-		handleNoGeolocation(browserSupportFlag);
-	}
-	  
-	function handleNoGeolocation(errorFlag) {
-		if (errorFlag == true) {
-			alert("Geolocation service failed.");
-			initialLocation = mapCenter;
-		} else {
-			alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-			initialLocation = mapCenter;
-		}
-		map.setCenter(initialLocation);
-	}
-
-
 	//Load Markers from the XML File, Check (map_process.php)
-	$.get("map_process.php", function (data) {
+	$.get("map_process_admin.php", function (data) {
 		$(data).find("report").each(function () {
 			var photos = [];
 			var photostr = "photo_name_";
@@ -101,46 +51,7 @@ function map_initialize()
 			}
 		});
 	});	
-	//Right Click to Drop a New Report
-	google.maps.event.addListener(map, 'rightclick', function(event) {
-		GetCategories(function (category) {
-			//Edit form to be displayed with new categories
-			var EditOpt = '';
-			var EditForm = '<p><div class="report-edit">'+
-			'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-			'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
-			for (var j=0;j<category.length;j++){
-				EditOpt = '<option value="';
-				EditOpt = EditOpt.concat(category[j]);
-				EditOpt = EditOpt.concat('">');
-				EditOpt = EditOpt.concat(category[j]);
-				EditOpt = EditOpt.concat('</option>');
-				EditForm = EditForm.concat(EditOpt);
-			}
-			var EditEnd = '</select></label>'+
-			'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
-			'</form>'+
-			'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
-			EditForm = EditForm.concat(EditEnd);
-
-			//Drop a new Report with our Edit Form
-			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
-		});
-	});
 										
-}
-
-
-function GetCategories(callback) {
-	var category = [];
-	var i=0;
-	$.get("categories.php", function (data) {
-		$(data).find("category").each(function () {
-			category[i] = $(this).attr('category');
-			i = i+1;
-		});
-		callback(category);
-	});
 }
 
 	
@@ -159,19 +70,27 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 	var photos = ['', '', '', '']; 
 	
 	for (var j=0;j<MapPhotos.length;j++){
-		Img = '<img src="';
+		Img = '<a class="photo" href="';
 		Img = Img.concat(MapPhotos[j]);
-		photos[j] = Img.concat('">');
+		Img = Img.concat('" title="');
+		Img = Img.concat(MapDate);
+		Img = Img.concat('" onclick="image()"><img width=auto height="150" src="');
+		Img = Img.concat(MapPhotos[j]);
+		photos[j] = Img.concat('"></a>');
 	}
-	
+
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-	'<div class="report-inner-win"><span class="info-content">'+
-	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
-	MapDesc+
-	'</span>'+photos[0]+photos[1]+photos[2]+photos[3]+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button>'+
-	'</div></div>');
-	
+		'<div class="report-inner-win"><span class="info-content">'+
+		'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
+		MapDesc+'</span>'+photos[0]+photos[1]+photos[2]+photos[3]+
+		'<form action="ajax-save.php" method="POST" name="SaveStatus" id="SaveStatus">'+
+		'<label for="mStatus"><span>Κατάσταση: </span><select name="mStatus" class="save-status"><option value="default"></option>'+
+		'<option value="solved">Κλειστή</option><option value="unsolved">Ανοιχτή</option></select></label>'+
+		'<br><label for="pComm"><span>Σχόλιο: </span><br><textarea name="pComm" class="save-comm" placeholder="Εισάγετε Σχόλιο" maxlength="250" cols="40" rows="5"></textarea></label>'+
+		'</form></div></p>'+
+		'<button name="save-status" class="save-status">Αποθήκευση Κατάστασης</button><button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button>'+
+		'</div></div>');
 	
 	//Create an infoWindow
 	var infowindow = new google.maps.InfoWindow();
@@ -180,7 +99,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 
 	//Find remove button in infoWindow
 	var removeBtn 	= contentString.find('button.remove-report')[0];
-	var saveBtn 	= contentString.find('button.save-report')[0];
+	var saveBtn 	= contentString.find('button.save-status')[0];
 
 	//add click listner to remove report button
 	google.maps.event.addDomListener(removeBtn, "click", function(event) {
@@ -191,19 +110,14 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 	{
 		//add click listner to save report button
 		google.maps.event.addDomListener(saveBtn, "click", function(event) {
-			var mCateg = contentString.find('select.save-categ')[0].value; //category of report
-			var mDesc  = contentString.find('textarea.save-desc')[0].value; //description input field value		
-			if(mCateg =='default' && mDesc =='')
+			var mStatus = contentString.find('select.save-status')[0].value; //category of report
+			var mComm  = contentString.find('textarea.save-comm')[0].value; //description input field value		
+			if(mStatus =='default')
 			{
-				alert("Παρακαλώ εισάγετε κατηγορία και περιγραφή!");
+				alert("Παρακαλώ επιλέξτε κατάσταση!");
 			}
-			else if(mCateg =='default'){
-				alert("Παρακαλώ εισάγετε κατηγορία!");
-			}
-			else if(mDesc ==''){
-				alert("Παρακαλώ εισάγετε περιγραφή!");	
-			}else{
-				save_report(marker, mCateg, mDesc); //call save report function
+			else{
+				save_status(marker, mStatus, mComm);
 				//infowindow.close(map,marker);
 			}
 		});
@@ -236,7 +150,7 @@ function remove_report(Marker)
 		var myData = {del : 'true', latlang : mLatLang}; //post variables
 		$.ajax({
 			type: "POST",
-			url: "map_process.php",
+			url: "map_process_admin.php",
 			data: myData,
 			success:function(data){
 				Marker.setMap(null); 
@@ -249,14 +163,13 @@ function remove_report(Marker)
 }
 	
 //############### Save Report Function ##############
-function save_report(Marker, mCateg, mDesc)
+function save_status(Marker, mStatus, mComm)
 {
-	//Save new report using jQuery Ajax
 	var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
-	var myData = {save : 'true', category : mCateg, description : mDesc, latlang : mLatLang}; //post variables	
+	var myData = {save : 'true', status : mStatus, comment : mComm, latlang : mLatLang}; //post variables	
 	$.ajax({
 		type: "POST",
-		url: "map_process.php",
+		url: "map_process_admin.php",
 		data: myData,
 		success:function(data){
 		},
@@ -265,6 +178,6 @@ function save_report(Marker, mCateg, mDesc)
 		}
 	});
 	$(document).ajaxStop(function(){
-		window.location.assign("uploadphotos.php");
+		window.location.assign("reports_page.php");
 	});
 }

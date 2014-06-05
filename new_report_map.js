@@ -159,10 +159,15 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 	var photos = ['', '', '', '']; 
 	
 	for (var j=0;j<MapPhotos.length;j++){
-		Img = '<img src="';
+		Img = '<a class="photo" href="';
 		Img = Img.concat(MapPhotos[j]);
-		photos[j] = Img.concat('">');
+		Img = Img.concat('" title="');
+		Img = Img.concat(MapDate);
+		Img = Img.concat('" onclick="image()"><img width=auto height="150" src="');
+		Img = Img.concat(MapPhotos[j]);
+		photos[j] = Img.concat('"></a>');
 	}
+	
 	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+

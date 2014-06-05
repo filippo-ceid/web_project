@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users  (
 ) ENGINE=InnoDB;
 
 INSERT INTO users (email, password, user_level, firstname, lastname, phone) VALUES
-('admin@fixmycity.gr', '1', 'admin', 'Administrator', '', '11880');
+('admin@fixmycity.gr', '', 'admin', 'Administrator', '', '11880');
 
 UPDATE users SET user_level='admin' WHERE user_id = <number>;
 UPDATE users SET email='ddfs@dfd.gr', firstname='Ηαα', lastname='Pdd', phone='1234567890'  WHERE user_id = 2;
@@ -44,8 +44,8 @@ CREATE TABLE IF NOT EXISTS reports (
   ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO reports (category, description, lat, lng, locked, user_id) VALUES
-('road', 'lakouva', '38.371237', '21.431653', 'false', '2');
+INSERT INTO reports (category, description, lat, lng, user_id) VALUES
+('road', 'lakouva', '38.371237', '21.431653', '2');
 
 SELECT COUNT(*) FROM reports WHERE reports.user_id = <number>;
 SELECT * FROM users,reports WHERE users.user_id = <number>;
@@ -78,9 +78,6 @@ CREATE TABLE IF NOT EXISTS categories (
   pin_icon VARCHAR (10) NOT NULL
 ) ENGINE=InnoDB;
 
-INSERT INTO categories (category) VALUES ('Οδικά');
-INSERT INTO categories (category) VALUES ('Ηλεκτρικά');
-INSERT INTO categories (category) VALUES ('Υδραυλικά');
-INSERT INTO categories (category) VALUES ('Περιβαλλοντικά');
+INSERT INTO categories (category, pin_icon) VALUES ('Οδικά', 'pin_grey');
 
 UPDATE status SET status='solved' WHERE status_id = 1;

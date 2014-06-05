@@ -6,9 +6,16 @@
 	require  "menu.php";
 	require "categories_update.php";
 ?>  
+	<link rel="stylesheet" href="colorbox.css"/>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="reports_map.js"></script>
+	<script type="text/javascript" src="jquery.colorbox.js"></script>
+	<script>
+		function image(){
+				$(".photo").colorbox({rel:'photo'});
+		}
+	</script>
     <div id="top_panel">
 		<div class="reg_report"><?php echo $report ?></div><br>
 		<div class="report_field">

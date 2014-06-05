@@ -77,7 +77,8 @@ $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);
 $counts = $count_row['COUNT(*)'];
 
-$query = sprintf("SELECT report_id, category, description, datetime, lat, lng FROM reports WHERE user_id=$user_id;");
+
+$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng , status ,comment FROM reports,status WHERE status.report_id=reports.report_id;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -103,6 +104,8 @@ while ($row = mysqli_fetch_assoc($result)){
 	$newnode->setAttribute("datetime", $row['datetime']);
 	$newnode->setAttribute("lat", $row['lat']);
 	$newnode->setAttribute("lng", $row['lng']);
+	$newnode->setAttribute("report_status", $row['status']);
+	$newnode->setAttribute("report_comment", $row['comment']);
 	$report_id = $row['report_id'];
 	$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
 	$photos_result = mysqli_query($dbhandle,$query);
@@ -118,6 +121,7 @@ while ($row = mysqli_fetch_assoc($result)){
 	$icon_result = mysqli_query($dbhandle,$query);
 	$icon_row = mysqli_fetch_assoc($icon_result);
 	$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
+	
 }
 
 if ($counts = 0) {
