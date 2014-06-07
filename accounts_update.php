@@ -8,8 +8,11 @@ $new_lname_error = "";
 $new_phone_error = "";
 $report = "";
 
+
+require "db_config.php";
+
 if (isset($_POST['update'])) { // Handle the form.
-	require "db_config.php";
+	
 	
 	$email = $new_email = $new_password = $new_level = $new_firstname = $new_lastname = $new_phone =FALSE;
 	
@@ -86,7 +89,7 @@ if (isset($_POST['update'])) { // Handle the form.
 	mysqli_free_result($result);
 }
 else if (isset($_POST['search'])) { // Handle the form.
-	require "db_config.php";
+	//require "db_config.php";
 	$user=FALSE;
 	
 	if (isset($_POST['user']) && preg_match ('/^[^\W_]+([.\-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['user'])) {
@@ -112,7 +115,7 @@ else if (isset($_POST['search'])) { // Handle the form.
 	}
 }
 else if (isset($_POST['delete'])) { // Handle the form.
-	require "db_config.php";
+	//require "db_config.php";
 	$email = $_POST['user'];
 	$query = sprintf("DELETE FROM users WHERE email = '$email';");
 	$result = mysqli_query($dbhandle,$query);

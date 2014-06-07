@@ -13,7 +13,7 @@
 				<table>
 					<tr>
 					  <td>Αναζήτηση Χρήστη:</td>
-					  <td><input type="text" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user']; else echo $userData['user'];?>"/></td>
+					  <td><input type="text" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user']; else if (isset($userData['user'])) echo $userData['user'];?>"/></td>
 					  <td><input type="submit" name="search" value="Search"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
 					</tr>
 					<tr>
