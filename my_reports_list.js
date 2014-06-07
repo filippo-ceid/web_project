@@ -29,6 +29,7 @@ function my_reports_list()
 					var date = $(this).attr('datetime');
 					htmlList = htmlList.concat("<p>Ημερομηνία: "+date+"</p></li>"+"</ul>");
 				}
+				else count = 0;
 			});
 			var htmlReportsNum = "Οι συνολικές αναφορές σας στο σύστημα ειναι: "+count;
 			$('#num_of_reports').html(htmlReportsNum);

@@ -13,11 +13,16 @@ else {
 	exit();
 }
 
-require "db_config.php";
-
 ################ Save & delete markers #################
 if($_POST) //run only if there's a post data
 {
+	require "db_config.php";
+	
+	if(isset($_POST["list"]))
+	{
+		GetReports($_POST["list"]);
+	}
+	
 	$source = 'uploads';
 	//make sure request is comming from Ajax
 	$xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'; 
@@ -62,68 +67,71 @@ if($_POST) //run only if there's a post data
 	mysqli_close($dbhandle);
 	exit();
 }
+else {
+	GetReports('unsolved');
+}
 
+function GetReports($status){
+	require "db_config.php";
+	################ Continue generating Map XML #################
+	// Select all the rows in the markers table
+	$query = sprintf("SELECT COUNT(*) FROM reports, status WHERE reports.report_id = status.report_id AND status = '$status';");
+	$result = mysqli_query($dbhandle,$query);
+	$count_row = mysqli_fetch_assoc($result);
+	$counts = $count_row['COUNT(*)'];
+	$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng FROM reports,status WHERE reports.report_id=status.report_id AND status.status ='$status' ORDER BY category, datetime DESC;");
+	$result = mysqli_query($dbhandle,$query);
 
-################ Continue generating Map XML #################
-// Select all the rows in the markers table
-$query = sprintf("SELECT COUNT(*) FROM reports, status WHERE reports.report_id = status.report_id AND status = 'unsolved';");
-$result = mysqli_query($dbhandle,$query);
-$count_row = mysqli_fetch_assoc($result);
-$counts = $count_row['COUNT(*)'];
+	if (!$result) {  
+		header('HTTP/1.1 500 Error: Could not get reports!'); 
+		exit();
+	} 
 
+	//set document header to text/xml
+	header("Content-type: text/xml"); 
 
-$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng FROM reports,status WHERE reports.report_id=status.report_id AND status.status ='unsolved' ORDER BY category, datetime DESC;");
-$result = mysqli_query($dbhandle,$query);
+	//Create a new DOMDocument object
+	$dom = new DOMDocument('1.0','utf-8');
+	$dom->formatOutput = true;
+	$node = $dom->createElement("reports"); //Create new element node
+	$parnode = $dom->appendChild($node); //make the node show up 
 
-if (!$result) {  
-	header('HTTP/1.1 500 Error: Could not get reports!'); 
-	exit();
-} 
-
-//set document header to text/xml
-header("Content-type: text/xml"); 
-
-//Create a new DOMDocument object
-$dom = new DOMDocument('1.0','utf-8');
-$dom->formatOutput = true;
-$node = $dom->createElement("reports"); //Create new element node
-$parnode = $dom->appendChild($node); //make the node show up 
-
-// Iterate through the rows, adding XML nodes for each
-while ($row = mysqli_fetch_assoc($result)){
-	$node = $dom->createElement("report");
-	$newnode = $parnode->appendChild($node);
-	$newnode->setAttribute("category", $row['category']);
-	$newnode->setAttribute("description", $row['description']);
-	$newnode->setAttribute("datetime", $row['datetime']);
-	$newnode->setAttribute("lat", $row['lat']);
-	$newnode->setAttribute("lng", $row['lng']);
-	$report_id = $row['report_id'];
-	$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
-	$photos_result = mysqli_query($dbhandle,$query);
-	$i = 0;
-	while ($photos_row = mysqli_fetch_assoc($photos_result)){
-		$newnode->setAttribute("photo_name_".$i, $photos_row['photo_name']);
-		$i = $i + 1;
+	// Iterate through the rows, adding XML nodes for each
+	while ($row = mysqli_fetch_assoc($result)){
+		$node = $dom->createElement("report");
+		$newnode = $parnode->appendChild($node);
+		$newnode->setAttribute("category", $row['category']);
+		$newnode->setAttribute("description", $row['description']);
+		$newnode->setAttribute("datetime", $row['datetime']);
+		$newnode->setAttribute("lat", $row['lat']);
+		$newnode->setAttribute("lng", $row['lng']);
+		$report_id = $row['report_id'];
+		$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
+		$photos_result = mysqli_query($dbhandle,$query);
+		$i = 0;
+		while ($photos_row = mysqli_fetch_assoc($photos_result)){
+			$newnode->setAttribute("photo_name_".$i, $photos_row['photo_name']);
+			$i = $i + 1;
+		}
+		$newnode->setAttribute("num_of_photos", $i);
+		$newnode->setAttribute("num_of_reports", $counts);
+		$category = $row['category'];
+		$query = sprintf("SELECT pin_icon FROM categories WHERE category='$category';");
+		$icon_result = mysqli_query($dbhandle,$query);
+		$icon_row = mysqli_fetch_assoc($icon_result);
+		$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
+		
 	}
-	$newnode->setAttribute("num_of_photos", $i);
-	$newnode->setAttribute("num_of_reports", $counts);
-	$category = $row['category'];
-	$query = sprintf("SELECT pin_icon FROM categories WHERE category='$category';");
-	$icon_result = mysqli_query($dbhandle,$query);
-	$icon_row = mysqli_fetch_assoc($icon_result);
-	$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
+
+	if ($counts = 0) {
+		$node = $dom->createElement("report");
+		$newnode = $parnode->appendChild($node);
+		$newnode->setAttribute("num_of_reports", $counts);
+	}
+
+	echo $dom->saveXML();
 	
+	mysqli_free_result($result);
+	mysqli_close($dbhandle);
 }
-
-if ($counts = 0) {
-	$node = $dom->createElement("report");
-	$newnode = $parnode->appendChild($node);
-	$newnode->setAttribute("num_of_reports", $counts);
-}
-
-echo $dom->saveXML();
-
-mysqli_free_result($result);
-mysqli_close($dbhandle);
 ?>

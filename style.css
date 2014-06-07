@@ -282,6 +282,29 @@ img {
 	margin-left:180px;
 }
 
+#list_reports_admin {
+	display: block;
+	overflow:auto;
+	width: 250px;
+	height: 200px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+	margin-left:-18px;
+}
+
+#list_solved_reports_admin {
+	display: block;
+	overflow:auto;
+	width: 250px;
+	height: 200px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #ffffff;	
+	margin-left:-18px;
+}
+
+
 #top_panel .under_con_image img{
 	display: block;
 	width: 280px;

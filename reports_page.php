@@ -27,6 +27,8 @@
 					   <td>
 						 <div id="num_of_reports_admin"></div>
 						 <div id="list_reports_admin"></div>
+						 <div id="num_of_solved_reports_admin"></div>
+						 <div id="list_solved_reports_admin"></div>
 					  </td>
 					</tr>
 				</table>
@@ -58,7 +60,7 @@
 				<tr>
 					<td>Χρώμα marker:</td>
 					<td><select name="pin_color">	
-						<option value="<?php if (isset($categData['pin_color'])) echo 'pin_color'; else echo 'default';?>"><?php if (isset($color_name)) echo $color_name; else echo '';?></option>
+						<option value="<?php if (isset($categData['pin_icon'])) echo $categData['pin_icon']; else echo 'default';?>"><?php if (isset($color_name)) echo $color_name; else echo '';?></option>
 						<option value="pin_white">Άσπρο</option>
 						<option value="pin_yellow">Κίτρινο</option>
 						<option value="pin_orange">Πορτοκαλί</option>

@@ -154,7 +154,6 @@ else if (isset($_POST['update_categ_submit'])) {
 	
 	if ($_POST['category_id']) {
 		$category_id  = mysqli_real_escape_string($dbhandle,$_POST['category_id']);
-		echo $category_id;
 		if (isset($_POST['new_category']) && preg_match ('/^([a-zA-Z ]*|[Α-Ωαάβγδεέζηήθιίϊΐκλνξοόπρστυύϋΰφχψωώς ]*)?$/', $_POST['new_category'])) {
 			$new_category_name = mysqli_real_escape_string($dbhandle,$_POST['new_category']);
 			$query = "SELECT categ_id FROM categories WHERE category = '$new_category_name' AND categ_id != $category_id;";
