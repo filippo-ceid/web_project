@@ -33,7 +33,7 @@ function reports_opened_list_admin()
 			var htmlReportsNum = "Οι συνολικές ανοικτές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_reports_admin').html(htmlReportsNum);
 			$('#list_reports_admin').html(htmlList);
-			setTimeout(reports_list_admin, 2000);
+			setTimeout(reports_opened_list_admin, 2000);
 		}
 	});
 }
@@ -63,7 +63,7 @@ function reports_closed_list_admin()
 			var htmlReportsNum = "Οι συνολικές κλειστές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_solved_reports_admin').html(htmlReportsNum);
 			$('#list_solved_reports_admin').html(htmlList);
-			setTimeout(reports_list_admin, 2000);
+			setTimeout(reports_closed_list_admin, 2000);
 		}
 	});
 }

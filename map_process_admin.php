@@ -123,7 +123,7 @@ function GetReports($status){
 		
 	}
 
-	if ($counts = 0) {
+	if ($counts == 0) {
 		$node = $dom->createElement("report");
 		$newnode = $parnode->appendChild($node);
 		$newnode->setAttribute("num_of_reports", $counts);
