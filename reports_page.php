@@ -17,6 +17,7 @@
 		}
 	</script>
     <div id="top_panel">
+		<div class="reg_report">Ενημέρωση/Διαγραφή Ανοιχτών Αναφορών</div><br>
 		<div class="reg_report"><?php echo $report ?></div><br>
 		<div class="report_field">
 				<table>
@@ -27,6 +28,7 @@
 					   <td>
 						 <div id="num_of_reports_admin"></div>
 						 <div id="list_reports_admin"></div>
+						 <br>
 						 <div id="num_of_solved_reports_admin"></div>
 						 <div id="list_solved_reports_admin"></div>
 					  </td>

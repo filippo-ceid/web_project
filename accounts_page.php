@@ -6,6 +6,8 @@
 	require "accounts_update.php";
 	
 ?>  
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="users_list_admin.js"></script>
     <div id="top_panel">
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>
@@ -83,9 +85,7 @@
 					<input type="submit" name="delete" value="Delete"/>
 				</div>
 			</form>
-			<div class="reg_image">
-            		<img src="images/register_icon.png"/></img>
-			</div>
+			<div id="list_users_admin"></div>
         </div>
     </div> <!-- end of top panel -->
 <?php

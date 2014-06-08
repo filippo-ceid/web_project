@@ -45,7 +45,7 @@ if($_POST) //run only if there's a post data
 			$photo_name = $source."/".$row['photo_name'];
 			unlink($photo_name);
 		}
-		$query = "DELETE FROM reports WHERE user_id=$user_id AND lat=$mLat AND lng=$mLng;"; //+user_id
+		$query = "DELETE FROM reports WHERE user_id=$user_id AND lat=$mLat AND lng=$mLng;";
 		$result = mysqli_query($dbhandle,$query);
 	}
 	else if(isset($_POST["save"]) && $_POST["save"]==true)

@@ -82,7 +82,7 @@ if (!isset($user_id)){
 					}
 				}
 				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
-					if ($tab==3) {
+					if ($tab==4) {
 						echo '<a href="logout.php" class="current">Έξοδος</a>';
 					}
 					else {

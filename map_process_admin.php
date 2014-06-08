@@ -6,11 +6,11 @@ session_start();
 
 if (isset($_SESSION ['user_id'])){
 	$user_id =  $_SESSION ['user_id'];
-	require "check_permissions.php";
-	check_admin_permissions($user_id);
+	//require "check_permissions.php";
+	//check_admin_permissions($user_id);
 }
 else {
-	exit();
+	//exit();
 }
 
 ################ Save & delete markers #################
@@ -49,7 +49,7 @@ if($_POST) //run only if there's a post data
 			$photo_name = $source."/".$row['photo_name'];
 			unlink($photo_name);
 		}
-		$query = "DELETE FROM reports WHERE lat=$mLat AND lng=$mLng;"; //+user_id
+		$query = "DELETE FROM reports WHERE lat=$mLat AND lng=$mLng;";
 		$result = mysqli_query($dbhandle,$query);
 	}
 	else if(isset($_POST["save"]) && $_POST["save"]==true)
@@ -58,8 +58,8 @@ if($_POST) //run only if there's a post data
 		$result = mysqli_query($dbhandle,$query);
 		$row = mysqli_fetch_assoc($result);
 		$report_id = $row['report_id'];
-		$mStatus = filter_var($_POST["status"], FILTER_SANITIZE_STRING);
-		$mComm 	= filter_var($_POST["comment"], FILTER_SANITIZE_STRING);
+		$mStatus = $_POST['status'];
+		$mComm 	= $_POST['comment'];
 		$query = "UPDATE status SET status='$mStatus', comment='$mComm', admin_id=$user_id  WHERE report_id =$report_id";
 		$result = mysqli_query($dbhandle,$query);
 	}
@@ -68,7 +68,7 @@ if($_POST) //run only if there's a post data
 	exit();
 }
 else {
-	GetReports('unsolved');
+	GetReports('Ανοιχτή');
 }
 
 function GetReports($status){
@@ -79,7 +79,7 @@ function GetReports($status){
 	$result = mysqli_query($dbhandle,$query);
 	$count_row = mysqli_fetch_assoc($result);
 	$counts = $count_row['COUNT(*)'];
-	$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng FROM reports,status WHERE reports.report_id=status.report_id AND status.status ='$status' ORDER BY category, datetime DESC;");
+	$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id WHERE status.status ='$status' ORDER BY category, datetime DESC;");
 	$result = mysqli_query($dbhandle,$query);
 
 	if (!$result) {  
@@ -105,6 +105,14 @@ function GetReports($status){
 		$newnode->setAttribute("datetime", $row['datetime']);
 		$newnode->setAttribute("lat", $row['lat']);
 		$newnode->setAttribute("lng", $row['lng']);
+		$newnode->setAttribute("user_email", $row['email']);
+
+		$admin_id = $row['admin_id'];
+		$query = sprintf("SELECT email FROM users WHERE user_id='$admin_id';");
+		$admin_result = mysqli_query($dbhandle,$query);
+		$admin_row = mysqli_fetch_assoc($admin_result);
+		$newnode->setAttribute("admin_email", $admin_row['email']);
+		
 		$report_id = $row['report_id'];
 		$query = "SELECT photo_name FROM photos WHERE report_id=$report_id;";
 		$photos_result = mysqli_query($dbhandle,$query);
@@ -120,7 +128,6 @@ function GetReports($status){
 		$icon_result = mysqli_query($dbhandle,$query);
 		$icon_row = mysqli_fetch_assoc($icon_result);
 		$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
-		
 	}
 
 	if ($counts == 0) {

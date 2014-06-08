@@ -12,17 +12,17 @@ $result = mysqli_query($dbhandle,$query);
 $row = mysqli_fetch_assoc($result);
 $results[0] = $row['COUNT(*)'];
 
-$query = "SELECT COUNT(*) FROM status WHERE status='unsolved';";
+$query = "SELECT COUNT(*) FROM status WHERE status='Ανοιχτή';";
 $result = mysqli_query($dbhandle,$query);
 $row = mysqli_fetch_assoc($result);
 $results[1] = $row['COUNT(*)'];
 
-$query = "SELECT COUNT(*) FROM status WHERE status='solved';";
+$query = "SELECT COUNT(*) FROM status WHERE status='Κλειστή';";
 $result = mysqli_query($dbhandle,$query);
 $row = mysqli_fetch_assoc($result);
 $results[2] = $row['COUNT(*)'];
 
-$query = "SELECT AVG(TIMEDIFF(update_datetime, datetime)) avg_datetime FROM status INNER JOIN reports on reports.report_id = status.report_id WHERE status='solved';";
+$query = "SELECT AVG(TIMEDIFF(update_datetime, datetime)) avg_datetime FROM status INNER JOIN reports on reports.report_id = status.report_id WHERE status='Κλειστή';";
 $result = mysqli_query($dbhandle,$query);
 $row = mysqli_fetch_assoc($result);
 $inputSeconds = $row['avg_datetime'];

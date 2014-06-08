@@ -24,7 +24,7 @@
 					  </td>
 					   <td>
 						 <div id="num_of_reports"></div>
-						 <div id="list_reports"></div>
+						 <div id="my_reports_list"></div>
 					  </td>
 					</tr>
 				</table> 

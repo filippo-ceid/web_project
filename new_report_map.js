@@ -31,8 +31,8 @@ function map_initialize()
 			GetCategories(function (category) {
 				var EditOpt = '';
 				var EditForm = '<p><div class="report-edit">'+
-				'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-				'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
+					'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
+					'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default"></option>';
 				for (var j=0;j<category.length;j++){
 					EditOpt = '<option value="';
 					EditOpt = EditOpt.concat(category[j]);
@@ -42,13 +42,14 @@ function map_initialize()
 					EditForm = EditForm.concat(EditOpt);
 				}
 				var EditEnd = '</select></label>'+
-				'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
-				'</form>'+
-				'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
+					'<br><label for="pDesc"><span>Περιγραφή: </span><br><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea></label>'+
+					'</form></div></p>';
 				EditForm = EditForm.concat(EditEnd);
+			
+				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 				//Drop a new Report with our Edit Form
-				create_report(initialLocation, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
+				create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
 			});
 		}, function() {
 			handleNoGeolocation(browserSupportFlag);
@@ -80,9 +81,9 @@ function map_initialize()
 			var pin_icon = "";
 			var album = "uploads/";
 			var pin_url = "icons/";
-			var category = $(this).attr('category');
-			var description = '<p>'+ $(this).attr('description') +'</p>';
-			var date = $(this).attr('datetime');
+			var category = 'Κατηγορία: '+$(this).attr('category');
+			var description = 'Περιγραφή: <p>'+ $(this).attr('description') +'</p>';
+			var date = 'Ημερομηνία Καταχώρησης: '+$(this).attr('datetime');
 			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 			var num_of_photos = $(this).attr('num_of_photos');
 			var pin_icon = $(this).attr('pin_icon');
@@ -94,10 +95,10 @@ function map_initialize()
 				photos.push(photo_name);
 			}
 			if(pin_icon != ""){
-				create_report(point, category, description, date, photos, false, false, false, pin_url);
+				create_report(point, category, description, '', date, photos, false, false, false, pin_url);
 			}
 			else {
-				create_report(point, category, description, date, photos, false, false, false, "icons/pin_red.png");
+				create_report(point, category, description, '', date, photos, false, false, false, "icons/pin_red.png");
 			}
 		});
 	});	
@@ -106,9 +107,9 @@ function map_initialize()
 		GetCategories(function (category) {
 			//Edit form to be displayed with new categories
 			var EditOpt = '';
-			var EditForm = '<p><div class="report-edit">'+
+			var EditForm = '<div class="report-edit">'+
 			'<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
-			'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default">-Επέλεξε-</option>';
+			'<label for="pCateg"><span>Κατηγορία: </span><select name="pCateg" class="save-categ"><option value="default"></option>';
 			for (var j=0;j<category.length;j++){
 				EditOpt = '<option value="';
 				EditOpt = EditOpt.concat(category[j]);
@@ -118,13 +119,14 @@ function map_initialize()
 				EditForm = EditForm.concat(EditOpt);
 			}
 			var EditEnd = '</select></label>'+
-			'<br><label for="pDesc"><span>Περιγραφή: </span><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="40" rows="5"></textarea></label>'+
-			'</form>'+
-			'</div></p><button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>';
+			'<br><label for="pDesc"><span>Περιγραφή: </span><br><textarea name="pDesc" class="save-desc" placeholder="Εισάγετε Περιγραφή" maxlength="250" cols="46" rows="5"></textarea></label>'+
+			'</form></div>';
 			EditForm = EditForm.concat(EditEnd);
+			
+			SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 			//Drop a new Report with our Edit Form
-			create_report(event.latLng, 'Νέα Αναφορά', EditForm, '', '', true, true, true, "icons/pin_red.png");
+			create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
 		});
 	});
 										
@@ -145,7 +147,7 @@ function GetCategories(callback) {
 
 	
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDefault, DragAble, Removable, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhotos, InfoOpenDefault, DragAble, Removable, iconPath)
 {	  	  		  	
 	//marker
 	var marker = new google.maps.Marker({
@@ -172,9 +174,10 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, InfoOpenDe
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<div class="report-inner-win"><span class="info-content">'+
-	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
-	MapDesc+
-	'</span>'+photos[0]+photos[1]+photos[2]+photos[3]+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button>'+
+	'<table><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
+	'<tr><td>'+MapDesc+'</span></td></tr>'+
+	'<tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr>'+
+	'<tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table>'+
 	'</div></div>');
 	
 	

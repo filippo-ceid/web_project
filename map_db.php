@@ -4,7 +4,7 @@ require "db_config.php";
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
-$query = sprintf("SELECT report_id, category, description, datetime, lat, lng, firstname, lastname FROM reports INNER JOIN users on users.user_id = reports.user_id ORDER BY report_id DESC LIMIT 20;");
+$query = sprintf("SELECT reports.report_id, category, description, datetime, lat, lng, firstname, lastname, status, comment FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id ORDER BY report_id DESC LIMIT 20;");
 $result = mysqli_query($dbhandle,$query);
 
 if (!$result) {  
@@ -46,6 +46,8 @@ while ($row = mysqli_fetch_assoc($result)){
 	$icon_result = mysqli_query($dbhandle,$query);
 	$icon_row = mysqli_fetch_assoc($icon_result);
 	$newnode->setAttribute("pin_icon", $icon_row['pin_icon']);
+	$newnode->setAttribute("status", $row['status']);
+	$newnode->setAttribute("comment", $row['comment']);
 }
 
 echo $dom->saveXML();

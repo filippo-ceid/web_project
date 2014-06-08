@@ -54,6 +54,8 @@ function drop_reports()
 				var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 				var num_of_photos = $(this).attr('num_of_photos');
 				var pin_icon = $(this).attr('pin_icon');
+				var status = $(this).attr('status');
+				var comment = $(this).attr('comment');
 				pin_url = pin_url.concat(pin_icon);
 				pin_url = pin_url.concat(".png");
 				for (var i=0; i<num_of_photos; i++){
@@ -69,11 +71,15 @@ function drop_reports()
 					var user = "";
 				}
 				
+				if (comment != ""){
+					comment = 'Σχόλιο Διαχειριστή: <br>'+comment;
+				}
+				
 				if(pin_icon != ""){
-					create_report(point, category, description, date, photos, user, pin_url);
+					create_report(point, category, description, date, photos, user, status, comment, pin_url);
 				}
 				else {
-					create_report(point, category, description, date, photos, user, "icons/pin_red.png");
+					create_report(point, category, description, date, photos, user, status, comment, "icons/pin_red.png");
 				}
 			});
 			setTimeout(drop_reports, 60000);
@@ -83,7 +89,7 @@ function drop_reports()
 }
 
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, MapStatus, MapComment, iconPath)
 {	
 	//marker
 	var marker = new google.maps.Marker({
@@ -108,9 +114,11 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, i
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<div class="report-inner-win"><span class="info-content">'+
-	'<div class="report-heading">'+MapTitle+'</div>'+MapDate+
-	MapDesc+MapUser+
-	'</span><br>'+photos[0]+photos[1]+photos[2]+photos[3]+'</div></div>');
+	'<table><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
+	'<br>Περιγραφή: <br>'+MapDesc+
+	'</span></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr>'+
+	'</td></tr><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
+	'</div></div>');
 	
 	//Create an infoWindow
 	var infowindow = new google.maps.InfoWindow();

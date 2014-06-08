@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS photos (
 
 CREATE TABLE IF NOT EXISTS status (
   status_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  status ENUM('solved', 'unsolved') NOT NULL DEFAULT 'unsolved',
+  status ENUM('Κλειστή', 'Ανοιχτή') NOT NULL DEFAULT 'Ανοιχτή',
   comment VARCHAR (40),
   admin_id INT,
   update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
