@@ -96,7 +96,6 @@
 					<input type="submit" name="delete" value="Delete"/>
 				</div>
 			</form>
-			<div id="list_users_admin"></div>
         </div>
     </div> <!-- end of top panel -->
 <?php
