@@ -174,7 +174,7 @@ else if (isset($_POST['update_categ_submit'])) {
 			$pin_color_error = ": Επιλέξτε χρώμα!";
 		}
 		
-		if ($category_error == "" && $pin_color_error == "") {
+		if ($new_category_error == "" && $pin_color_error == "") {
 			$query = sprintf("UPDATE categories SET category='$new_category_name', pin_icon='$new_pin_color' WHERE categ_id = $category_id;");
 			$result = mysqli_query($dbhandle,$query);
 			if (mysqli_affected_rows($dbhandle) != 0) { // If it ran OK.

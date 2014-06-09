@@ -1,7 +1,9 @@
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
 var browserSupportFlag =  new Boolean();
-	
+
+var markers = [];
+
 google.maps.event.addDomListener(window, 'load', map_initialize);
 
 //############### Google Map Initialize ##############
@@ -184,6 +186,9 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 		icon: iconPath
 	});
 	
+	if (MapSaveSubm == ''){
+		markers.push(marker);
+	}
 	var photos = ['', '', '', '']; 
 	
 	for (var j=0;j<MapPhotos.length;j++){
@@ -302,4 +307,8 @@ function save_report(Marker, mCateg, mDesc, replaceWin)
 	$(document).ajaxStop(function(){
 		window.location.assign("uploadphotos.php");
 	});
+}
+
+function myclick(i) {
+  google.maps.event.trigger(markers[i], "click");
 }

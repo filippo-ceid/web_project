@@ -1,6 +1,8 @@
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
 var browserSupportFlag =  new Boolean();
+
+var markers = [];
 	
 google.maps.event.addDomListener(window, 'load', map_initialize);
 
@@ -70,6 +72,8 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 		animation: google.maps.Animation.DROP,
 		icon: iconPath
 	});
+	
+	markers.push(marker);
 	
 	var photos = ['', '', '', '']; 
 	
@@ -187,4 +191,8 @@ function save_status(Marker, mStatus, mComm)
 	$(document).ajaxStop(function(){
 		window.location.assign("reports_page.php");
 	});
+}
+
+function myclick(i) {
+  google.maps.event.trigger(markers[i], "click");
 }

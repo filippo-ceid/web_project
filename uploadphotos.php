@@ -6,7 +6,9 @@
 	require "processupload.php";
 ?>   
     <div id="top_panel">
+		
 		<form action="uploadphotos.php" method="POST" enctype="multipart/form-data" id="UploadForm">
+			<div id="upload">
 			<table>
 			  <tr>
 				<td>Εικόνα 1 : </td>
@@ -25,12 +27,12 @@
 				<td><input name="ImageFile4" type="file" /></td>
 			  </tr>
 			  <tr>
-				<td>&nbsp;</td>
-				<td><input type="submit"  name="submit" value="Upload" /></td>
+				<td></td>
+				<td><input type="submit"  name="submit" value="Upload" /><input type="submit"  name="cancel" value="No,thanks" /></td>
 			  </tr>
 			</table>
 		</form>
-		
+		</div>
     </div> <!-- end of top panel -->
 <?php
 	include 'footer.html';

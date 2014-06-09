@@ -18,17 +18,19 @@ function reports_opened_list_admin()
 		success:function(data){	
 			var htmlList = "<ul>";
 			var count;
+			var i=0;
 			$(data).find("report").each(function () {
 				count= $(this).attr('num_of_reports');	
 				if (count > 0 ) {
 					var category = $(this).attr('category');
-					htmlList = htmlList.concat("<li><p>Κατηγορία: "+category+'</p>');
+					htmlList = htmlList.concat('<li><a href="javascript:myclick('+i+')"><p>Κατηγορία: '+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
 					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
 					var date = $(this).attr('datetime');
 					htmlList = htmlList.concat("<p>Ημερομηνία: "+date+"</p>");
 					var user_email = $(this).attr('user_email');
-					htmlList = htmlList.concat("<p>Χρήστης: "+user_email+"</p></li>");
+					htmlList = htmlList.concat("<p>Χρήστης: "+user_email+"</p></a></li>");
+					i++;
 				}
 				else count = 0;
 			});
@@ -36,7 +38,7 @@ function reports_opened_list_admin()
 			var htmlReportsNum = "Οι συνολικές ανοιχτές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_reports_admin').html(htmlReportsNum);
 			$('#list_reports_admin').html(htmlList);
-			setTimeout(reports_opened_list_admin, 2000);
+			setTimeout(reports_opened_list_admin, 60000);
 		}
 	});
 }
@@ -69,7 +71,7 @@ function reports_closed_list_admin()
 			var htmlReportsNum = "Οι συνολικές κλειστές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_solved_reports_admin').html(htmlReportsNum);
 			$('#list_solved_reports_admin').html(htmlList);
-			setTimeout(reports_closed_list_admin, 2000);
+			setTimeout(reports_closed_list_admin, 60000);
 		}
 	});
 }

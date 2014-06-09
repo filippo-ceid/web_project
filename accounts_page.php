@@ -17,6 +17,8 @@
 					  <td>Αναζήτηση Χρήστη:</td>
 					  <td><input type="text" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user']; else if (isset($userData['user'])) echo $userData['user'];?>"/></td>
 					  <td><input type="submit" name="search" value="Search"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
+					  <td><input type="hidden" name="user_level" value="<?php if (isset($userData['user_level'])) echo $userData['user_level'];?>"/></td>
+					  <td><input type="hidden" name="user_id" value="<?php if (isset($userData['user_id'])) echo $userData['user_id'];?>"/></td>
 					</tr>
 					<tr>
 					  <td>Κωδικός Διαχειριστή:</td>
@@ -40,7 +42,6 @@
 							  <option value="<?php if (isset($userData['user_level']) && $userData['user_level'] == 'admin') echo 'simple'; else echo 'admin'?>"><?php if (isset($userData['user_level']) && $userData['user_level'] == 'admin') echo 'Απλός Χρήστης'; else echo 'Διαχειριστής'?></option>
 						  </select>
 					  </td>
-					</tr>
 					<tr>
 					  <td>Νέος Κωδικός Ασφαλείας:</td>
 					  <td><input type="password" name="new_password" autocomplete="off"/></td>

@@ -14,11 +14,12 @@ function my_reports_list()
 		success:function(data){	
 			var htmlList = "<ul>";
 			var count;
+			var i=0;
 			$(data).find("report").each(function () {
 				count= $(this).attr('num_of_reports');	
 				if (count > 0 ) {
 					var category = $(this).attr('category');
-					htmlList = htmlList.concat("<li><p>Κατηγορία: "+category+'</p>');
+					htmlList = htmlList.concat('<li><a href="javascript:myclick('+i+')"><p>Κατηγορία: '+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
 					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
 					var status = $(this).attr('report_status');
@@ -28,8 +29,9 @@ function my_reports_list()
 						htmlList = htmlList.concat("<p>Σχόλιο Διαχειριστή: "+comment+'</p>');
 					}
 					var date = $(this).attr('datetime');
-					htmlList = htmlList.concat("<p>Ημερομηνία Καταχώρησης: "+date+"</p>");
+					htmlList = htmlList.concat("<p>Ημερομηνία Καταχώρησης: "+date+"</p></a>");
 					htmlList = htmlList.concat("<p>___________________</p><br></li>"); //fix it
+					i++;
 				}
 				else count = 0;
 			});
