@@ -12,6 +12,7 @@
 		<div class="reg_field">
 			<div class="reg_report"><?php echo $report ?></div><br>
             <form action="accounts_page.php" method="POST">
+				<table><tr><td>
 				<table>
 					<tr>
 					  <td>Αναζήτηση Χρήστη:</td>
@@ -79,7 +80,16 @@
 					  <td><input type="text" name="phone" value="<?php if (isset($userData['phone'])) echo $userData['phone']; ?>"/></td>
 					  <td><div class="error_reg_field">(Δεκαψήφιο Ελληνικό Σταθερό ή Κινητό)<?php echo $new_phone_error ?></div></td>
 					</tr>
-				</table> 
+				</table>
+				</td>
+				<td>
+					<table>
+						<div id="user_email">
+						<tr><td><b>User email</b></td></tr>
+						<tr><td><div id="list_users_admin"></div></td></tr>
+						</div>
+					</table>
+				</td></tr></table>
 				<br>
 				<div class="reg_button">
 					<input type="submit" name="update" value="Update"/>

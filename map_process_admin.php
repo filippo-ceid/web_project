@@ -20,7 +20,7 @@ if($_POST) //run only if there's a post data
 	
 	if(isset($_POST["list"]))
 	{
-		GetReports($_POST["list"]);
+		GetReports($_POST["list"],$_POST["page"]);
 	}
 	
 	$source = 'uploads';
@@ -68,10 +68,10 @@ if($_POST) //run only if there's a post data
 	exit();
 }
 else {
-	GetReports('Ανοιχτή');
+	GetReports('Ανοιχτή', 0);
 }
 
-function GetReports($status){
+function GetReports($status, $page){
 	require "db_config.php";
 	################ Continue generating Map XML #################
 	// Select all the rows in the markers table
@@ -79,7 +79,14 @@ function GetReports($status){
 	$result = mysqli_query($dbhandle,$query);
 	$count_row = mysqli_fetch_assoc($result);
 	$counts = $count_row['COUNT(*)'];
-	$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id WHERE status.status ='$status' ORDER BY category, datetime DESC;");
+	if ($page==0){
+		$query = sprintf("SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id WHERE status.status ='$status' ORDER BY category, datetime DESC;");
+	}
+	else {
+		$first_report = ($page - 1)*3;
+		$query = sprintf("SELECT * FROM (SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id WHERE status.status ='$status' ORDER BY datetime DESC  LIMIT $first_report,3) AS T1 ORDER BY category;");
+	}
+	
 	$result = mysqli_query($dbhandle,$query);
 
 	if (!$result) {  

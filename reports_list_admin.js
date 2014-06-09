@@ -1,16 +1,44 @@
+var page;
+var num_of_pages;
+
 window.onload = function() {
-  reports_opened_list_admin();
-  reports_closed_list_admin();
+  page = 1
+  reports_opened_list_admin(page);
+  reports_closed_list_admin(page);
 };
 
-$(function() {
-    reports_opened_list_admin();
-    reports_closed_list_admin();
-});
+function nextPage(status){
+	if (status == 'unsolved'){
+		num_of_opened_reports(function (num_of_pages){
+			if (page < num_of_pages){
+				page++;
+				reports_opened_list_admin(page);
+			}
+		});
+	}
+	else if (status == 'solved'){
+		num_of_closed_reports(function (num_of_pages){
+			if (page < num_of_pages){
+				page++;
+				reports_closed_list_admin(page);
+			}
+		});
+	}
+}
 
-function reports_opened_list_admin()
+function prevPage(status){
+	if (page > 1){
+		page--;
+		if (status == 'unsolved')
+			reports_opened_list_admin(page);
+		else if (status == 'solved')
+			reports_closed_list_admin(page);
+	}
+}
+
+function reports_opened_list_admin(page_num)
 {	
-	var myData = {list : 'Ανοιχτή'}; //post variables	
+	var myData = {list : 'Ανοιχτή', page: page_num}; //post variables	
 	$.ajax({
 		type: "POST",
 		url: "map_process_admin.php",
@@ -38,14 +66,14 @@ function reports_opened_list_admin()
 			var htmlReportsNum = "Οι συνολικές ανοιχτές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_reports_admin').html(htmlReportsNum);
 			$('#list_reports_admin').html(htmlList);
-			setTimeout(reports_opened_list_admin, 60000);
+			//setTimeout(reports_opened_list_admin, 60000);
 		}
 	});
 }
 
-function reports_closed_list_admin()
+function reports_closed_list_admin(page_num)
 {	
-	var myData = {list : 'Κλειστή'}; //post variables	
+	var myData = {list : 'Κλειστή', page: page_num}; //post variables	
 	$.ajax({
 		type: "POST",
 		url: "map_process_admin.php",
@@ -61,7 +89,7 @@ function reports_closed_list_admin()
 					var description = '<p>'+ $(this).attr('description') +'</p>';
 					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
 					var date = $(this).attr('datetime');
-					htmlList = htmlList.concat("<p>Ημερομηνία: "+date+'</p>');
+					htmlList = htmlList.concat("<p>Ημερομηνία : "+date+'</p>');
 					var admin_email = $(this).attr('admin_email');
 					htmlList = htmlList.concat("<p>Διαχειριστής: "+admin_email+"</p></li>");
 				}
@@ -71,7 +99,49 @@ function reports_closed_list_admin()
 			var htmlReportsNum = "Οι συνολικές κλειστές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_solved_reports_admin').html(htmlReportsNum);
 			$('#list_solved_reports_admin').html(htmlList);
-			setTimeout(reports_closed_list_admin, 60000);
+			//setTimeout(reports_closed_list_admin, 60000);
+		}
+	});
+}
+
+function num_of_closed_reports(callback)
+{
+	var num_of_pages;
+	var myData = {list : 'Κλειστή', page: 0}; //post variables	
+	$.ajax({
+		type: "POST",
+		url: "map_process_admin.php",
+		data: myData,
+		success:function(data){	
+			var count;
+			var page_num;
+			$(data).find("report").each(function () {
+				count= $(this).attr('num_of_reports');
+			});
+			page_num = count/3;
+			num_of_pages=Math.ceil(page_num);
+			callback(num_of_pages);
+		}
+	});
+}
+
+function num_of_opened_reports(callback)
+{
+	var num_of_pages;
+	var myData = {list : 'Ανοιχτή', page: 0}; //post variables	
+	$.ajax({
+		type: "POST",
+		url: "map_process_admin.php",
+		data: myData,
+		success:function(data){	
+			var count;
+			var page_num;
+			$(data).find("report").each(function () {
+				count= $(this).attr('num_of_reports');
+			});
+			page_num = count/3;
+			num_of_pages=Math.ceil(page_num);
+			callback(num_of_pages);
 		}
 	});
 }

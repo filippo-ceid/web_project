@@ -25,12 +25,16 @@
 					  <td>
 						 <div id="reports_map_canvas"></div>
 					  </td>
-					   <td>
+					  <td>
 						 <div id="num_of_reports_admin"></div>
 						 <div id="list_reports_admin"></div>
-						 <br>
+						 <button onclick="prevPage('unsolved')"><<</button> 
+						 <button onclick="nextPage('unsolved')">>></button>
+						 <br><br>
 						 <div id="num_of_solved_reports_admin"></div>
 						 <div id="list_solved_reports_admin"></div>
+						 <button onclick="prevPage('solved')"><<</button>
+						 <button onclick="nextPage('solved')">>></button>
 					  </td>
 					</tr>
 				</table>

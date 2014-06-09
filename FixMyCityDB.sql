@@ -71,3 +71,6 @@ SELECT category, description, datetime, lat, lng, firstname, lastname FROM repor
 INSERT INTO categories (category, pin_icon) VALUES ('Οδικά', 'pin_grey');
 
 UPDATE status SET status='solved' WHERE status_id = 1;
+
+SELECT * FROM (SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id ORDER BY datetime DESC  LIMIT 0,5) AS T1 ORDER BY category;
+

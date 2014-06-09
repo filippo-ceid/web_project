@@ -13,7 +13,7 @@ function users_list_admin()
 		url: "users_list_admin.php",
 		data: "",
 		success:function(data){	
-			var htmlList = "<ul>User email<br> ";
+			var htmlList = "";
 			var count;
 			$(data).find("account").each(function () {
 				count= $(this).attr('num_of_users');	
@@ -26,9 +26,8 @@ function users_list_admin()
 					count = 0;
 				}
 			});
-			htmlList = htmlList.concat("</ul>");
 			$('#list_users_admin').html(htmlList);
-			setTimeout(users_list_admin, 2000);
+			setTimeout(users_list_admin, 60000);
 		}
 	});
 }
