@@ -21,16 +21,16 @@ function my_reports_list()
 					var category = $(this).attr('category');
 					htmlList = htmlList.concat('<li><a href="javascript:myclick('+i+')"><p>Κατηγορία: '+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
-					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
+					htmlList = htmlList.concat('<p>Περιγραφή: '+description+'</p>');
 					var status = $(this).attr('report_status');
 					htmlList = htmlList.concat("<p>Κατάσταση: "+status+'</p>');
 					var comment = $(this).attr('report_comment');
 					if (comment != "" ) {
 						htmlList = htmlList.concat("<p>Σχόλιο Διαχειριστή: "+comment+'</p>');
 					}
-					var date = $(this).attr('datetime');
+					var date = '<p>'+$(this).attr('datetime')+'</p>';
 					htmlList = htmlList.concat("<p>Ημερομηνία Καταχώρησης: "+date+"</p></a>");
-					htmlList = htmlList.concat("<p>___________________</p><br></li>"); //fix it
+					htmlList = htmlList.concat("<p>__________________________</p><br></li>"); //fix it
 					i++;
 				}
 				else count = 0;
@@ -39,7 +39,6 @@ function my_reports_list()
 			var htmlReportsNum = "Οι συνολικές αναφορές σας στο σύστημα ειναι: "+count;
 			$('#num_of_reports').html(htmlReportsNum);
 			$('#my_reports_list').html(htmlList);
-			setTimeout(my_reports_list, 2000);
 		}
 	});
 }
