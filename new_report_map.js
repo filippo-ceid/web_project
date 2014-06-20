@@ -204,7 +204,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-	'<table><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
+	'<table width="300"><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
 	'<tr><td>'+MapDesc+'</td></tr></table>'+
 	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
 	'<table align="center"><tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table></table>'+
