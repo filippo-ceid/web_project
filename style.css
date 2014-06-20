@@ -346,10 +346,30 @@ img {
 	padding-right: 10px;
 }
 
-#bottom_panel .section {
+#bottom_panel .section_stat {
+	float: left;
+	width: 300px;
+}
+
+#bottom_panel .section_info {
 	float: left;
 	width: 250px;
 }
+
+#bottom_panel .section_rss {
+	float: left;
+	width: 230px;
+}
+
+.section_text ul {
+	padding-left: 15px;
+}
+
+.section_text li{
+	padding-bottom: 20px;
+}
+
+
 
 .section_title {
 	font-size: 16px;
@@ -398,24 +418,6 @@ img {
 	text-decoration: none;
 }
 
-.section p {
-	margin-bottom: 10px;
-}
-
-.section ul {
-	margin: 0 0 0 10px;
-	padding: 0px;
-}
-
-.section li{
-	margin: 0px;
-	padding: 0 0 5px 0;
-}
-
-.section li a {
-	color: #000000;
-	text-decoration: none;
-}
 
 /* footer */
 #footer {
