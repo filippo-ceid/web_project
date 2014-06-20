@@ -20,7 +20,7 @@
     </div> <!-- end of top panel -->
     
     <div id="bottom_panel">
-		<div class="section">
+		<div class="section_info">
 			<table>
 				<tr><div class="section_title">Πληροφορίες</div></tr>
 				<tr>
@@ -30,15 +30,16 @@
 						<p>Στο χάρτη εμφανίζονται οι τελευταίες 20 αναφορές που έχουν καταχωρηθεί στο σύστημα απο τους εγγεγραμμένους χρήστες.</p>
 					</tr>
 					<tr>
+						<br>
 						<div class="news_title">Δημιουργία Λογαριασμού</div>
-						<p>Δημιουργήστε λογαριασμό και βοηθήστε στην ενημέρωση του συστήματος.</p>
+						<p>Δημιουργήστε λογαριασμό και βοηθήστε στον έγκαιρο εντοπισμό προβλημάτων στην πόλη μας.</p>
 					</tr>
 					</div>
 				</tr>
 			</table>
         </div>
         <div class="separator"></div>
-        <div class="section">
+        <div class="section_rss">
 			<table>
 				<tr><div class="section_title">RSS Feed Αναφορών</div></tr>
 				<tr>
@@ -52,9 +53,9 @@
 			</table>
         </div>
 		<div class="separator"></div>
-        <div class="section">
+        <div class="section_stat">
 			<table>
-				<tr><div class="section_title">Στατιστικά</div></tr>
+				<tr><div class="section_title">Στατιστικά Αναφορών</div></tr>
 				<tr>
 					<div class="section_text">
 					<ul>
