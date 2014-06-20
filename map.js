@@ -26,7 +26,6 @@ function map_initialize()
 		};
 			
 		map = new google.maps.Map(document.getElementById("map_canvas"), googleMapOptions);
-		
 		drop_reports();
 }
 
@@ -89,6 +88,8 @@ function drop_reports()
 			});
 			htmlList = htmlList.concat("</ul>");
 			$('#list_of_reports').html(htmlList);
+			var report_num = window.location.search.replace( "?", "" );
+			google.maps.event.trigger(markers[report_num], "click");
 			setTimeout(drop_reports, 60000);
 		}
 	});
@@ -113,18 +114,18 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="150" src="');
+		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}
 	
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-	'<table><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
+	'<table width="300"><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
 	'<tr><td>Ημερομηνία Καταχώρησης: '+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
 	'<br>Περιγραφή: <br>'+MapDesc+'</td></tr></table>'+
 	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
-	'<table><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
+	'<table width="300"><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
 	'</div>');
 	
 	//Create an infoWindow
