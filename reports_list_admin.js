@@ -51,13 +51,14 @@ function reports_opened_list_admin(page_num)
 				count= $(this).attr('num_of_reports');	
 				if (count > 0 ) {
 					var category = $(this).attr('category');
-					htmlList = htmlList.concat('<li><a href="javascript:myclick('+i+')"><p>Κατηγορία: '+category+'</p>');
+					htmlList = htmlList.concat('<li><a href="javascript:myclick('+page_num+','+i+')"><p>Κατηγορία: '+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
-					htmlList = htmlList.concat("<p>Περιγραφή: "+description+'</p>');
-					var date = $(this).attr('datetime');
+					htmlList = htmlList.concat('<p>Περιγραφή: '+description+'</p>');
+					var date = '<p>'+$(this).attr('datetime')+'</p>';
 					htmlList = htmlList.concat("<p>Ημερομηνία: "+date+"</p>");
 					var user_email = $(this).attr('user_email');
-					htmlList = htmlList.concat("<p>Χρήστης: "+user_email+"</p></a></li>");
+					htmlList = htmlList.concat("<p>Χρήστης: "+user_email+"</p></a>");
+					htmlList = htmlList.concat("<p>__________________________</p><br></li>"); //fix it
 					i++;
 				}
 				else count = 0;
@@ -66,7 +67,6 @@ function reports_opened_list_admin(page_num)
 			var htmlReportsNum = "Οι συνολικές ανοιχτές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_reports_admin').html(htmlReportsNum);
 			$('#list_reports_admin').html(htmlList);
-			//setTimeout(reports_opened_list_admin, 60000);
 		}
 	});
 }
@@ -91,7 +91,8 @@ function reports_closed_list_admin(page_num)
 					var date = $(this).attr('datetime');
 					htmlList = htmlList.concat("<p>Ημερομηνία : "+date+'</p>');
 					var admin_email = $(this).attr('admin_email');
-					htmlList = htmlList.concat("<p>Διαχειριστής: "+admin_email+"</p></li>");
+					htmlList = htmlList.concat("<p>Διαχειριστής: "+admin_email+"</p>");
+					htmlList = htmlList.concat("<p>__________________________</p><br></li>"); //fix it
 				}
 				else count = 0;
 			});
@@ -99,7 +100,6 @@ function reports_closed_list_admin(page_num)
 			var htmlReportsNum = "Οι συνολικές κλειστές αναφορές στο σύστημα ειναι: "+count;
 			$('#num_of_solved_reports_admin').html(htmlReportsNum);
 			$('#list_solved_reports_admin').html(htmlList);
-			//setTimeout(reports_closed_list_admin, 60000);
 		}
 	});
 }
@@ -118,7 +118,7 @@ function num_of_closed_reports(callback)
 			$(data).find("report").each(function () {
 				count= $(this).attr('num_of_reports');
 			});
-			page_num = count/3;
+			page_num = count/20;
 			num_of_pages=Math.ceil(page_num);
 			callback(num_of_pages);
 		}
@@ -139,7 +139,7 @@ function num_of_opened_reports(callback)
 			$(data).find("report").each(function () {
 				count= $(this).attr('num_of_reports');
 			});
-			page_num = count/3;
+			page_num = count/20;
 			num_of_pages=Math.ceil(page_num);
 			callback(num_of_pages);
 		}
