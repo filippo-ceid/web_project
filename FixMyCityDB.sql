@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS photos (
 CREATE TABLE IF NOT EXISTS status (
   status_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   status ENUM('Κλειστή', 'Ανοιχτή') NOT NULL DEFAULT 'Ανοιχτή',
-  comment VARCHAR (40),
+  comment VARCHAR (500),
   admin_id INT,
   update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   report_id INT NOT NULL,
@@ -73,4 +73,6 @@ INSERT INTO categories (category, pin_icon) VALUES ('Οδικά', 'pin_grey');
 UPDATE status SET status='solved' WHERE status_id = 1;
 
 SELECT * FROM (SELECT reports.report_id ,category, description, datetime, lat, lng, email, admin_id FROM reports INNER JOIN status on reports.report_id=status.report_id INNER JOIN users on users.user_id = reports.user_id ORDER BY datetime DESC  LIMIT 0,5) AS T1 ORDER BY category;
+
+ALTER TABLE status MODIFY comment VARCHAR(500);
 
