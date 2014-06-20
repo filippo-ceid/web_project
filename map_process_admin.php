@@ -6,18 +6,19 @@ session_start();
 
 if (isset($_SESSION ['user_id'])){
 	$user_id =  $_SESSION ['user_id'];
-	//require "check_permissions.php";
-	//check_admin_permissions($user_id);
+	require "check_permissions.php";
+	check_admin_permissions($user_id);
 }
 else {
-	//exit();
+	exit();
 }
+
+
 
 ################ Save & delete markers #################
 if($_POST) //run only if there's a post data
 {
 	require "db_config.php";
-	
 	if(isset($_POST["list"]))
 	{
 		GetReports($_POST["list"],$_POST["page"]);
@@ -27,7 +28,8 @@ if($_POST) //run only if there's a post data
 	//make sure request is comming from Ajax
 	$xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'; 
 	if (!$xhr){ 
-		header('HTTP/1.1 500 Error: Request must come from Ajax!'); 
+		header('HTTP/1.1 500 Error: Request must come from Ajax!');
+		mysqli_close($dbhandle);
 		exit();
 	}
 	
