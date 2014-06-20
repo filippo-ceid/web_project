@@ -23,6 +23,8 @@ if($_POST) //run only if there's a post data
 	$xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'; 
 	if (!$xhr){ 
 		header('HTTP/1.1 500 Error: Request must come from Ajax!'); 
+		mysqli_free_result($result);
+		mysqli_close($dbhandle);
 		exit();
 	}
 	
