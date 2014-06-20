@@ -89,7 +89,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
-		'<table><tr><td>Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+
+		'<table width="300"><tr><td>Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: '+MapDate+
 		'<br>Περιγραφή: <br>'+MapDesc+'</table>'+
 		'<table></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
 		'<table></td></tr><tr><td>'+MapUser+'</td></tr>'+
@@ -193,6 +193,7 @@ function save_status(Marker, mStatus, mComm)
 	});
 }
 
-function myclick(i) {
-  google.maps.event.trigger(markers[i], "click");
+function myclick(page_num, i) {
+  var report_num = (page_num-1)*20 + i;
+  google.maps.event.trigger(markers[report_num], "click");
 }
