@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="users_list_admin.js"></script>
     <div id="top_panel">
 	<div class="reg_field">
-		<div class="reg_report"><?php echo $report ?></div><br>
+		<div class="reg_report"><?php echo $report; ?></div><br>
 			<form action="accounts_page.php" method="POST">
 				<table>
 					<tr>
