@@ -15,7 +15,7 @@ if (isset($_POST['update'])) { // Handle the form.
 	
 	$email = $new_email = $new_password = $new_level = $new_firstname = $new_lastname = $new_phone =FALSE;
 	
-	$email = $_POST['user'];
+	$user_id = $_POST['user_id'];
 		
 	if (isset($_POST['email']) && preg_match ('/^[^\W_]+([.\-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['email'])) {
 		$new_email = mysqli_real_escape_string($dbhandle,$_POST['email']);
@@ -42,7 +42,7 @@ if (isset($_POST['update'])) { // Handle the form.
 		}
 	}
 	else {
-		$query = "SELECT password FROM users WHERE email = '$email';";
+		$query = "SELECT password FROM users WHERE user_id = '$user_id';";
 		$result = mysqli_query ($dbhandle,$query);
 		$userData = mysqli_fetch_array($result, MYSQL_ASSOC);
 		$new_password = $userData['password'];
@@ -69,9 +69,9 @@ if (isset($_POST['update'])) { // Handle the form.
 		$new_phone_error = ": Μη έγκυρος αριθμός!"; 
 	}
 		
-	if ($_POST['user_level'] != 'admin' || $_POST['user_id'] == $_SESSION['user_id']) {
+	if ($_POST['user_level'] != 'admin' || $user_id == $_SESSION['user_id']) {
 		if (($new_email_error == "") && ($pass_error == "") && ($new_pass_error == "") && ($new_fname_error == "") && ($new_lname_error == "") && ($new_phone_error == "")) { // If everything's OK...
-			$query = sprintf("UPDATE users SET email='$new_email', password='$new_password', user_level='$new_level', firstname='$new_firstname', lastname='$new_lastname', phone='$new_phone'  WHERE email = '$email';");
+			$query = sprintf("UPDATE users SET email='$new_email', password='$new_password', user_level='$new_level', firstname='$new_firstname', lastname='$new_lastname', phone='$new_phone'  WHERE user_id = '$user_id';");
 			$result = mysqli_query($dbhandle,$query);
 			if (mysqli_affected_rows($dbhandle) != 0) { // If it ran OK.
 				$report = "Η ενημέρωση των στοιχείων πραγματοποιήθηκε!";
@@ -83,7 +83,7 @@ if (isset($_POST['update'])) { // Handle the form.
 		else { // If one of the data tests failed.
 			$report = "Σφάλμα Ενημέρωσης: Παρακαλώ ελέγξτε τα δεδομένα που εισάγατε!";
 		}
-		$query = "SELECT user_id, email, password, user_level, firstname, lastname, phone FROM users WHERE email = '$email';";
+		$query = "SELECT user_id, email, password, user_level, firstname, lastname, phone FROM users WHERE user_id = '$user_id';";
 		$result = mysqli_query ($dbhandle,$query);
 		$userData = mysqli_fetch_array($result, MYSQL_ASSOC);
 		mysqli_free_result($result);
@@ -92,16 +92,10 @@ if (isset($_POST['update'])) { // Handle the form.
 		$report = "Σφάλμα Ενημέρωσης: Δεν μπορείτε να τροποποιήσετε στοιχεία διαχειριστή!";
 	}
 }
-else if (isset($_POST['search'])) { // Handle the form.
-	$user=FALSE;
-	
-	if (isset($_POST['user']) && preg_match ('/^[^\W_]+([.\-_][^\W_]+)*@[^\W_]+([.-_][^\W_]+)*.[A-Za-z]{2,3}$/', $_POST['user'])) {
+else if (isset($_POST['edit_user_submit'])) { // Handle the form.
+
+	if ($_POST['user'] != "default") {
 		$user = mysqli_real_escape_string($dbhandle,$_POST['user']);
-	} else {
-		$user_error = "  Μη έγκυρη διεύθυνση email!";
-	}
-	
-	if ($user_error == "") {
 		$query = "SELECT user_id, email, password, user_level, firstname, lastname, phone FROM users WHERE email = '$user';";
 		$result = mysqli_query ($dbhandle,$query);
 		$userData = mysqli_fetch_array($result, MYSQL_ASSOC);
@@ -114,18 +108,19 @@ else if (isset($_POST['search'])) { // Handle the form.
 		mysqli_free_result($result);
 	}
 	else { // If it did not run OK.
-		$report = "Αποτυχία Αναζήτησης!";
+		$user_error = ":  Επιλέξτε χρήστη!";
+		$report = "Αποτυχία Επιλογής!";
 	}
 }
 else if (isset($_POST['delete'])) { // Handle the form.
-	$email = $_POST['user'];
+	$user_id = $_POST['user_id'];
 	$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
 	if ($password == $_SESSION['password']) {
 		if ($_POST['user_level'] == 'simple') {
-			$query = sprintf("DELETE FROM users WHERE email = '$email';");
+			$query = sprintf("DELETE FROM users WHERE user_id = '$user_id';");
 			$result = mysqli_query($dbhandle,$query);
 			if (mysqli_affected_rows($dbhandle) != 0) { // If it ran OK.
-				$report = "Ο χρήστης ".$email." διαγράφηκε απο το σύστημα!";
+				$report = "Ο χρήστης ".$userData['email']." διαγράφηκε απο το σύστημα!";
 				mysqli_free_result($result);
 			} 
 			else { // If it did not run OK.
@@ -144,5 +139,14 @@ else if (isset($_POST['delete'])) { // Handle the form.
 else{
 	$report = "Αναζητήστε χρήστη του συστήματος!";
 }
+
+$user_selection ="";
+$query = sprintf("SELECT email FROM users ORDER BY email;");
+$result = mysqli_query($dbhandle,$query);
+while ($row = mysqli_fetch_assoc($result)){
+	$user_selection = $user_selection.'<option value="'.$row['email'].'"/>'.$row['email'].'</option>';
+}
+
+mysqli_free_result($result);
 mysqli_close($dbhandle);
 ?>

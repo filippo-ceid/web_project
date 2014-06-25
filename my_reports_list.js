@@ -26,7 +26,7 @@ function my_reports_list()
 					htmlList = htmlList.concat("<p>Κατάσταση: "+status+'</p>');
 					var comment = $(this).attr('report_comment');
 					if (comment != "" ) {
-						htmlList = htmlList.concat("<p>Σχόλιο Διαχειριστή: "+comment+'</p>');
+						htmlList = htmlList.concat("<p>Σχόλιο Διαχειριστή: <br>"+comment+'</p>');
 					}
 					var date = '<p>'+$(this).attr('datetime')+'</p>';
 					htmlList = htmlList.concat("<p>Ημερομηνία Καταχώρησης: "+date+"</p></a>");

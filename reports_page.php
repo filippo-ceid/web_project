@@ -50,7 +50,7 @@
 						<?php echo $categ_selection; ?>
 					</select>
 					<input type="submit" name="edit_categ_submit" value="Edit"/>
-						<input type="submit" name="delete_categ_submit" value="Delete"/>
+					<input type="submit" name="delete_categ_submit" value="Delete"/>
 					</td>
 					<td>
 					<div class="error_categ_field"><?php echo $category_error ?></div>

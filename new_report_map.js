@@ -50,7 +50,7 @@ function map_initialize()
 				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 				//Drop a new Report with our Edit Form
-				create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
+				create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
 			});
 		}, function() {
 			handleNoGeolocation(browserSupportFlag);
@@ -84,10 +84,12 @@ function map_initialize()
 			var pin_url = "icons/";
 			var category = 'Κατηγορία: '+$(this).attr('category');
 			var description = 'Περιγραφή: <p>'+ $(this).attr('description') +'</p>';
-			var date = 'Ημερομηνία Καταχώρησης: '+$(this).attr('datetime');
+			var date = 'Ημερομηνία Καταχώρησης: <br>'+$(this).attr('datetime');
 			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 			var num_of_photos = $(this).attr('num_of_photos');
 			var pin_icon = $(this).attr('pin_icon');
+			var status = 'Κατάσταση: '+$(this).attr('report_status');
+			var comment = $(this).attr('report_comment');
 			pin_url = pin_url.concat(pin_icon);
 			pin_url = pin_url.concat(".png");
 			for (var i=0; i<num_of_photos; i++){
@@ -95,12 +97,17 @@ function map_initialize()
 				photo_name = album.concat($(this).attr(photo_name_str));
 				photos.push(photo_name);
 			}
-			if(pin_icon != ""){
-				create_report(point, category, description, '', date, photos, false, false, false, pin_url);
+			
+			if (comment != ""){
+				comment = 'Σχόλιο Διαχειριστή: <br>'+comment;
 			}
-			else {
-				create_report(point, category, description, '', date, photos, false, false, false, "icons/pin_red.png");
+			
+			if(pin_icon == ""){
+				pin_icon = "icons/pin_red.png";
 			}
+			
+			create_report(point, category, description, '', date, photos, status, comment,  false, false, false, pin_url);
+			
 		});
 	});	
 	
@@ -127,7 +134,7 @@ function map_initialize()
 			SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 			//Drop a new Report with our Edit Form
-			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
+			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
 		});
 	}
 	else{
@@ -154,7 +161,7 @@ function map_initialize()
 				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 				//Drop a new Report with our Edit Form
-				create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', true, true, true, "icons/pin_red.png");
+				create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
 			});
 		});
 	}						
@@ -175,7 +182,7 @@ function GetCategories(callback) {
 
 	
 //############### Create Report Function ##############
-function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhotos, InfoOpenDefault, DragAble, Removable, iconPath)
+function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhotos, MapStatus, MapComment, InfoOpenDefault, DragAble, Removable, iconPath)
 {	  	  		  	
 	//marker
 	var marker = new google.maps.Marker({
@@ -205,7 +212,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<table width="300"><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
-	'<tr><td>'+MapDesc+'</td></tr></table>'+
+	'<tr><td>'+MapStatus+'</td></tr><tr><td>'+MapDesc+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
 	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
 	'<table align="center"><tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table></table>'+
 	'</div>');

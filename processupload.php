@@ -23,7 +23,6 @@ if(isset($_POST['submit']))
 	}
 	
 	if($k==4){
-		//echo '<table width="100%" border="0" cellpadding="4" cellspacing="0">';
 		for ($i = 0; $i <= 3; $i++) {
 			$img = $images[$i];
 			$ImageType = $_FILES[$img]['type']; //"image/png", image/jpeg etc.
@@ -33,12 +32,8 @@ if(isset($_POST['submit']))
 				move_uploaded_file($_FILES[$img]['tmp_name'], "$destination/$ImageName");
 				$query = "INSERT INTO photos (photo_name, report_id) VALUES ('$ImageName', '$report_id');";
 				$result = mysqli_query($dbhandle,$query);
-				//echo '<tr>';
-				//echo '<td align="center"><img src="uploads/'.$ImageName.'"></td>';
-				//echo '</tr>';
 			}
 		}
-		//echo '</table>';
 		ob_end_clean(); // Delete the buffer.
 		header("Location: my_reports_page.php");
 		exit(); // Quit the script.

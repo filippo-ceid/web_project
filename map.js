@@ -122,7 +122,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 	//Content structure of info Window for the Reports
 	var contentString = $('<div class="report-info-win">'+
 	'<table width="300"><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
-	'<tr><td>Ημερομηνία Καταχώρησης: '+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
+	'<tr><td>Ημερομηνία Καταχώρησης: <br>'+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
 	'<br>Περιγραφή: <br>'+MapDesc+'</td></tr></table>'+
 	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
 	'<table width="300"><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+

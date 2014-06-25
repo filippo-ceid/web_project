@@ -9,22 +9,16 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="users_list_admin.js"></script>
     <div id="top_panel">
-		<div class="reg_field">
-			<div class="reg_report"><?php echo $report ?></div><br>
-            <form action="accounts_page.php" method="POST">
-				<table><tr><td>
+	<div class="reg_field">
+		<div class="reg_report"><?php echo $report ?></div><br>
+			<form action="accounts_page.php" method="POST">
 				<table>
 					<tr>
-					  <td>Αναζήτηση Χρήστη:</td>
-					  <td><input type="text" name="user" value="<?php if (isset($_POST['user'])) echo $_POST['user']; else if (isset($userData['user'])) echo $userData['user'];?>"/></td>
-					  <td><input type="submit" name="search" value="Search"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
-					  <td><input type="hidden" name="user_level" value="<?php if (isset($userData['user_level'])) echo $userData['user_level'];?>"/></td>
-					  <td><input type="hidden" name="user_id" value="<?php if (isset($userData['user_id'])) echo $userData['user_id'];?>"/></td>
-					</tr>
-					<tr>
-					  <td>Κωδικός Διαχειριστή:</td>
-					  <td><input type="password" name="password" autocomplete="off"/></td>
-					  <td><div class="error_reg_field">*<?php echo $pass_error ?></div></td>
+						<td>Επιλογή Χρήστη:</td>
+						<td><select name="user"><option value="default"></option><?php echo $user_selection; ?></select></td>
+						<td><input type="submit" name="edit_user_submit" value="Edit"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
+						<td><input type="hidden" name="user_level" value="<?php if (isset($userData['user_level'])) echo $userData['user_level'];?>"/></td>
+						<td><input type="hidden" name="user_id" value="<?php if (isset($userData['user_id'])) echo $userData['user_id'];?>"/></td>
 					</tr>
 					<tr>
 					  <td>Διεύθυνση Email:</td>
@@ -80,16 +74,12 @@
 					  <td><input type="text" name="phone" value="<?php if (isset($userData['phone'])) echo $userData['phone']; ?>"/></td>
 					  <td><div class="error_reg_field">(Δεκαψήφιο Ελληνικό Σταθερό ή Κινητό)<?php echo $new_phone_error ?></div></td>
 					</tr>
+					<tr>
+					  <td>Κωδικός Διαχειριστή:</td>
+					  <td><input type="password" name="password" autocomplete="off"/></td>
+					  <td><div class="error_reg_field">*<?php echo $pass_error ?></div></td>
+					</tr>
 				</table>
-				</td>
-				<td>
-					<table>
-						<div id="user_email">
-						<tr><td><b>User email</b></td></tr>
-						<tr><td><div id="list_users_admin"></div></td></tr>
-						</div>
-					</table>
-				</td></tr></table>
 				<br>
 				<div class="reg_button">
 					<input type="submit" name="update" value="Update"/>
