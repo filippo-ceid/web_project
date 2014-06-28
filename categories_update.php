@@ -92,7 +92,7 @@ else if (isset($_POST['edit_categ_submit'])) { // Handle the form.
 		$category = mysqli_real_escape_string($dbhandle,$_POST['category']);
 	}
 	else {
-		$category_error = ": Επιλέξτε κατηγορίας!";
+		$category_error = ": Επιλέξτε κατηγορία!";
 	}
 	
 	if ($category_error == "") {

@@ -73,15 +73,7 @@ if (!isset($user_id)){
 		</li>
 		<li>
 			<?php 
-				if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "admin")) {
-					if ($tab==4) {
-						echo '<a href="logout.php" class="current">Έξοδος</a>';
-					}
-					else {
-						echo '<a href="logout.php">Έξοδος</a>';
-					}
-				}
-				else if (isset($_SESSION['user_level']) && ($_SESSION['user_level'] == "simple")) {
+				if (isset($_SESSION['user_level']) && (($_SESSION['user_level'] == "admin")||($_SESSION['user_level'] == "simple"))) {
 					if ($tab==4) {
 						echo '<a href="logout.php" class="current">Έξοδος</a>';
 					}

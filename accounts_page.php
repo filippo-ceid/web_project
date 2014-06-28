@@ -9,14 +9,14 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="users_list_admin.js"></script>
     <div id="top_panel">
-	<div class="reg_field">
+	<div id="accounts_field">
 		<div class="reg_report"><?php echo $report; ?></div><br>
 			<form action="accounts_page.php" method="POST">
 				<table>
 					<tr>
 						<td>Επιλογή Χρήστη:</td>
-						<td><select name="user"><option value="default"></option><?php echo $user_selection; ?></select></td>
-						<td><input type="submit" name="edit_user_submit" value="Edit"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
+						<td><select name="user"><option value="default"></option><?php echo $user_selection; ?></select>
+						<input type="submit" name="edit_user_submit" value="Edit"/><div class="error_reg_field"><?php echo $user_error ?></div></td>
 						<td><input type="hidden" name="user_level" value="<?php if (isset($userData['user_level'])) echo $userData['user_level'];?>"/></td>
 						<td><input type="hidden" name="user_id" value="<?php if (isset($userData['user_id'])) echo $userData['user_id'];?>"/></td>
 					</tr>
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 					  <td></td>
-					  <td><input type="text" name="email" value="<?php if (isset($userData['email'])) echo $userData['email'];?>"/></td>
+					  <td><input type="text" name="email" value="<?php if (isset($userData['email'])) echo $userData['email'];?>" class="field"/></td>
 					  <td><div class="error_reg_field"><?php echo $new_email_error ?></div></td>
 					</tr>
 					<tr>
@@ -37,14 +37,15 @@
 							  <option value="<?php if (isset($userData['user_level']) && $userData['user_level'] == 'admin') echo 'simple'; else echo 'admin'?>"><?php if (isset($userData['user_level']) && $userData['user_level'] == 'admin') echo 'Απλός Χρήστης'; else echo 'Διαχειριστής'?></option>
 						  </select>
 					  </td>
+					  <td>&nbsp;</td>
 					<tr>
 					  <td>Νέος Κωδικός Ασφαλείας:</td>
-					  <td><input type="password" name="new_password" autocomplete="off"/></td>
+					  <td><input type="password" name="new_password" autocomplete="off" class="field"/></td>
 					  <td><div class="error_reg_field"><?php echo $new_pass_error ?></div></td>
 					</tr>
 					<tr>
 					  <td>Επαλήθευση Νέου Κωδικού:</td>
-					  <td><input type="password" name="conf_new_password"/></td>
+					  <td><input type="password" name="conf_new_password" class="field"/></td>
 					  <td><div class="error_reg_field"></div></td>
 					</tr>
 					<tr>
@@ -53,7 +54,7 @@
 					</tr>
 					<tr>
 					  <td></td>
-					  <td><input type="text" name="first_name" value="<?php if (isset($userData['firstname'])) echo $userData['firstname']; ?>"/></td>
+					  <td><input type="text" name="first_name" value="<?php if (isset($userData['firstname'])) echo $userData['firstname']; ?>" class="field"/></td>
 					  <td><div class="error_reg_field">(Ελληνικά ή Αγγλικά)<?php echo $new_fname_error ?></div></td>
 					</tr>
 					<tr>
@@ -62,7 +63,7 @@
 					</tr>
 					<tr>
 					  <td></td>
-					  <td><input type="text" name="last_name" value="<?php if (isset($userData['lastname'])) echo $userData['lastname']; ?>"/></td>
+					  <td><input type="text" name="last_name" value="<?php if (isset($userData['lastname'])) echo $userData['lastname']; ?>" class="field"/></td>
 					  <td><div class="error_reg_field">(Ελληνικά ή Αγγλικά)<?php echo $new_lname_error ?></div></td>
 					</tr>
 					<tr>
@@ -71,20 +72,22 @@
 					</tr>
 					<tr>
 					  <td></td>
-					  <td><input type="text" name="phone" value="<?php if (isset($userData['phone'])) echo $userData['phone']; ?>"/></td>
+					  <td><input type="text" name="phone" value="<?php if (isset($userData['phone'])) echo $userData['phone']; ?>" class="field"/></td>
 					  <td><div class="error_reg_field">(Δεκαψήφιο Ελληνικό Σταθερό ή Κινητό)<?php echo $new_phone_error ?></div></td>
 					</tr>
 					<tr>
 					  <td>Κωδικός Διαχειριστή:</td>
-					  <td><input type="password" name="password" autocomplete="off"/></td>
+					  <td><input type="password" name="password" autocomplete="off" class="field"/></td>
 					  <td><div class="error_reg_field">*<?php echo $pass_error ?></div></td>
 					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<input type="submit" name="update" class="double_submit" value="Update"/>
+							<input type="submit" name="delete" class="double_submit" value="Delete"/>
+						</td>
+					</tr>
 				</table>
-				<br>
-				<div class="reg_button">
-					<input type="submit" name="update" value="Update"/>
-					<input type="submit" name="delete" value="Delete"/>
-				</div>
 			</form>
         </div>
     </div> <!-- end of top panel -->

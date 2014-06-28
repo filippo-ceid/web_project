@@ -16,13 +16,11 @@
 		}
 	</script>
     <div id="top_panel">
-		<div class="report_field">
+		<div id="my_reports_field">
 				<table>
 					<tr>
-					  <td>
-						 <div id="new_report_map_canvas"></div>
-					  </td>
-					   <td>
+					  <td id="report_map"><div id="new_report_map_canvas"></div></td>
+					   <td id="report_list">
 						 <div id="num_of_reports"></div>
 						 <div id="my_reports_list"></div>
 					  </td>

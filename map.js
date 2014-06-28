@@ -41,6 +41,7 @@ function drop_reports()
 			var htmlList = "<ul>";
 			$(data).find("report").each(function () {
 				var photos = [];
+				var photo_name = "";
 				var photostr = "photo_name_";
 				var pin_icon = "";
 				var album = "uploads/";
@@ -63,12 +64,12 @@ function drop_reports()
 				pin_url = pin_url.concat(pin_icon);
 				pin_url = pin_url.concat(".png");
 				for (var i=0; i<num_of_photos; i++){
-					photo_name_str = photostr.concat(i);
-					photo_name = album.concat($(this).attr(photo_name_str));
+					photostr = photostr.concat(i);
+					photo_name = album.concat($(this).attr(photostr));
 					photos.push(photo_name);
 				}
 				
-				if (firstname != "" && firstname != ""){
+				if (firstname != "" && lastname != ""){
 					var user = 'Απο το χρήστη: '+$(this).attr('firstname')+' '+$(this).attr('lastname');
 				}
 				else {
@@ -79,12 +80,8 @@ function drop_reports()
 					comment = 'Σχόλιο Διαχειριστή: <br>'+comment;
 				}
 				
-				if(pin_icon != ""){
-					create_report(point, category, description, date, photos, user, status, comment, pin_url);
-				}
-				else {
-					create_report(point, category, description, date, photos, user, status, comment, "icons/pin_red.png");
-				}
+				create_report(point, category, description, date, photos, user, status, comment, pin_url);
+				
 			});
 			htmlList = htmlList.concat("</ul>");
 			$('#list_of_reports').html(htmlList);
@@ -114,7 +111,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
+		Img = Img.concat('" onclick="image()"><img style="max-width:300px; height:100px;" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}

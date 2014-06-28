@@ -47,14 +47,7 @@ function map_initialize()
 				photos.push(photo_name);
 			}
 			
-			
-			
-			if(pin_icon != ""){
-				create_report(point, category, description, date, photos, users_email, false, false, false, pin_url);
-			}
-			else {
-				create_report(point, category, description, date, photos, users_email, false, false, false, "icons/pin_red.png");
-			}
+			create_report(point, category, description, date, photos, users_email, false, false, false, pin_url);
 		});
 	});	
 										
@@ -82,7 +75,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
+		Img = Img.concat('" onclick="image()"><img style="max-width:200px; height:100px;" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}

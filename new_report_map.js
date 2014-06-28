@@ -50,7 +50,7 @@ function map_initialize()
 				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 				//Drop a new Report with our Edit Form
-				create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
+				create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_black.png");
 			});
 		}, function() {
 			handleNoGeolocation(browserSupportFlag);
@@ -102,10 +102,6 @@ function map_initialize()
 				comment = 'Σχόλιο Διαχειριστή: <br>'+comment;
 			}
 			
-			if(pin_icon == ""){
-				pin_icon = "icons/pin_red.png";
-			}
-			
 			create_report(point, category, description, '', date, photos, status, comment,  false, false, false, pin_url);
 			
 		});
@@ -134,7 +130,7 @@ function map_initialize()
 			SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 			//Drop a new Report with our Edit Form
-			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
+			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_black.png");
 		});
 	}
 	else{
@@ -161,7 +157,7 @@ function map_initialize()
 				SaveSubm = '<button name="save-report" class="save-report">Αποθήκευση Αναφοράς</button>'
 
 				//Drop a new Report with our Edit Form
-				create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_red.png");
+				create_report(event.latLng, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_black.png");
 			});
 		});
 	}						
@@ -203,7 +199,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 		Img = Img.concat(MapPhotos[j]);
 		Img = Img.concat('" title="');
 		Img = Img.concat(MapDate);
-		Img = Img.concat('" onclick="image()"><img width=auto height="100" src="');
+		Img = Img.concat('" onclick="image()"><img style="max-width:200px; height:100px;" src="');
 		Img = Img.concat(MapPhotos[j]);
 		photos[j] = Img.concat('"></a>');
 	}
