@@ -19,7 +19,8 @@
     </div> <!-- end of top panel -->
     
     <div id="bottom_panel">
-		<div id="section_info">
+		<table>
+		<td id="section_info">
 			<table>
 				<tr><div class="section_title">Πληροφορίες</div></tr>
 				<tr>
@@ -36,9 +37,9 @@
 					</div>
 				</tr>
 			</table>
-        </div>
-        <div class="separator"></div>
-        <div id="section_rss">
+        </td>
+        <td id="separator_image_1"></td>
+        <td id="section_rss">
 			<table>
 				<tr><div class="section_title">RSS Feed Αναφορών</div></tr>
 				<tr>
@@ -50,9 +51,9 @@
 					<div class="rss_button"><a href="rss.php" target="_blank"></a></div>
 				</tr>
 			</table>
-        </div>
-		<div class="separator"></div>
-        <div id="section_stat">
+        </td>
+        <td id="separator_image_2"></td>
+		<td id="section_stat">
 			<table>
 				<tr><div class="section_title">Στατιστικά Αναφορών</div></tr>
 				<tr>
@@ -63,8 +64,8 @@
 					</div>
 				</tr>
 			</table>
-        </div>
-        <div class="cleaner_h20">&nbsp;</div> 
+        </td>
+        </table>
     </div> <!-- end of bottom panel -->
 <?php
 	include 'footer.html';
