@@ -600,7 +600,7 @@ body {
 }
 
 .photo_thump{
-	width:100%;
+	width:auto;
 	max-height:150px;
 }
 

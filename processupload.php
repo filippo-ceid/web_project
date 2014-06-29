@@ -1,5 +1,5 @@
 <?php
-$report = "Επιλέξτε έως 4 φωτογραφίες (jpeg,jpg,png,gif,bmp)";
+$report = "Επιλέξτε έως 4 φωτογραφίες (jpeg,jpg,png,gif)";
 
 //τα παρακάτω θα εκτελεστούν όταν πατήσουμε 
 //submit στο αρχείο uploadphotos.php
@@ -21,7 +21,7 @@ if(isset($_POST['submit']))
 	for ($i = 0; $i <= 3; $i++) {
 		$img = $images[$i];
 		$ImageType = $_FILES[$img]['type']; //"image/png", image/jpeg etc.
-		if ((($ImageType == "image/gif") || ($ImageType == "image/jpeg") || ($ImageType == "image/jpg") || ($ImageType == "image/png") || ($ImageType == "image/bmp") || ($ImageType == ""))
+		if ((($ImageType == "image/gif") || ($ImageType == "image/jpeg") || ($ImageType == "image/jpg") || ($ImageType == "image/png") || ($ImageType == ""))
 		&& ($_FILES["file"]["size"] < 20000000)){
 			$k = $k + 1;
 		}
@@ -44,7 +44,7 @@ if(isset($_POST['submit']))
 		exit(); // Quit the script.
 	}
 	else {
-		$report = "Σφάλμα: Μη αποδεκτή μορφή αρχείου!<br>Αποδεκτές μορφές: jpeg,jpg,png,gif,bmp";
+		$report = "Σφάλμα: Μη αποδεκτή μορφή αρχείου!<br>Αποδεκτές μορφές: jpeg,jpg,png,gif";
 	} 
 }
 else if (isset($_POST['cancel'])){

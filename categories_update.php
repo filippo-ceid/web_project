@@ -38,7 +38,6 @@ if (isset($_POST['new_categ_submit'])) {
 		$query = "SELECT categ_id FROM categories WHERE category = '$new_category';";
 		$result = mysqli_query($dbhandle,$query);
 		if (mysqli_num_rows($result) != 0) {
-			$email_error = ": Μη έγκυρη κατηγορία!";
 			$report = 'Σφάλμα: Η κατηγορία "'.$new_category.'" έχει καταχωρηθεί ήδη!';
 		} 
 		else {
