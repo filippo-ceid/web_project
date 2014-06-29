@@ -17,20 +17,6 @@ img {
 	border: none;
 }
 
-.templatemo_btn_01 a{
-	float: right;
-	clear: both;
-	text-align: center;
-	display: block;
-	width: 80px;
-	height: 23px;
-	padding: 5px 0 0 0;
-	background: url(images/templatemo_btn_01.gif) no-repeat;
-	color: #ffffff;
-	font-weight: bold;
-	text-decoration: none;
-}
-
 /*header & menu*/
 
 body {
