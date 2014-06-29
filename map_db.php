@@ -1,5 +1,8 @@
 <?php
 
+//δημιουργεί XML αρχείο για parsing απο τη map.js
+//δες τη μορφη και γραψτη σε σχολιο
+
 require "db_config.php";
 
 ################ Continue generating Map XML #################

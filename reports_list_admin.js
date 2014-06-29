@@ -1,6 +1,12 @@
+//αυτή η σελίδα αναλαμβάνει να εμφανίσει τις λίστες των αναφορών 
+//ανά 20αδες και για τις ανοιχτές και για τις κλειστές 
+//για τον διαχειριστή
+
 var page;
 var num_of_pages;
 
+//κατά τη φόρτωση της σελίδας η λίστα των αναφορών 
+//από προεπιλογή εμφανίζει την πρώτη σελίδα από τις 20αδες
 window.onload = function() {
   page = 1
   reports_opened_list_admin(page);
@@ -9,6 +15,7 @@ window.onload = function() {
 
 function nextPage(status){
 	if (status == 'unsolved'){
+		//καλείται η callback που υπολογίζει το συνολικο αριθμό των σελίδων
 		num_of_opened_reports(function (num_of_pages){
 			if (page < num_of_pages){
 				page++;

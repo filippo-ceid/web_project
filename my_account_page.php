@@ -1,5 +1,6 @@
 <?php
 	include 'header.html';
+	//αποτροπή χειροκίνητης πρόσβασης στη σελίδα αν δεν είσαι εγγεγραμμένος χρήστης
 	check_simple_permissions($user_id);
 	$tab=3;
 	require  "menu.php";

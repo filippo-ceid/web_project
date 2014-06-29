@@ -1,5 +1,7 @@
 <?php
 	include 'header.html';
+	//αποτροπή για χειροκινητη πρόσβαση στη σελίδα
+	//αν δεν είσαι admin
 	check_admin_permissions($user_id);
 	$tab=2;
 	require  "menu.php";
@@ -23,9 +25,11 @@
 				<table>
 					<tr>
 					  <td id="admin_reports_map">
+						  <!-- ετοιμάζεται ο χάρτης στην reports_map.js -->
 						 <div id="reports_map_canvas"></div>
 					  </td>
 					  <td id="reports_list">
+						  <!-- reports_list_admin.js -->
 						 <div id="num_of_reports_admin"></div>
 						 <div id="list_unsolved_reports"></div>
 						 <button onclick="prevPage('unsolved')"><<</button> 

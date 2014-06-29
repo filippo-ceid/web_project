@@ -6,6 +6,8 @@ $lname_error = "";
 $phone_error = "";
 $report = "";
 
+//Εδώ ελέγχουμε τα δεδομένα που εισάγει ο χρήστης 
+//κατά την εγγραφή του , τα οποία θα πρέπει να ακολουθούν ένα συγκεκριμένο φορμά (email, τηλ κλπ)
 if (isset($_POST['submit'])) { // Handle the form.	
 	require "db_config.php";
 		

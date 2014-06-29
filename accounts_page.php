@@ -7,6 +7,7 @@
 	
 ?>  
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<!-- αρχείο για να εμφανίσει τη λίστα των απλών χρηστών -->
 	<script type="text/javascript" src="users_list_admin.js"></script>
     <div id="top_panel">
 	<div id="accounts_field">

@@ -1,4 +1,11 @@
 <?php
+
+/*Αυτή η σελίδα δημιουργεί το XML αρχείο για τους μάρκερς στη σελίδα του διαχειριστή καθώς 
+ * και για τις λίστες
+ * Στην αρχή καλείται η GetReports από την reports_map.js με όρισμα 0  και η while αναλαμβάνει να  εμφανίσει 
+ * όλους τους μάρκερς με τη σειρά που θα ζητούνται από τη λίστα (αυτό γίνεται με τη σύνθετη εντολή select)
+ * Στη συνέχεια η GetReports καλείται και από την reports_list_admin.js και εμφανίζει τις 20 αναφορές που θέλουμε */
+
 // Start output buffering:
 ob_start();
 // Initialize a session:
@@ -19,6 +26,8 @@ else {
 if($_POST) //run only if there's a post data
 {
 	require "db_config.php";
+	//αυτο το παίρνει απο την reports_list_admin.js
+	//η list παίρνει τιμη ανοιχτή ή κλειστή
 	if(isset($_POST["list"]))
 	{
 		GetReports($_POST["list"],$_POST["page"]);

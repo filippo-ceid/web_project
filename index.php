@@ -1,9 +1,17 @@
 <?php
+
+	// η βασικη αρχική μας σελίδα , το ταβ χρησιμοποιείται για να δειξουμε σε ποιο μενού βρισκόμαστε ώστε 
+	//να είναι επιλεγμένο
+
 	include 'header.html';
+	
+	//αρα το μενου καλείται με την αρχική σελιδα να ειναι επιλεγμένη
 	$tab=1;
 	require  "menu.php";
 ?>   
 	<link rel="stylesheet" href="colorbox.css"/>
+	
+	<!-- obtain Google Map API key from Google API console -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&language=el"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="map.js"></script>
@@ -15,9 +23,11 @@
 		}
 	</script>
     <div id="top_panel">
+		<!-- google map -->
     	<div id="map_canvas"></div>
     </div> <!-- end of top panel -->
     
+    <!-- bottom panels with ajax etc -->
     <div id="bottom_panel">
 		<table>
 		<td id="section_info">
@@ -44,6 +54,7 @@
 				<tr><div class="section_title">RSS Feed Αναφορών</div></tr>
 				<tr>
 					<div class="section_text">
+						<!-- απο το αρχείο map.js ετοιμάζεται η λιστα με javascript -->
 						<div id="list_of_reports"></div>
 					</div>
 				</tr>
@@ -59,6 +70,7 @@
 				<tr>
 					<div class="section_text">
 					<ul>
+						<!-- στο αρχειο statistics.php kai statidtics.js ετοιμάζουμε τα στατιστικα -->
 						<div id="statistics"></div>
 					</ul>
 					</div>

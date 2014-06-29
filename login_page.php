@@ -1,4 +1,8 @@
 <?php
+
+//με αυτό το αρχείο εμφανίζουμε τη φόρμα συμπλήρωσης των στοιχείων για την είσοδο του χρήστη
+//στο σύστημα
+
 	include 'header.html';
 	if (isset($_SESSION ['user_id'])){
 		header('Location: index.php');

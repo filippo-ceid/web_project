@@ -1,3 +1,5 @@
+<!-- καλείται από όλες τις σελίδες για να δωσει το ονομα της σελιδας και το πάνω header -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,10 +10,14 @@
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <?php
+	//οριζουμε τη μεταβλητη
 	$user_id = 0;
-	// Start output buffering:
+	
+	//This function will turn output buffering on. While output buffering is active no output is sent from the script (other than headers),
+	// instead the output is stored in an internal buffer. 
 	ob_start();
 	// Initialize a session:
+	// session is basically a way of storing variables and making them available across multiple pages on your web site. 
 	session_start();
 	require "check_permissions.php";
 	if (isset($_SESSION ['user_id'])){

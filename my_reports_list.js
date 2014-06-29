@@ -2,6 +2,9 @@ window.onload = function() {
   my_reports_list();
 };
 
+//αναλαμβάνει να εκτυπώσει τη λίστα με τις αναφορές
+//-λειτουργεί σε συνδυασμό με το map_process.php αρχείο-
+
 $(function() {
     my_reports_list();
 });
@@ -19,6 +22,9 @@ function my_reports_list()
 				count= $(this).attr('num_of_reports');	
 				if (count > 0 ) {
 					var category = $(this).attr('category');
+					//η myclick καλεί τον μάρκερ που αντιστοιχεί
+					//στη αναφορά από τη λίστα στην οποία κλικάραμε
+					//η myclick ορίζεται στην new_report_map.js
 					htmlList = htmlList.concat('<li><a href="javascript:myclick('+i+')"><p>Κατηγορία: '+category+'</p>');
 					var description = '<p>'+ $(this).attr('description') +'</p>';
 					htmlList = htmlList.concat('<p>Περιγραφή: '+description+'</p>');

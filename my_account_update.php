@@ -1,4 +1,8 @@
-<?php	
+<?php
+
+//έλεγχος των δεδομένων που εισάγονται από το χρήστη για την ανανέωση 
+//των στοιχείων του προφίλ του
+	
 $new_email_error = "";
 $pass_error = "";
 $new_pass_error="";
@@ -7,6 +11,8 @@ $new_lname_error = "";
 $new_phone_error = "";
 $report = "";
 
+//τα παρακάτω εκτελούνται όταν πατηθεί στο update
+//στη σελίδα my_account_page.php
 if (isset($_POST['update'])) { // Handle the form.
 	require "db_config.php";
 	

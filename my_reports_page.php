@@ -19,8 +19,10 @@
 		<div id="my_reports_field">
 				<table>
 					<tr>
+					  <!-- η new_report_map.js είναι υπεύθυνη για τη δημιουργία του χάρτη σε αυτή τη σελίδα -->
 					  <td id="report_map"><div id="new_report_map_canvas"></div></td>
 					   <td id="report_list">
+						   <!-- η my_reports_list.js ετοιμάζει τον αριθμό των αναφορών καθώς και τη λίστα -->
 						 <div id="num_of_reports"></div>
 						 <div id="my_reports_list"></div>
 					  </td>

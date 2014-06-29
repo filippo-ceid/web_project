@@ -16,7 +16,10 @@ else {
 require "db_config.php";
 
 ################ Save & delete markers #################
-if($_POST) //run only if there's a post data
+//run only if there's a post data
+//ποστ έρχεται απο την new_report_map.js απο τις διαδικασίες
+//save report και remove report
+if($_POST) 
 {
 	$source = 'uploads';
 	//make sure request is comming from Ajax
@@ -29,6 +32,7 @@ if($_POST) //run only if there's a post data
 	}
 	
 	// get marker position and split it for database
+	//με τα δεδομενα πουτ έρχοναται 
 	$mLatLang	= explode(',',$_POST["latlang"]);
 	$mLat 		= filter_var($mLatLang[0], FILTER_VALIDATE_FLOAT);
 	$mLng 		= filter_var($mLatLang[1], FILTER_VALIDATE_FLOAT);
@@ -76,6 +80,8 @@ if($_POST) //run only if there's a post data
 
 ################ Continue generating Map XML #################
 // Select all the rows in the markers table
+//δημιουργείται το ΧΜΛ με ολα τα απαραίτητα στοιχεία 
+//που χρειαζόμαστε για να εμφανίσουμε τους μάρκερς στο χάρτη
 $query = sprintf("SELECT COUNT(*) FROM reports WHERE user_id=$user_id;");
 $result = mysqli_query($dbhandle,$query);
 $count_row = mysqli_fetch_assoc($result);

@@ -1,8 +1,12 @@
 <?php
 $report = "Επιλέξτε έως 4 φωτογραφίες (jpeg,jpg,png,gif,bmp)";
 
+//τα παρακάτω θα εκτελεστούν όταν πατήσουμε 
+//submit στο αρχείο uploadphotos.php
 if(isset($_POST['submit']))
 {	
+	//αποθηκέυονται στη βάση τα ονόματα των φωτογραφιών που ανεβάζουμε
+	//και οι φωτογραφίες στέλνονται στη φάκελο uploads
     $destination = 'uploads';
     $images = array('ImageFile1','ImageFile2','ImageFile3','ImageFile4');
     $k = 0;

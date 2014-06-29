@@ -1,5 +1,7 @@
 <?php
 
+//αναλαμβάνει τις τροποποιήσεις των κατηγοριών απο τον admin
+
 if (!isset($user_id)){
 	exit();
 }
@@ -11,6 +13,7 @@ $new_category_error = "";
 $category_error = "";
 $pin_color_error = "";
 
+//Εισαγωγή κατηγορίας
 if (isset($_POST['new_categ_submit'])) {
 
 	$new_category = $pin_color = FALSE;
@@ -29,6 +32,8 @@ if (isset($_POST['new_categ_submit'])) {
 		$pin_color_error = ": Επιλέξτε χρώμα!";
 	}
 	
+	//αν δεν εχει δωσει λαθος στοιχεια
+	//έλεχγος αν υπάρχει ήδη η κατηγορία που εισάγει ο admin
 	if (($new_category_error == "") && ($pin_color_error == "")) {
 		$query = "SELECT categ_id FROM categories WHERE category = '$new_category';";
 		$result = mysqli_query($dbhandle,$query);
@@ -51,6 +56,8 @@ if (isset($_POST['new_categ_submit'])) {
 		$report = "Σφάλμα: Παρακαλώ ελέγξτε τα δεδομένα που εισάγατε!";
 	}
 }
+
+//Διαγραφή κατηγορίας
 else if (isset($_POST['delete_categ_submit'])) {
 	
 	$category = FALSE;
@@ -66,6 +73,7 @@ else if (isset($_POST['delete_categ_submit'])) {
 		$result = mysqli_query($dbhandle,$query);
 		$row = mysqli_fetch_assoc($result);
 		$category_id = $row['categ_id'];
+		//περίπτωση αδιεξόδου - dining admins
 		if ($category_id == "") {
 			$report = 'Η κατηγορία "'.$category.'" έχει διαγραφεί ήδη!';
 		}
@@ -84,6 +92,8 @@ else if (isset($_POST['delete_categ_submit'])) {
 		$report = "Σφάλμα: Δεν επιλέξατε κατηγορία προς διαγραφή!";
 	}
 }
+
+//Διαμόρφωση υπάρχουσας κατηγορίας
 else if (isset($_POST['edit_categ_submit'])) { // Handle the form.
 	
 	$category=FALSE;
@@ -95,6 +105,7 @@ else if (isset($_POST['edit_categ_submit'])) { // Handle the form.
 		$category_error = ": Επιλέξτε κατηγορία!";
 	}
 	
+	//Έχουμε δώσει κατηγορία για διαμόρφωση
 	if ($category_error == "") {
 		$query = sprintf("SELECT categ_id, category, pin_icon FROM categories WHERE category = '$category';");
 		$result = mysqli_query ($dbhandle,$query);
@@ -148,6 +159,8 @@ else if (isset($_POST['edit_categ_submit'])) { // Handle the form.
 		$report = "Σφάλμα: Δεν επιλέξατε κατηγορία προς τροποποίηση!";
 	}
 }
+
+//Εισαγωγή νέας διαμορφωμένης κατηγορίας
 else if (isset($_POST['update_categ_submit'])) {
 	
 	$new_category_name = $new_pin_color = FALSE;

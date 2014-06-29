@@ -7,6 +7,10 @@
     require "registration_new.php";
     $tab=3;
 	require  "menu.php";
+	
+	//εδώ δημιουργείται η φόρμα που καλείται να συμπληρώσει ο χρήστης 
+	//κατά την εγγραφή του , όταν γίνεται submit καλείται η registration_new.php
+
 ?>
     <div id="top_panel">
 		<div id="reg_field">

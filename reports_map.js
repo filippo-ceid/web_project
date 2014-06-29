@@ -1,3 +1,8 @@
+//το αρχείο αυτό αναλαμβάνει να δημιουργήσει , να διαγράψει αναφορές
+//για τη σελίδα Αναφορές του διαχειριστή καθώς και να εμφανίσει 
+//τις ήδη υπάρχουσες απο το XML αρχείο -λειτουργεί σε συνδυασμό 
+//με το map_process_admin.php αρχείο-
+
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
 var browserSupportFlag =  new Boolean();
@@ -24,7 +29,7 @@ function map_initialize()
 	};
 	map = new google.maps.Map(document.getElementById("reports_map_canvas"), googleMapOptions);
 
-	//Load Markers from the XML File, Check (map_process.php)
+	//Load Markers from the XML File, Check (map_process_admin.php)
 	$.get("map_process_admin.php", function (data) {
 		$(data).find("report").each(function () {
 			var photos = [];

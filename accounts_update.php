@@ -11,6 +11,7 @@ $report = "";
 
 require "db_config.php";
 
+// post ερχεται απο την accounts_page.php
 if (isset($_POST['update'])) { // Handle the form.
 	
 	$email = $new_email = $new_password = $new_level = $new_firstname = $new_lastname = $new_phone =FALSE;

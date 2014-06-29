@@ -1,3 +1,9 @@
+//το αρχείο αυτό αναλαμβάνει να δημιουργήσει νεές αναφορές
+//για τη σελίδα Αναφορές μου του χρήστη καθώς και να εμφανίσει 
+//τις ήδη υπάρχουσες απο το XML αρχείο -λειτουργεί σε συνδυασμό 
+//με το map_process.php αρχείο-
+
+//predefined Google map Coordinates
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
 var browserSupportFlag =  new Boolean();
@@ -25,12 +31,15 @@ function map_initialize()
 	map = new google.maps.Map(document.getElementById("new_report_map_canvas"), googleMapOptions);
 
 	// Try W3C Geolocation (Preferred)
+	//αν είναι ενεργοποιημένο το geolocation
+	//σου εμφανιζει κατευθείαν infowindow για να κάνεις αναφορά
 	if(navigator.geolocation) {
 		browserSupportFlag = true;
 		navigator.geolocation.getCurrentPosition(function(position) {
 			var initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			map.setCenter(initialLocation);
 			GetCategories(function (category) {
+				//κωδικας για το infowindow
 				var EditOpt = '';
 				var EditForm = '<form action="ajax-save.php" method="POST" name="SaveReport" id="SaveReport">'+
 					'Κατηγορία: <select name="pCateg" class="save-categ"><option value="default"></option>';
@@ -106,7 +115,8 @@ function map_initialize()
 			
 		});
 	});	
-	
+
+	//κώδικας για τα κινητά - ακριβώς ίδιες λειτουργίες με πριν	
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 		var initialLocation = new google.maps.LatLng(38.368074,21.429212);
 		map.setCenter(initialLocation);
@@ -133,6 +143,9 @@ function map_initialize()
 			create_report(initialLocation, 'Νέα Αναφορά', EditForm, SaveSubm, '', '', '', '', true, true, true, "icons/pin_black.png");
 		});
 	}
+	
+	//αλλιώς αν δεν είναι κινητό και δεν ενεργοποιήθηκε το geolocation
+	//δημιουργουμε αναφορα με δεξί κλικ
 	else{
 		//Right Click to Drop a New Report
 		google.maps.event.addListener(map, 'rightclick', function(event) {
@@ -189,6 +202,9 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 		icon: iconPath
 	});
 	
+	
+	//είναι κενό σημαίνει πως ο μάρκερ διαβάστηκε απο το XML αρχείο
+	//και βάζουμε τον μάρκερ σε ένα πίνακα
 	if (MapSaveSubm == ''){
 		markers.push(marker);
 	}
@@ -274,6 +290,8 @@ function remove_report(Marker)
 	else
 	{
 		//Remove saved report from DB and map using jQuery Ajax
+		//στέλνουμε τα δεδομένα της αναφοράς που θέλουμε να διαγράψουμε
+		//και η map_process.php αναλαμβάνει τη διαγραφή
 		var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
 		var myData = {del : 'true', latlang : mLatLang}; //post variables
 		$.ajax({
@@ -294,6 +312,8 @@ function remove_report(Marker)
 function save_report(Marker, mCateg, mDesc, replaceWin)
 {
 	//Save new report using jQuery Ajax
+	//στέλνουμε τα δεδομένα στη map_process.php 
+	//όπου γίνεται η αποθήκευση στη βάση
 	var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
 	var myData = {save : 'true', category : mCateg, description : mDesc, latlang : mLatLang}; //post variables
 	console.log(replaceWin);		
@@ -308,10 +328,13 @@ function save_report(Marker, mCateg, mDesc, replaceWin)
 		}
 	});
 	$(document).ajaxStop(function(){
+		//κατά το ανέβασμα της φωτογραφίας 
+		//σε πετάει σε άλλη σελίδα για να το πραγματοποιήσεις
 		window.location.assign("uploadphotos.php");
 	});
 }
 
+//πατώντας στην λίστα μας εμφανίζει τον μάρκερ 
 function myclick(i) {
   google.maps.event.trigger(markers[i], "click");
 }

@@ -1,4 +1,10 @@
 <?php
+
+//Εδώ ελέγχουμε τα αναγνωριστικά του χρήστη 
+//αν αυτός όντως υπάρχει και έχει σώσει τα σωστά στοιχεία 
+//ανακατευθύνεται στην αρχική σελίδα
+//αλλιώς εμφανίζεται το κατάλληλο μήνυμα
+
 	$email_error_msg = "";
 	$pass_error_msg = "";
 
@@ -18,7 +24,7 @@
 				//execute the SQL query and return records
 				$result = mysqli_query ($dbhandle,$query);
 				
-				if(mysqli_num_rows($result) != 0) { // User not found.
+				if(mysqli_num_rows($result) != 0) { // User found.
 					$_SESSION = mysqli_fetch_array($result, MYSQL_ASSOC);
 					$password = sha1(mysqli_real_escape_string($dbhandle,$_POST['password']));
 					if($password != $_SESSION ['password']) { // Incorrect password.

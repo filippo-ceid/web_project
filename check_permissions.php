@@ -1,4 +1,7 @@
 <?php
+
+//περιέχει συναρτήσεις που βρίσκουν το user level 
+
 if (!isset($user_id)){
 	header('Location: index.php');
 	exit();

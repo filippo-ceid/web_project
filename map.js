@@ -1,3 +1,5 @@
+//αναλαμβάνει να εμφανίσει τον κεντρικό χάρτη στην index
+
 var mapCenter = new google.maps.LatLng(38.371237, 21.431653); //Google map Coordinates
 var map;
 var markers = [];
@@ -10,6 +12,8 @@ google.maps.event.addDomListener(window, 'load', map_initialize);
 
 
 //############### Google Map Initialize ##############
+//Before we initialize and load the Map, Google map allows us to set 
+//few things (such as level of zoom, scale/ pan / zoom) in Map options object
 function map_initialize()
 {
 		var googleMapOptions = 
@@ -30,15 +34,20 @@ function map_initialize()
 }
 
 
+//εμφανίζει τους μαρκερς
 function drop_reports()
 {
 		removeMarkers();
-		//Load Markers from the XML File, Check (map_process.php)
+		//Load Markers from the XML File, Check (map_db.php)
 		$.ajax({
 			url: "map_db.php",
 			data: "",
 			success:function(data){
 			var htmlList = "<ul>";
+			
+			//ψαχνει σε ολα τα element report του  XML αρχείου
+			//και παίρνει τις κατάλληλες τιμές για τις μεταβλητές
+			//και δημιουργεί το ρεπορτ
 			$(data).find("report").each(function () {
 				var photos = [];
 				var photo_name = "";
@@ -80,6 +89,8 @@ function drop_reports()
 					comment = 'Σχόλιο Διαχειριστή: <br>'+comment;
 				}
 				
+				//δημιουργείται μαρκερ με χρωμα επιλογης η προεπιλεγμενο το κοκκινο
+				//τα στοιχεια για τη συναρτηση παιρνουν τιμες πιο πανω απο το XML
 				create_report(point, category, description, date, photos, user, status, comment, pin_url);
 				
 			});
@@ -106,6 +117,8 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 	
 	var photos = ['', '', '', '']; 
 	
+	//η html για τις φωτο 
+	//ολο αυτο αποθηκευεται σε μια θεση του πινακα photos
 	for (var j=0;j<MapPhotos.length;j++){
 		Img = '<a class="photo" href="';
 		Img = Img.concat(MapPhotos[j]);
@@ -117,6 +130,7 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 	}
 	
 	//Content structure of info Window for the Reports
+	//o πινακας photos χρησιμοποιειται εδω
 	var contentString = $('<div class="report-info-win">'+
 	'<table width="300"><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
 	'<tr><td>Ημερομηνία Καταχώρησης: <br>'+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
