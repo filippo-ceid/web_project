@@ -50,13 +50,14 @@ function drop_reports()
 			//και δημιουργεί το ρεπορτ
 			$(data).find("report").each(function () {
 				var photos = [];
-				var photo_name = "";
+				var photo_name;
+				var photo_name_str;
 				var photostr = "photo_name_";
 				var pin_icon = "";
 				var album = "uploads/";
 				var pin_url = "icons/";
 				var category = $(this).attr('category');
-				var description = '<p>'+ $(this).attr('description') +'</p>';
+				var description = $(this).attr('description');
 				var date = $(this).attr('datetime');
 				var user = $(this).attr('user');
 				var firstname = $(this).attr('firstname');
@@ -73,8 +74,8 @@ function drop_reports()
 				pin_url = pin_url.concat(pin_icon);
 				pin_url = pin_url.concat(".png");
 				for (var i=0; i<num_of_photos; i++){
-					photostr = photostr.concat(i);
-					photo_name = album.concat($(this).attr(photostr));
+					photo_name_str = photostr.concat(i);
+					photo_name = album.concat($(this).attr(photo_name_str));
 					photos.push(photo_name);
 				}
 				
@@ -131,18 +132,24 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, M
 	
 	//Content structure of info Window for the Reports
 	//o πινακας photos χρησιμοποιειται εδω
-	var contentString = $('<div class="report-info-win">'+
-	'<table width="300"><tr><td><div class="report-heading">Κατηγορία: '+MapTitle+'</div></td></tr>'+
-	'<tr><td>Ημερομηνία Καταχώρησης: <br>'+MapDate+'</td></tr><tr><td>Κατάσταση: '+MapStatus+
-	'<br>Περιγραφή: <br>'+MapDesc+'</td></tr></table>'+
-	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
-	'<table width="300"><tr><td>'+MapUser+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
-	'</div>');
+	var contentString = '<div class="report-info-win"><table>'+
+	'<tr><td>Κατηγορία: '+MapTitle+'</td></tr>'+
+	'<tr><td>Ημερομηνία Καταχώρησης:</td></tr>'+
+	'<tr><td>'+MapDate+'</td></tr>'+
+	'<tr><td>Κατάσταση: '+MapStatus+'</td></tr>'+
+	'<tr><td>Περιγραφή:</td></tr>'+
+	'<tr><td>'+MapDesc+'</td></tr>'+
+	'<tr><td><table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr></table></td></tr>'+
+	'<tr><td><table><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table></td></tr>'+
+	'<tr><td>'+MapUser+'</td></tr>'+
+	'<tr><td>'+MapComment+'</td></tr>'+
+	'</table></div>';
 	
 	//Create an infoWindow
-	var infowindow = new google.maps.InfoWindow();
-	//set the content of infoWindow
-	infowindow.setContent(contentString[0]);
+	var infowindow = new google.maps.InfoWindow({
+      //set the content of infoWindow
+      content: contentString
+	});
 		
 	//add click listner to report marker		 
 	google.maps.event.addListener(marker, 'click', function() {

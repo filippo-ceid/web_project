@@ -22,7 +22,7 @@
 		<div class="reg_report">Ενημέρωση/Διαγραφή Ανοιχτών Αναφορών</div><br>
 		<div class="reg_report"><?php echo $report ?></div><br>
 		<div id="reports_field">
-				<table>
+				<table class="reports_table">
 					<tr>
 					  <td id="admin_reports_map">
 						  <!-- ετοιμάζεται ο χάρτης στην reports_map.js -->
@@ -46,7 +46,7 @@
         <div class="reg_report">Εισαγωγή/Τροποποίηση/Διαγραφή Κατηγοριών</div><br>
         <div id="category_field">
 			<form action="reports_page.php" method="POST">
-			<table>
+			<table class="reports_table">
 				<tr>
 					<td>Επιλογή κατηγορίας:</td>
 					<td>

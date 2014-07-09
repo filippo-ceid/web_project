@@ -33,12 +33,14 @@ function map_initialize()
 	$.get("map_process_admin.php", function (data) {
 		$(data).find("report").each(function () {
 			var photos = [];
+			var photo_name;
+			var photo_name_str;
 			var photostr = "photo_name_";
 			var pin_icon = "";
 			var album = "uploads/";
 			var pin_url = "icons/";
 			var category = $(this).attr('category');
-			var description = '<p>'+ $(this).attr('description') +'</p>';
+			var description = $(this).attr('description');
 			var date = $(this).attr('datetime');
 			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 			var num_of_photos = $(this).attr('num_of_photos');
@@ -86,25 +88,28 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 	}
 
 	//Content structure of info Window for the Reports
-	var contentString = $('<div class="report-info-win">'+
-		'<table width="300"><tr><td>Κατηγορία: '+MapTitle+'</div></td></tr><tr><td>Ημερομηνία Καταχώρησης: <br>'+MapDate+
-		'<br>Περιγραφή: <br>'+MapDesc+'</table>'+
-		'<table></td></tr><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
-		'<table></td></tr><tr><td>'+MapUser+'</td></tr>'+
-		'<tr><td><form action="ajax-save.php" method="POST" name="SaveStatus" id="SaveStatus">'+
-		'Κατάσταση: <select name="mStatus" class="save-status"><option value="default"></option>'+
+	var contentString = $('<div class="report-info-win"><table>'+
+		'<tr><td>Κατηγορία: '+MapTitle+'</td></tr>'+
+		'<tr><td>Ημερομηνία Καταχώρησης:</td></tr>'+
+		'<tr><td>'+MapDate+'</td></tr>'+
+		'<tr><td>Περιγραφή:</td></tr>'+
+		'<tr><td>'+MapDesc+'</td></tr>'+
+		'<tr><td><table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr></table></td></tr>'+
+		'<tr><td><table><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table></td></tr>'+
+		'<tr><td>'+MapUser+'</td></tr>'+
+		'<tr><td>Κατάσταση: <select name="mStatus" class="save-status"><option value="default"></option>'+
 		'<option value="Κλειστή">Κλειστή</option><option value="Ανοιχτή">Ανοιχτή</option></select></td></tr>'+
-		'<tr><td>Σχόλιο: <br><textarea name="pComm" class="save-comm" placeholder="Εισάγετε Σχόλιο" maxlength="250" cols="48" rows="5"></textarea>'+
-		'</form></td></tr>'+
-		'<tr><td><button name="save-status" class="save-status">Αποθήκευση Κατάστασης</button><button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table>'+
-		'</div>');
-		
-		
-	
+		'<tr><td>Σχόλιο:</td></tr><tr><td><textarea name="pComm" class="save-comm" placeholder="Εισάγετε Σχόλιο" maxlength="250" cols="48" rows="5"></textarea></td></tr>'+
+		'<tr><td><div align="center"><button name="save-status" class="save-status">Αποθήκευση Κατάστασης</button><button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></div></td></tr>'+
+		'</table></div>');
+
 	//Create an infoWindow
-	var infowindow = new google.maps.InfoWindow();
-	//set the content of infoWindow
-	infowindow.setContent(contentString[0]);
+	var infowindow = new google.maps.InfoWindow({
+      //set the content of infoWindow
+      content: contentString[0]
+	});
+	
+	infowindow.setOptions({Height:500}); 
 
 	//Find remove button in infoWindow
 	var removeBtn 	= contentString.find('button.remove-report')[0];
@@ -127,7 +132,6 @@ function create_report(MapPos, MapTitle, MapDesc, MapDate, MapPhotos, MapUser, I
 			}
 			else{
 				save_status(marker, mStatus, mComm);
-				//infowindow.close(map,marker);
 			}
 		});
 	}

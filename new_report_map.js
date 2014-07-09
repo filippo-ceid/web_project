@@ -87,12 +87,14 @@ function map_initialize()
 	$.get("map_process.php", function (data) {
 		$(data).find("report").each(function () {
 			var photos = [];
+			var photo_name;
+			var photo_name_str;
 			var photostr = "photo_name_";
 			var pin_icon = "";
 			var album = "uploads/";
 			var pin_url = "icons/";
 			var category = 'Κατηγορία: '+$(this).attr('category');
-			var description = 'Περιγραφή: <p>'+ $(this).attr('description') +'</p>';
+			var description = 'Περιγραφή: <br>'+ $(this).attr('description');
 			var date = 'Ημερομηνία Καταχώρησης: <br>'+$(this).attr('datetime');
 			var point = new google.maps.LatLng(parseFloat($(this).attr('lat')),parseFloat($(this).attr('lng')));
 			var num_of_photos = $(this).attr('num_of_photos');
@@ -222,18 +224,22 @@ function create_report(MapPos, MapTitle, MapDesc, MapSaveSubm, MapDate, MapPhoto
 	
 	
 	//Content structure of info Window for the Reports
-	var contentString = $('<div class="report-info-win">'+
-	'<table width="300"><tr><td><div class="report-heading">'+MapTitle+'</div></td></tr><tr><td>'+MapDate+'</td></tr>'+
-	'<tr><td>'+MapStatus+'</td></tr><tr><td>'+MapDesc+'</td></tr><tr><td>'+MapComment+'</td></tr></table>'+
-	'<table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table>'+
-	'<table align="center"><tr><td>'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></td></tr></table></table>'+
-	'</div>');
-	
+	var contentString = $('<div class="report-info-win"><table>'+
+	'<tr><td>Κατηγορία: '+MapTitle+'</td></tr>'+
+	'<tr><td>'+MapDate+'</td></tr>'+
+	'<tr><td>'+MapStatus+'</td></tr>'+
+	'<tr><td>'+MapDesc+'</td></tr>'+
+	'<tr><td>'+MapComment+'</td></tr>'+
+	'<tr><td><table><tr><td>'+photos[0]+'</td><td>'+photos[1]+'</td></tr></table></td></tr>'+
+	'<tr><td><table><tr><td>'+photos[2]+'</td><td>'+photos[3]+'</td></tr></table></td></tr>'+
+	'<tr><td><div align="center">'+MapSaveSubm+'<button name="remove-report" class="remove-report" title="Remove Report">Διαγραφή Αναφοράς</button></div></td></tr>'+
+	'</table></div>');
 	
 	//Create an infoWindow
-	var infowindow = new google.maps.InfoWindow();
-	//set the content of infoWindow
-	infowindow.setContent(contentString[0]);
+	var infowindow = new google.maps.InfoWindow({
+      //set the content of infoWindow
+      content: contentString[0]
+	});
 
 	//Find remove button in infoWindow
 	var removeBtn 	= contentString.find('button.remove-report')[0];

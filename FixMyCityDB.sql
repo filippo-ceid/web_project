@@ -3,7 +3,6 @@ CREATE DATABASE FMC_DB COLLATE utf8_general_ci;
 
 USE FMC_DB;
 
--- Table users for login
 CREATE TABLE IF NOT EXISTS users  (
   user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(50) NOT NULL,

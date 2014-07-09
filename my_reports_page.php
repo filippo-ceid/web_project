@@ -17,7 +17,7 @@
 	</script>
     <div id="top_panel">
 		<div id="my_reports_field">
-				<table>
+				<table id="my_report_table">
 					<tr>
 					  <!-- η new_report_map.js είναι υπεύθυνη για τη δημιουργία του χάρτη σε αυτή τη σελίδα -->
 					  <td id="report_map"><div id="new_report_map_canvas"></div></td>

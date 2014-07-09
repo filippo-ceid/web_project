@@ -1,8 +1,3 @@
-.report-info-win {
-	font-family: serif; 
-	font-size:12px; 
-}
-		
 a:link { color: #ffffff; text-decoration: none; font-weight: normal;} 
 a:active, a:hover { color: #f1f118; text-decoration: none;}
 
@@ -147,7 +142,7 @@ body {
 	background-size: 100%;
 }
 
-#bottom_panel table {
+.section_table {
 	width: 100%;
 }
 
@@ -393,7 +388,7 @@ body {
 	vertical-align:middle;
 }
 
-#my_reports_field table {
+#my_report_table {
 	width: 100%;
 }
 
@@ -495,7 +490,7 @@ body {
 	vertical-align:middle;
 }
 
-#reports_field table {
+.reports_table {
 	width: 100%;
 }
 
@@ -658,4 +653,11 @@ body {
     #profile_image {
         display: none;
      }
+}
+
+.report-info-win {
+	font-family: serif; 
+	font-size:12px;
+	max-width:400px;
+	background:#ffffff;
 }

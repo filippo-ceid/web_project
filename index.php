@@ -29,9 +29,9 @@
     
     <!-- bottom panels with ajax etc -->
     <div id="bottom_panel">
-		<table>
+		<table class="section_table">
 		<td id="section_info">
-			<table>
+			<table class="section_table">
 				<tr><div class="section_title">Πληροφορίες</div></tr>
 				<tr>
 					<div class="section_text">
@@ -50,7 +50,7 @@
         </td>
         <td id="separator_image_1"></td>
         <td id="section_rss">
-			<table>
+			<table class="section_table">
 				<tr><div class="section_title">RSS Feed Αναφορών</div></tr>
 				<tr>
 					<div class="section_text">
@@ -65,7 +65,7 @@
         </td>
         <td id="separator_image_2"></td>
 		<td id="section_stat">
-			<table>
+			<table class="section_table">
 				<tr><div class="section_title">Στατιστικά Αναφορών</div></tr>
 				<tr>
 					<div class="section_text">
